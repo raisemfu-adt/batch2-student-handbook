@@ -10,7 +10,7 @@
 
 ## เนื้อหา
 
-- ปฏิทินสำคัญ (Orientation · Hackathon · Demo Day)
+- ปฏิทินสำคัญ (Orientation · Hackathon · Showcase Day)
 - กิจกรรมบังคับ A–H
 - ตาราง 22 สัปดาห์ (วันที่ · เวลา)
 - กติกา 80% · เกณฑ์ผ่าน · EoC 9 หน่วย

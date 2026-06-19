@@ -455,6 +455,33 @@
 
     .callout strong { font-weight: 600; }
 
+    /* TOC */
+    .toc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+      padding: 14px 16px;
+      background: var(--highlight);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .toc-nav a {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 4px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      text-decoration: none;
+    }
+
+    .toc-nav a:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
     /* Footer */
     footer {
       margin-top: 48px;
@@ -519,21 +546,31 @@
         <div class="detail">Onsite โรงแรม Heritage เชียงราย · 2 วัน 1 คืน (มีที่พัก)</div>
       </div>
       <div class="hero-date accent-warm">
-        <div class="when">ปิดรุ่น / Demo Day</div>
+        <div class="when">ปิดรุ่น / Showcase Day</div>
         <div class="date">28 พ.ย. – 20 ธ.ค. 2569</div>
         <div class="detail">Onsite เชียงใหม่ · 3 วัน 2 คืน · ศึกษาดูงาน + Final Pitch + พิธีปิด</div>
       </div>
     </div>
+
+    <nav class="toc-nav" aria-label="สารบัญ">
+      <a href="#prep">เตรียมตัว</a>
+      <a href="#mandatory">กิจกรรมบังคับ</a>
+      <a href="#hackathon-prep">Hackathon</a>
+      <a href="#schedule">ตารางเรียน</a>
+      <a href="#submissions">ส่งงาน &amp; EoC</a>
+      <a href="#rules">กติกา</a>
+      <a href="#contact">ติดต่อ</a>
+    </nav>
 
   <!-- Welcome -->
     <section>
       <h2>ยินดีต้อนรับสู่รุ่น 2</h2>
       <div class="callout">
         คุณกำลังจะเรียน <strong>22 สัปดาห์</strong> เพื่อสร้าง <strong>Web App Full-Stack + AI</strong> จากโจทย์จริงของคุณเอง
-        จบด้วย <strong>Demo Day</strong> และผ่านการประเมิน <strong>EoC ครบ 9 หน่วย (TPQI)</strong>
+        จบด้วย <strong>Showcase Day</strong> และผ่านการประเมิน <strong>EoC ครบ 9 หน่วย (TPQI)</strong>
       </div>
       <p>คู่มือนี้รวมปฏิทิน · กิจกรรมบังคับ · กติกาเข้าร่วม · และสิ่งที่ต้องเตรียมก่อนเริ่มเรียน
-        อัปเดตล่าสุดที่ <a href="https://github.com/raisemfu-adt/batch2-student-handbook">github.com/raisemfu-adt</a></p>
+        · <a href="https://raisemfu-adt.github.io/batch2-student-handbook/">เวอร์ชันออนไลน์</a></p>
     </section>
 
   <!-- Pre-launch -->
@@ -557,7 +594,7 @@
         </div>
         <div class="tl-item">
           <div class="tl-date">28 พ.ย. – 20 ธ.ค. 2569</div>
-          <div class="tl-title">Demo Day ปิดรุ่น — เชียงใหม่</div>
+          <div class="tl-title">Showcase Day ปิดรุ่น — เชียงใหม่</div>
           <div class="tl-desc">Onsite เชียงใหม่ 3 วัน 2 คืน · ศึกษาดูงาน · Dry-run · Final Pitch · พิธีปิด + EoC</div>
         </div>
       </div>
@@ -573,7 +610,7 @@
         </div>
         <div class="card">
           <h4>M2 — MVP-Ready</h4>
-          <p>Claude Code · Full-Stack · Deploy · Sprint 1 Demo (สป. 9)</p>
+          <p>Claude Code · Full-Stack · Deploy · Sprint 1 Showcase (สป. 9)</p>
         </div>
         <div class="card">
           <h4>M3 — AI-Integrated</h4>
@@ -585,7 +622,7 @@
         </div>
         <div class="card">
           <h4>M5 — Launch-Ready</h4>
-          <p>CI/CD · UAT · Rehearsal · Demo Day + Final EoC (สป. 20)</p>
+          <p>CI/CD · UAT · Rehearsal · Showcase Day + Final EoC (สป. 20)</p>
         </div>
       </div>
       <div class="module-flow">
@@ -597,12 +634,12 @@
         <span class="arrow">→</span>
         <span class="step">Beta-Ready สป.17</span>
         <span class="arrow">→</span>
-        <span class="step final">Demo Day + EoC สป.20</span>
+        <span class="step final">Showcase Day + EoC สป.20</span>
       </div>
     </section>
 
   <!-- Mandatory events -->
-    <section>
+    <section id="mandatory">
       <h2>กิจกรรมบังคับ — ต้องเข้าร่วมครบ</h2>
       <p class="muted" style="margin-bottom: 14px;">คุณยืนยันไว้ตอนสมัครแล้ว · ขาดกิจกรรมเหล่านี้อาจมีผลต่อการผ่านหลักสูตร</p>
       <div class="table-wrap">
@@ -632,7 +669,7 @@
               <td><strong>C — Sprint 1 Review</strong></td>
               <td>19–20 ก.ย. 2569 (สป. 9)</td>
               <td><span class="badge online">Online</span></td>
-              <td>MVP Demo · ทบทวน TPQI 7001–7005</td>
+              <td>MVP Showcase · ทบทวน TPQI 7001–7005</td>
             </tr>
             <tr>
               <td><strong>D — Sprint 2 Review</strong></td>
@@ -659,7 +696,7 @@
               <td>CI/CD · UAT · Storytelling</td>
             </tr>
             <tr>
-              <td><strong>H — Demo Day ปิดรุ่น</strong></td>
+              <td><strong>H — Showcase Day ปิดรุ่น</strong></td>
               <td>28 พ.ย. – 20 ธ.ค. 2569 (สป. 20)</td>
               <td><span class="badge onsite key">Onsite</span></td>
               <td>เชียงใหม่ · 3 วัน 2 คืน · ศึกษาดูงาน + Final Pitch + EoC รวบยอด · วันจริงแจ้งในช่วง 28 พ.ย.–20 ธ.ค.</td>
@@ -669,8 +706,85 @@
       </div>
     </section>
 
+  <!-- Prep: tools + checklist -->
+    <section id="prep">
+      <h2>เตรียมเครื่องมือ (ก่อน 15 ก.ค.)</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h4>Laptop</h4>
+          <p>Mac หรือ Windows · RAM ≥ 8 GB · พื้นที่ว่าง ≥ 20 GB · ชาร์จได้ตลอดชั้นเรียน</p>
+        </div>
+        <div class="card">
+          <h4>Node.js + Git</h4>
+          <p>ติดตั้ง <a href="https://nodejs.org">Node.js LTS</a> และ <a href="https://git-scm.com">Git</a>
+            · สร้างบัญชี <a href="https://github.com">GitHub</a></p>
+        </div>
+        <div class="card">
+          <h4>Zoom</h4>
+          <p>ติดตั้งแอป Zoom · ทดสอบกล้อง/ไมค์ · ใช้ชื่อ-นามสกุลจริงเมื่อเข้าห้อง</p>
+        </div>
+        <div class="card">
+          <h4>Claude</h4>
+          <p>ทีมจัดสรรบัญชี Claude หลังจัดกลุ่ม (ประมาณสัปดาห์ 4) · เตรียมอีเมลใช้งานไว้</p>
+        </div>
+      </div>
+      <h3>Checklist ก่อน Orientation (19 ก.ค.)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>รายการ</th><th>สถานะ</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>ติดตั้ง Node.js + Git + ทดสอบ <code>node -v</code> และ <code>git --version</code></td><td>☐</td></tr>
+            <tr><td>2</td><td>ลงทะเบียน GitHub และเตรียมอีเมลใช้งาน</td><td>☐</td></tr>
+            <tr><td>3</td><td>จองตั๋ว/ลางาน Hackathon <strong>25–26 ก.ค.</strong> เชียงราย</td><td>☐</td></tr>
+            <tr><td>4</td><td>เตรียม Pain deck / โจทย์ที่สนใจ (1 หน้า) สำหรับ Pitch วันที่ 26 ก.ค.</td><td>☐</td></tr>
+            <tr><td>5</td><td>บันทึกปฏิทินกิจกรรมบังคับ A–H ลง Google Calendar</td><td>☐</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  <!-- Hackathon logistics -->
+    <section id="hackathon-prep">
+      <h2>เตรียมตัว Hackathon — 25–26 ก.ค. · เชียงราย</h2>
+      <div class="callout">
+        <strong>เช็คอิน 08:30 น.</strong> วันเสาร์ 25 ก.ค. · แต่งกายสุภาพลำลอง · นำ laptop มาทุกวัน
+      </div>
+      <div class="table-wrap" style="margin-bottom: 16px;">
+        <table>
+          <thead><tr><th>หัวข้อ</th><th>รายละเอียด</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>สถานที่</strong></td>
+              <td>โรงแรม Heritage เชียงราย โฮเทล แอนด์ คอนเวนชั่น<br>
+                199 หมู่ 13 ถ.พหลโยธิน ต.สันทราย อ.เมือง จ.เชียงราย 57000</td>
+            </tr>
+            <tr>
+              <td><strong>การเดินทาง</strong></td>
+              <td>ผู้เรียนเดินทางเอง · แนะนำบิน/รถมาเชียงรายล่วงหน้า · รายละเอียดรถรับส่ง (ถ้ามี) แจ้งทางอีเมลก่อนงาน</td>
+            </tr>
+            <tr>
+              <td><strong>ที่พัก</strong></td>
+              <td>2 วัน 1 คืน · โครงการจัดที่พักให้ (พักคู่) · อาหารหลักรวมตามกำหนดการ</td>
+            </tr>
+            <tr>
+              <td><strong>ของที่ต้องนำ</strong></td>
+              <td>Laptop + สายชาร์จ · บัตรประชาชน · Pain deck 1 หน้า · สมุด/ปากกา · เสื้อสุภาพ</td>
+            </tr>
+            <tr>
+              <td><strong>Pitch วันที่ 26 ก.ค.</strong></td>
+              <td>นำเสนอเดี่ยว <strong>5 นาที + Q&amp;A 2 นาที</strong> · เตรียมสไลด์/โน้ตสั้นๆ · โฟกัสปัญหาและผู้ใช้</td>
+            </tr>
+            <tr>
+              <td><strong>หลัง Hackathon</strong></td>
+              <td>ประกาศทีมโครงการ · เริ่มทำงานเป็นทีมตั้งแต่สัปดาห์ 2 · ใช้ repo ร่วมกันตั้งแต่สัปดาห์ 6</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   <!-- Detailed schedule -->
-    <section>
+    <section id="schedule">
       <h2>ตารางเรียนละเอียด (วันที่ · เวลา)</h2>
       <p class="schedule-note">
         สัปดาห์ Online ส่วนใหญ่เรียน <strong>เสาร์–อาทิตย์</strong> · เสาร์ = บรรยาย · อาทิตย์ = ฝึกปฏิบัติ
@@ -692,51 +806,51 @@
         </table>
       </div>
 
-      <h3>Hackathon เปิดรุ่น — 25–26 ก.ค. 2569 · Onsite โรงแรม Heritage เชียงราย (2 วัน 1 คืน · 17 ชม.)</h3>
+      <h3>Hackathon เปิดรุ่น — 25–26 ก.ค. 2569 · Onsite โรงแรม Heritage เชียงราย (2 วัน 1 คืน)</h3>
       <div class="table-wrap" style="margin-bottom: 24px;">
         <table class="compact">
           <thead>
-            <tr><th>เวลา</th><th>กิจกรรม</th><th>ชม.</th><th>หมายเหตุ</th></tr>
+            <tr><th>เวลา</th><th>กิจกรรม</th><th>หมายเหตุ</th></tr>
           </thead>
           <tbody>
-            <tr class="day-row"><td colspan="4">▌ วันที่ 1 · เสาร์ 25 ก.ค. 2569 (10 ชม.)</td></tr>
-            <tr><td class="time-col">08:30–12:00</td><td>Ice-breaking และบรรยายโจทย์ Hackathon (01A)</td><td>3.5</td><td>Guest จากสถานประกอบการ</td></tr>
-            <tr><td class="time-col">12:00–13:00</td><td>พักรับประทานอาหารกลางวัน</td><td>–</td><td></td></tr>
-            <tr><td class="time-col">13:00–17:00</td><td>Group Workshop — วิเคราะห์โจทย์ · Problem Co-Design กับ Mentor</td><td>4</td><td>Mentor ประจำกลุ่ม</td></tr>
-            <tr><td class="time-col">17:00–18:00</td><td>พักผ่อน / Networking Dinner</td><td>–</td><td></td></tr>
-            <tr><td class="time-col">18:00–20:30</td><td>Mentoring Session — ให้คำปรึกษาประจำกลุ่ม · พัฒนาโครงร่างผลงาน</td><td>2.5</td><td>Mentor ประจำกลุ่ม</td></tr>
-            <tr class="day-row"><td colspan="4">▌ วันที่ 2 · อาทิตย์ 26 ก.ค. 2569 (7 ชม.)</td></tr>
-            <tr><td class="time-col">08:30–12:00</td><td>นำเสนอผลงาน (Pitching) · คณะกรรมการให้ข้อเสนอแนะ (01B)</td><td>3.5</td><td>5 นาที/คน + Q&amp;A 2 นาที · Summit/อุตสาหกรรมร่วมฟัง</td></tr>
-            <tr><td class="time-col">12:00–13:00</td><td>พักรับประทานอาหารกลางวัน</td><td>–</td><td></td></tr>
-            <tr><td class="time-col">13:00–16:30</td><td>นำเสนอผลงาน (ต่อ) · สรุป Feedback · ประกาศทีมโครงการ</td><td>3.5</td><td>คณะกรรมการ + Guest</td></tr>
+            <tr class="day-row"><td colspan="3">▌ วันที่ 1 · เสาร์ 25 ก.ค. 2569</td></tr>
+            <tr><td class="time-col">08:30–12:00</td><td>Ice-breaking และบรรยายโจทย์ Hackathon (01A)</td><td>Guest จากสถานประกอบการ</td></tr>
+            <tr><td class="time-col">12:00–13:00</td><td>พักรับประทานอาหารกลางวัน</td><td></td></tr>
+            <tr><td class="time-col">13:00–17:00</td><td>Group Workshop — วิเคราะห์โจทย์ · Problem Co-Design กับ Mentor</td><td>Mentor ประจำกลุ่ม</td></tr>
+            <tr><td class="time-col">17:00–18:00</td><td>พักผ่อน / Networking Dinner</td><td></td></tr>
+            <tr><td class="time-col">18:00–20:30</td><td>Mentoring Session — ให้คำปรึกษาประจำกลุ่ม · พัฒนาโครงร่างผลงาน</td><td>Mentor ประจำกลุ่ม</td></tr>
+            <tr class="day-row"><td colspan="3">▌ วันที่ 2 · อาทิตย์ 26 ก.ค. 2569</td></tr>
+            <tr><td class="time-col">08:30–12:00</td><td>นำเสนอผลงาน (Pitching) · คณะกรรมการให้ข้อเสนอแนะ (01B)</td><td>5 นาที/คน + Q&amp;A 2 นาที · Summit/อุตสาหกรรมร่วมฟัง</td></tr>
+            <tr><td class="time-col">12:00–13:00</td><td>พักรับประทานอาหารกลางวัน</td><td></td></tr>
+            <tr><td class="time-col">13:00–16:30</td><td>นำเสนอผลงาน (ต่อ) · สรุป Feedback · ประกาศทีมโครงการ</td><td>คณะกรรมการ + Guest</td></tr>
           </tbody>
         </table>
       </div>
 
-      <h3>Demo Day ปิดรุ่น — Onsite เชียงใหม่ (3 วัน 2 คืน · 20 ชม.)</h3>
+      <h3>Showcase Day ปิดรุ่น — Onsite เชียงใหม่ (3 วัน 2 คืน)</h3>
       <p class="muted" style="margin-bottom: 10px;">ช่วงจัดงานภายใน <strong>28 พ.ย. – 20 ธ.ค. 2569</strong> · วันที่แน่นอนแจ้งล่วงหน้า · มีที่พัก 2 คืน</p>
       <div class="table-wrap" style="margin-bottom: 24px;">
         <table class="compact">
           <thead>
-            <tr><th>เวลา</th><th>กิจกรรม</th><th>ชม.</th></tr>
+            <tr><th>เวลา</th><th>กิจกรรม</th></tr>
           </thead>
           <tbody>
-            <tr class="day-row"><td colspan="3">▌ วันที่ 1 — ศึกษาดูงาน &amp; ซ้อมนำเสนอ (7 ชม.)</td></tr>
-            <tr><td class="time-col">08:00–12:00</td><td>เดินทางจาก มฟล. (เชียงราย) สู่เชียงใหม่</td><td>–</td></tr>
-            <tr><td class="time-col">13:00–17:00</td><td>ศึกษาดูงานด้านเทคโนโลยีและนวัตกรรม ณ สถานประกอบการ / อุทยานวิทยาศาสตร์</td><td>4</td></tr>
-            <tr><td class="time-col">18:00–21:00</td><td>Pitching Dry-run — ซ้อมนำเสนอ · รับคำแนะนำจากกรรมการภาคอุตสาหกรรม</td><td>4</td></tr>
-            <tr class="day-row"><td colspan="3">▌ วันที่ 2 — Final Demo Day (10 ชม.)</td></tr>
-            <tr><td class="time-col">08:30–12:00</td><td>Final Pitching กลุ่มที่ 1 — นำเสนอผลงานต่อคณะกรรมการ</td><td>3.5</td></tr>
-            <tr><td class="time-col">13:00–16:30</td><td>Final Pitching (ต่อ) · ประกาศผลรางวัล</td><td>3.5</td></tr>
-            <tr><td class="time-col">17:30–20:30</td><td>Post-Pitching Mentoring — ถอดบทเรียน · วางแผนต่อยอดเชิงพาณิชย์</td><td>3</td></tr>
-            <tr class="day-row"><td colspan="3">▌ วันที่ 3 — สรุปผลและพิธีปิด (2 ชม.)</td></tr>
-            <tr><td class="time-col">09:00–11:00</td><td>Feedback Session สรุปผลโครงการ · พิธีปิด · ประเมิน EoC รวบยอด TPQI 9 หน่วย</td><td>2</td></tr>
-            <tr><td class="time-col">11:00 น.~</td><td>เดินทางกลับ มฟล.</td><td>–</td></tr>
+            <tr class="day-row"><td colspan="2">▌ วันที่ 1 — ศึกษาดูงาน &amp; ซ้อมนำเสนอ</td></tr>
+            <tr><td class="time-col">08:00–12:00</td><td>เดินทางสู่เชียงใหม่ — <strong>จุดนัดรวมแจ้งล่วงหน้า</strong> (ไม่ใช่จาก มฟล. เชียงราย)</td></tr>
+            <tr><td class="time-col">13:00–17:00</td><td>ศึกษาดูงานด้านเทคโนโลยีและนวัตกรรม ณ สถานประกอบการ / อุทยานวิทยาศาสตร์</td></tr>
+            <tr><td class="time-col">18:00–21:00</td><td>Pitching Dry-run — ซ้อมนำเสนอ · รับคำแนะนำจากกรรมการภาคอุตสาหกรรม</td></tr>
+            <tr class="day-row"><td colspan="2">▌ วันที่ 2 — Final Showcase Day</td></tr>
+            <tr><td class="time-col">08:30–12:00</td><td>Final Pitching กลุ่มที่ 1 — นำเสนอผลงานต่อคณะกรรมการ</td></tr>
+            <tr><td class="time-col">13:00–16:30</td><td>Final Pitching (ต่อ) · ประกาศผลรางวัล</td></tr>
+            <tr><td class="time-col">17:30–20:30</td><td>Post-Pitching Mentoring — ถอดบทเรียน · วางแผนต่อยอดเชิงพาณิชย์</td></tr>
+            <tr class="day-row"><td colspan="2">▌ วันที่ 3 — สรุปผลและพิธีปิด</td></tr>
+            <tr><td class="time-col">09:00–11:00</td><td>Feedback Session สรุปผลโครงการ · พิธีปิด · ประเมิน EoC รวบยอด TPQI 9 หน่วย</td></tr>
+            <tr><td class="time-col">11:00 น.~</td><td>เดินทางกลับ — จุดแยกตามจังหวัดต้นทาง (แจ้งล่วงหน้า)</td></tr>
           </tbody>
         </table>
       </div>
 
-      <h3>ตาราง 22 สัปดาห์ — วันที่ · เวลา · ชั่วโมง</h3>
+      <h3>ตาราง 22 สัปดาห์ — วันที่ · เวลา</h3>
       <div class="table-wrap">
         <table class="compact">
           <thead>
@@ -746,18 +860,16 @@
               <th>เวลา (โดยประมาณ)</th>
               <th>รูปแบบ</th>
               <th>หัวข้อ / ผลงาน</th>
-              <th>ท+ป</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="month-row"><td colspan="6">▌ เดือน 1 — วางแผนและออกแบบ (M1)</td></tr>
+            <tr class="month-row"><td colspan="5">▌ เดือน 1 — วางแผนและออกแบบ (M1)</td></tr>
             <tr>
               <td><strong>1</strong></td>
               <td>25–26 ก.ค. 69</td>
               <td class="time-col">ดูตาราง Hackathon ด้านบน</td>
               <td><span class="badge onsite key">Onsite</span></td>
               <td>Hackathon + TPQI 7001 · Problem Statement · Pitch</td>
-              <td>0+17</td>
             </tr>
             <tr>
               <td><strong>2</strong></td>
@@ -765,7 +877,6 @@
               <td class="time-col">ส. 09:00–17:00 · อา. 09:00–18:00</td>
               <td><span class="badge online">Online</span></td>
               <td>Agile + TPQI 7003 · Charter · Backlog</td>
-              <td>8+9</td>
             </tr>
             <tr>
               <td><strong>3</strong></td>
@@ -773,7 +884,6 @@
               <td class="time-col">ส. 09:00–13:00 · อา. 09:00–18:00</td>
               <td><span class="badge online">Online</span></td>
               <td>Persona + Journey + TPQI 7002 · เก็บ Data</td>
-              <td>4+10</td>
             </tr>
             <tr>
               <td><strong>4</strong></td>
@@ -781,7 +891,6 @@
               <td class="time-col">ส. 09:00–13:00 · อา. 09:00–18:00</td>
               <td><span class="badge online">Online</span></td>
               <td>Prototype + TPQI 7004/5 · Solution prototype</td>
-              <td>4+10</td>
             </tr>
             <tr>
               <td><strong>5</strong></td>
@@ -789,17 +898,15 @@
               <td class="time-col">ส. 09:00–12:00 · อา. 09:00–17:00</td>
               <td><span class="badge online">Online</span></td>
               <td>Design-Ready Gate · Draft Spec Package · mentor sign-off</td>
-              <td>3+9</td>
             </tr>
 
-            <tr class="month-row"><td colspan="6">▌ เดือน 2 — Full-Stack Development (M2)</td></tr>
+            <tr class="month-row"><td colspan="5">▌ เดือน 2 — Full-Stack Development (M2)</td></tr>
             <tr>
               <td><strong>6</strong></td>
               <td>29–30 ส.ค. 69</td>
               <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
               <td><span class="badge online">Online</span></td>
               <td>Spec → Code · Node/Git · Workflow · CLAUDE.md v0.1</td>
-              <td>4+12</td>
             </tr>
             <tr>
               <td><strong>7</strong></td>
@@ -807,7 +914,6 @@
               <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
               <td><span class="badge online">Online</span></td>
               <td>Full-Stack FE+BE+DB · GitHub · deploy แรก</td>
-              <td>4+12</td>
             </tr>
             <tr>
               <td><strong>8</strong></td>
@@ -815,7 +921,6 @@
               <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
               <td><span class="badge online">Online</span></td>
               <td>Deploy จริง · Sub-Agent Reviewer</td>
-              <td>4+12</td>
             </tr>
             <tr>
               <td><strong>9</strong> ★</td>
@@ -823,17 +928,15 @@
               <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
               <td><span class="badge online">Online</span></td>
               <td><strong>Sprint 1 Review</strong> · Playwright · MVP-Ready</td>
-              <td>4+12</td>
             </tr>
 
-            <tr class="month-row"><td colspan="6">▌ เดือน 3 — AI และข้อมูล (M3)</td></tr>
+            <tr class="month-row"><td colspan="5">▌ เดือน 3 — AI และข้อมูล (M3)</td></tr>
             <tr>
               <td><strong>10</strong></td>
               <td>26–27 ก.ย. 69</td>
               <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
               <td><span class="badge online">Online</span></td>
               <td>Dashboard จาก DB (Recharts)</td>
-              <td>4+9</td>
             </tr>
             <tr>
               <td><strong>11</strong></td>
@@ -841,7 +944,6 @@
               <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
               <td><span class="badge online">Online</span></td>
               <td>Full-Stack Deployment &amp; API Integration</td>
-              <td>4+9</td>
             </tr>
             <tr>
               <td><strong>11A</strong></td>
@@ -849,7 +951,6 @@
               <td class="time-col">ส. 09:00–12:00 · อา. 09:00–13:00</td>
               <td><span class="badge online">Online</span></td>
               <td>Office AI Lab I (TPQI 70042–70043) · Word · Spreadsheet</td>
-              <td>2+3</td>
             </tr>
             <tr>
               <td><strong>12</strong></td>
@@ -857,7 +958,6 @@
               <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
               <td><span class="badge online">Online</span></td>
               <td>Model Evaluation &amp; Governance</td>
-              <td>4+9</td>
             </tr>
             <tr>
               <td><strong>12A</strong></td>
@@ -865,7 +965,6 @@
               <td class="time-col">ส. 09:00–12:00 · อา. 09:00–13:00</td>
               <td><span class="badge online">Online</span></td>
               <td>Office AI Lab II (TPQI 70044–70045) · Deck · Search</td>
-              <td>2+3</td>
             </tr>
             <tr>
               <td><strong>13</strong> ★</td>
@@ -873,17 +972,15 @@
               <td class="time-col">Session รวม ~26–27 ต.ค. + ส่งงานภายใน 30 ต.ค.</td>
               <td><span class="badge online">Online</span></td>
               <td><strong>Sprint 2 Review</strong> · AI-Integrated milestone</td>
-              <td>0+9</td>
             </tr>
 
-            <tr class="month-row"><td colspan="6">▌ เดือน 4 — IoT &amp; เชื่อมระบบ (M4)</td></tr>
+            <tr class="month-row"><td colspan="5">▌ เดือน 4 — IoT &amp; เชื่อมระบบ (M4)</td></tr>
             <tr>
               <td><strong>14</strong></td>
               <td>31 ต.ค. – 1 พ.ย. 69</td>
               <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
               <td><span class="badge online">Online</span></td>
               <td>IoT Architecture &amp; Simulator · MQTT → DB (TPQI 7007)</td>
-              <td>3+9</td>
             </tr>
             <tr>
               <td><strong>15</strong></td>
@@ -891,7 +988,6 @@
               <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
               <td><span class="badge online">Online</span></td>
               <td>Realtime Firestore/WebSocket · onSnapshot</td>
-              <td>3+9</td>
             </tr>
             <tr>
               <td><strong>16</strong></td>
@@ -899,7 +995,6 @@
               <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
               <td><span class="badge online">Online</span></td>
               <td>AI from IoT + Alerts · แจ้งเตือนอัจฉริยะ</td>
-              <td>3+9</td>
             </tr>
             <tr>
               <td><strong>17</strong> ★</td>
@@ -907,17 +1002,15 @@
               <td class="time-col">Session รวม ~16–17 พ.ย. + ส่งงานภายใน 20 พ.ย.</td>
               <td><span class="badge online">Online</span></td>
               <td><strong>Sprint 3 Review</strong> · Beta-Ready · Smart Platform</td>
-              <td>0+9</td>
             </tr>
 
-            <tr class="month-row"><td colspan="6">▌ เดือน 5 — เปิดตัวและนำเสนอ (M5)</td></tr>
+            <tr class="month-row"><td colspan="5">▌ เดือน 5 — เปิดตัวและนำเสนอ (M5)</td></tr>
             <tr>
               <td><strong>18</strong></td>
               <td>21–22 พ.ย. 69</td>
               <td class="time-col">ส. 09:00–18:00 · อา. 09:00–18:00</td>
               <td><span class="badge online">Online</span></td>
               <td>CI/CD Production · UAT</td>
-              <td>0+12</td>
             </tr>
             <tr>
               <td><strong>19</strong></td>
@@ -925,83 +1018,85 @@
               <td class="time-col">Session รวม ~22–23 พ.ย. + ส่งงานภายใน 27 พ.ย.</td>
               <td><span class="badge online">Online</span></td>
               <td>Data Storytelling · Pitch Deck · AI Policy (TPQI 7009)</td>
-              <td>0+12</td>
             </tr>
             <tr>
               <td><strong>20</strong></td>
               <td>28 พ.ย. – 20 ธ.ค. 69</td>
-              <td class="time-col">ดูตาราง Demo Day ด้านบน · แจ้งวันจริงล่วงหน้า</td>
+              <td class="time-col">ดูตาราง Showcase Day ด้านบน · แจ้งวันจริงล่วงหน้า</td>
               <td><span class="badge onsite key">Onsite</span></td>
               <td>ศึกษาดูงาน · Dry-run · Final Pitch · พิธีปิด + EoC 9 UoC · เชียงใหม่</td>
-              <td>0+20</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="muted" style="margin-top: 10px;">★ = Sprint Review milestone · อ้างอิง ADT-RAISE-NonDegree-2-19June.xlsx (StudyPlan · OpenDay · DemoDay) · อัปเดต 19 มิ.ย. 2569</p>
+      <p class="muted" style="margin-top: 10px;">★ = Sprint Review milestone · อัปเดต 19 มิ.ย. 2569</p>
+    </section>
+
+  <!-- Submissions & EoC -->
+    <section id="submissions">
+      <h2>ส่งงาน &amp; EoC (Evidence of Competency)</h2>
+      <div class="callout">
+        <strong>EoC</strong> คือหลักฐานว่าคุณทำได้จริงในแต่ละหน่วย TPQI (7001–7009) — บันทึกใน Logbook ตลอดหลักสูตร · ประเมินรวบยอดที่ Showcase Day
+      </div>
+      <div class="table-wrap" style="margin-bottom: 16px;">
+        <table>
+          <thead><tr><th>ประเภท</th><th>ช่องทางส่ง</th><th>กำหนด</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>งานรายสัปดาห์</strong></td>
+              <td>ลิงก์ที่ Instructor แจ้งในแต่ละสัปดาห์ (GitHub / Google Drive / ฟอร์ม)</td>
+              <td>ก่อนเริ่มสัปดาห์ถัดไป (มักคืออาทิตย์เย็น)</td>
+            </tr>
+            <tr>
+              <td><strong>Logbook EoC</strong></td>
+              <td>แบบฟอร์ม/เทมเพลตที่ทีมแจก · แนบลิงก์ repo, สกรีนช็อต, วิดีโอสั้น</td>
+              <td>อัปเดตทุกสัปดาห์ · ตรวจครบ 9 หน่วยก่อนปิดรุ่น</td>
+            </tr>
+            <tr>
+              <td><strong>Sprint Review</strong></td>
+              <td>Showcase สดใน Zoom + ส่ง artefact ตาม checklist ของสป.</td>
+              <td>สป. 9 · 13 · 17 (ดู ★ ในตาราง)</td>
+            </tr>
+            <tr>
+              <td><strong>Design-Ready Gate</strong></td>
+              <td>Draft Spec Package + ลายเซ็น Mentor</td>
+              <td>ก่อนสิ้นสัปดาห์ 5</td>
+            </tr>
+            <tr>
+              <td><strong>โค้ดโครงการ</strong></td>
+              <td>GitHub repo ทีม (เริ่มใช้ร่วมกันตั้งแต่สัปดาห์ 6)</td>
+              <td>Push สม่ำเสมอ · tag ก่อน Sprint Review</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">รายละเอียดฟอร์มและ rubric แจ้งใน Orientation และแต่ละสัปดาห์ · สงสัยเรื่องส่งงานติดต่อ TA ในกลุ่มแชท</p>
     </section>
 
   <!-- Commitments -->
-    <section>
+    <section id="rules">
       <h2>กติกาและเงื่อนไขการเรียน</h2>
       <div class="callout">
-        <strong>เข้าร่วม ≥ 80%</strong> — รวมเรียน Online · Onsite บังคับ · ส่งงานรายสัปดาห์ · Sprint Demo ทุกโมดูล
+        <strong>เข้าร่วม ≥ 80%</strong> — รวมเรียน Online · Onsite บังคับ · ส่งงานรายสัปดาห์ · Sprint Showcase ทุกโมดูล
         · ขาดเกินเกณฑ์อาจมีผลต่อสิทธิผ่านหลักสูตร/ใบรับรอง
       </div>
       <div class="card-grid">
         <div class="card">
           <h4>เวลาเรียนแนะนำ</h4>
-          <p>≥ 12–15 ชั่วโมง/สัปดาห์ (นอกชั้นเรียน) · ส่งงานรายสัปดาห์ · Sprint Demo ทุกโมดูล</p>
+          <p>≥ 12–15 ชั่วโมง/สัปดาห์ (นอกชั้นเรียน) · ส่งงานรายสัปดาห์ · Sprint Showcase ทุกโมดูล</p>
         </div>
         <div class="card">
           <h4>อุปกรณ์</h4>
           <p>Laptop ส่วนตัว · ติดตั้ง Node.js + Git · อินเทอร์เน็ต ≥ 10 Mbps สำหรับเรียน Online</p>
         </div>
         <div class="card">
-          <h4>ค่าประกัน (ถ้ามี)</h4>
-          <p>2,000 บาท · คืนเมื่อเรียนครบเกิน 80%</p>
+          <h4>การลา / ขาดเรียน</h4>
+          <p>แจ้งผู้ประสานงานล่วงหน้า (อีเมล) · Online ขาดเกิน 20% อาจไม่นับชั่วโมง · Onsite บังคับห้ามขาดโดยไม่แจ้ง</p>
         </div>
         <div class="card">
           <h4>ผลงานปลายทาง</h4>
-          <p>Web App Full-Stack + AI + (IoT) · Deploy จริง · Demo Day Defense · EoC Logbook ครบ 9 UoC</p>
+          <p>Web App Full-Stack + AI + (IoT) · Deploy จริง · Showcase Day Defense · EoC Logbook ครบ 9 UoC</p>
         </div>
-      </div>
-    </section>
-
-  <!-- Tools setup -->
-    <section>
-      <h2>เตรียมเครื่องมือ (ก่อน 15 ก.ค.)</h2>
-      <div class="card-grid">
-        <div class="card">
-          <h4>Laptop</h4>
-          <p>Mac หรือ Windows · RAM ≥ 8 GB · พื้นที่ว่าง ≥ 20 GB · ชาร์จแบตได้ตลอดชั้นเรียน</p>
-        </div>
-        <div class="card">
-          <h4>Node.js + Git</h4>
-          <p>ติดตั้ง <a href="https://nodejs.org">Node.js LTS</a> และ <a href="https://git-scm.com">Git</a>
-            · สร้างบัญชี <a href="https://github.com">GitHub</a></p>
-        </div>
-        <div class="card">
-          <h4>Zoom</h4>
-          <p>ติดตั้งแอป Zoom · ทดสอบกล้อง/ไมค์ · ใช้ชื่อ-นามสกุลจริงเมื่อเข้าห้อง</p>
-        </div>
-        <div class="card">
-          <h4>Claude</h4>
-          <p>ทีมจะจัดสรรบัญชี Claude หลังจัดกลุ่ม (สัปดาห์ 4 เป็นต้นไป) · ระหว่างนี้เตรียมอีเมลใช้งาน</p>
-        </div>
-      </div>
-      <h3>Checklist ก่อน Orientation (19 ก.ค.)</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>#</th><th>รายการ</th><th>สถานะ</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td>ติดตั้ง Node.js + Git + ทดสอบ <code>node -v</code> และ <code>git --version</code></td><td>☐</td></tr>
-            <tr><td>2</td><td>ลงทะเบียน GitHub และเตรียมอีเมลใช้งาน</td><td>☐</td></tr>
-            <tr><td>3</td><td>จองตั๋ว/ลางาน Hackathon <strong>25–26 ก.ค.</strong> เชียงราย</td><td>☐</td></tr>
-            <tr><td>4</td><td>เตรียม Pain deck / โจทย์ที่สนใจ (1 หน้า) สำหรับ Pitch วันที่ 26 ก.ค.</td><td>☐</td></tr>
-            <tr><td>5</td><td>บันทึกปฏิทินกิจกรรมบังคับ A–H ลง Google Calendar</td><td>☐</td></tr>
-          </tbody>
-        </table>
       </div>
     </section>
 
@@ -1022,15 +1117,15 @@
             </tr>
             <tr>
               <td><strong>Sprint Review</strong></td>
-              <td>สป. 9 (MVP) · สป. 13 (AI-Integrated) · สป. 17 (Beta) — Demo ตามกำหนด</td>
+              <td>สป. 9 (MVP) · สป. 13 (AI-Integrated) · สป. 17 (Beta) — Showcase ตามกำหนด</td>
             </tr>
             <tr>
               <td><strong>EoC / TPQI</strong></td>
-              <td>บันทึก Logbook ครบ 9 หน่วย (7001–7009) · ประเมินรวบยอดที่ Demo Day</td>
+              <td>บันทึก Logbook ครบ 9 หน่วย (7001–7009) · ประเมินรวบยอดที่ Showcase Day</td>
             </tr>
             <tr>
               <td><strong>ผลงานปลายทาง</strong></td>
-              <td>Web App Deploy จริง · มี AI ในตัว · นำเสนอ Demo Day ผ่าน UAT</td>
+              <td>Web App Deploy จริง · มี AI ในตัว · นำเสนอ Showcase Day ผ่าน UAT</td>
             </tr>
           </tbody>
         </table>
@@ -1038,13 +1133,17 @@
     </section>
 
   <!-- Contact -->
-    <section>
+    <section id="contact">
       <h2>ติดต่อทีมงาน</h2>
       <p class="muted" style="margin-bottom: 12px;">ช่องทางหลักคืออีเมลที่คุณใช้สมัคร · รายละเอียดเพิ่มจะแจ้งใน Orientation</p>
       <div class="card-grid">
         <div class="card">
+          <h4>ทีมโครงการ</h4>
+          <p>คณบดี ADT (เปิดรุ่น) · ผู้ประสานงานโครงการ · Lead Instructor · Mentor ประจำทีม · TA ช่วยเทคนิค</p>
+        </div>
+        <div class="card">
           <h4>ผู้ประสานงานโครงการ</h4>
-          <p>อีเมลตามจดหมายตอบรับ · เรื่องลงทะเบียน · ปฏิทิน · เอกสาร</p>
+          <p>อีเมลตามจดหมายตอบรับ · เรื่องลงทะเบียน · ปฏิทิน · เอกสาร · การลา</p>
         </div>
         <div class="card">
           <h4>TA / ช่วยเทคนิค</h4>
@@ -1052,15 +1151,15 @@
         </div>
         <div class="card">
           <h4>ฉุกเฉิน Onsite</h4>
-          <p>เบอร์ติดต่อทีมงานบนเอกสาร Hackathon / Demo Day (แจกก่อนเดินทาง)</p>
+          <p>เบอร์ติดต่อทีมงานบนเอกสาร Hackathon / Showcase Day (แจกก่อนเดินทาง)</p>
         </div>
       </div>
     </section>
 
     <footer>
       ADT-RAISE Non-Degree Batch 2 · สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ มหาวิทยาลัยแม่ฟ้าหลวง<br>
-      <a href="https://github.com/raisemfu-adt/batch2-student-handbook">github.com/raisemfu-adt/batch2-student-handbook</a>
-      · อ้างอิง ADT-RAISE-NonDegree-2-19June.xlsx · อัปเดต 19 มิ.ย. 2569<br>
+      <a href="https://raisemfu-adt.github.io/batch2-student-handbook/">raisemfu-adt.github.io/batch2-student-handbook</a>
+      · อัปเดต 19 มิ.ย. 2569<br>
       <span style="color:#9ca3af">หลักสูตร Non-Degree บัณฑิตพันธุ์ใหม่ (สปอว.) — ไม่ใช่หลักสูตรปริญญา SE</span>
     </footer>
 
