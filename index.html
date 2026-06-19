@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือผู้เรียน — ADT-RAISE Non-Degree Batch 2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --border: #e5e7eb;
+      --border-strong: #d1d5db;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --text-soft: #9ca3af;
+      --accent: #1e4d8c;
+      --accent-soft: #eff6ff;
+      --teal: #0f766e;
+      --teal-soft: #ecfdf5;
+      --amber: #b45309;
+      --amber-soft: #fffbeb;
+      --purple-soft: #f5f3ff;
+      --highlight: #f8fafc;
+      --onsite: #fff7ed;
+      --online: #eff6ff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 40px 28px 64px;
+    }
+
+    /* Header */
+    .header {
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid #bfdbfe;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .header .sub {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .meta-block .label {
+      font-size: 11px;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .meta-block .value {
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 2px;
+      color: var(--accent);
+    }
+
+    /* Hero dates */
+    .hero-dates {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 36px;
+    }
+
+    .hero-date {
+      background: var(--surface);
+      padding: 20px 22px;
+    }
+
+    .hero-date.primary {
+      background: linear-gradient(135deg, var(--accent-soft) 0%, #f0f9ff 100%);
+    }
+
+    .hero-date.primary .date {
+      color: var(--accent);
+    }
+
+    .hero-date.accent-warm {
+      background: linear-gradient(135deg, var(--amber-soft) 0%, #fff7ed 100%);
+    }
+
+    .hero-date.accent-warm .date {
+      color: var(--amber);
+    }
+
+    .hero-date .when {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .hero-date .date {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .hero-date .detail {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 36px;
+    }
+
+    section h2 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent-soft);
+    }
+
+    section h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 18px 0 8px;
+    }
+
+    p { margin-bottom: 10px; color: var(--text); }
+    p.muted { color: var(--text-muted); font-size: 14px; }
+    a { color: var(--accent); }
+    a:hover { text-decoration: underline; }
+
+    /* Tables */
+    .table-wrap {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead th {
+      background: var(--accent-soft);
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid #bfdbfe;
+    }
+
+    tbody td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: #fafafa; }
+
+    tr.month-row td {
+      background: var(--highlight);
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      padding: 8px 14px;
+      border-bottom: 1px solid #bfdbfe;
+    }
+
+    tr.day-row td {
+      background: var(--amber-soft);
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--amber);
+      padding: 8px 14px;
+    }
+
+    table.compact tbody td,
+    table.compact thead th {
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .time-col {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .schedule-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      background: var(--highlight);
+      border-radius: 6px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border-strong);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .badge.onsite {
+      background: var(--onsite);
+      color: var(--amber);
+      border-color: #fed7aa;
+    }
+
+    .badge.online {
+      background: var(--online);
+      color: var(--accent);
+      border-color: #bfdbfe;
+    }
+
+    .badge.key {
+      border-color: var(--amber);
+      color: var(--amber);
+      font-weight: 700;
+      background: var(--amber-soft);
+    }
+
+    /* Timeline */
+    .timeline {
+      border-left: 2px solid #bfdbfe;
+      margin-left: 8px;
+      padding-left: 24px;
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -30px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+    }
+
+    .tl-item.done::before {
+      background: var(--accent);
+    }
+
+    .tl-date {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .tl-title {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .tl-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Cards grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      background: var(--surface);
+      border-left: 4px solid var(--accent);
+    }
+
+    .card:nth-child(1) { border-left-color: #3b82f6; background: #fafbff; }
+    .card:nth-child(2) { border-left-color: #8b5cf6; background: #faf9ff; }
+    .card:nth-child(3) { border-left-color: #0d9488; background: #f7fefc; }
+    .card:nth-child(4) { border-left-color: #f59e0b; background: #fffdf7; }
+    .card:nth-child(5) { border-left-color: #dc2626; background: #fffafa; }
+
+    .card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Rubric */
+    .rubric-list {
+      list-style: none;
+    }
+
+    .rubric-list li {
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .rubric-list li:last-child { border-bottom: none; }
+
+    .rubric-score {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .rubric-body strong {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .rubric-body span {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* Module milestones — TOR สปอว. Batch 2 (ไม่ใช่แบบ Gate/Credential หลักสูตรต้นแบบ อบรม) */
+    .module-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px 14px;
+      row-gap: 12px;
+      margin-top: 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--highlight);
+    }
+
+    .module-flow .step {
+      background: var(--surface);
+      border: 1px solid #bfdbfe;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .module-flow .step.final {
+      border-color: var(--teal);
+      color: var(--teal);
+      background: var(--teal-soft);
+    }
+
+    .module-flow .arrow {
+      color: var(--text-soft);
+      font-size: 14px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    /* Callout */
+    .callout {
+      border: 1px solid #bfdbfe;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      background: var(--accent-soft);
+      font-size: 14px;
+      margin: 16px 0;
+    }
+
+    .callout strong { font-weight: 600; }
+
+    /* Footer */
+    footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-soft);
+      text-align: center;
+    }
+
+    @media print {
+      body { font-size: 13px; }
+      .wrap { padding: 20px; max-width: 100%; }
+      section { break-inside: avoid; }
+      tbody tr:hover { background: transparent; }
+    }
+
+    @media (max-width: 600px) {
+      .wrap { padding: 24px 16px 48px; }
+      .header h1 { font-size: 22px; }
+      .hero-date .date { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="header">
+      <div class="tag">คู่มือผู้เรียน · รุ่น 2</div>
+      <h1>นักพัฒนาเทคโนโลยีดิจิทัลและ AI สำหรับองค์กรสมัยใหม่</h1>
+      <p class="sub">ADT-RAISE Non-Degree · บัณฑิตพันธุ์ใหม่ · สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ มหาวิทยาลัยแม่ฟ้าหลวง</p>
+      <div class="header-meta">
+        <div class="meta-block">
+          <div class="label">ระยะเวลา</div>
+          <div class="value">22 สัปดาห์ · 285 ชม.</div>
+        </div>
+        <div class="meta-block">
+          <div class="label">ปฐมนิเทศ</div>
+          <div class="value">19 ก.ค. 2569 · 18:00</div>
+        </div>
+        <div class="meta-block">
+          <div class="label">วันเรียนแรก</div>
+          <div class="value">25 กรกฎาคม 2569</div>
+        </div>
+        <div class="meta-block">
+          <div class="label">รูปแบบหลัก</div>
+          <div class="value">Online + Onsite 2 ช่วง</div>
+        </div>
+      </div>
+    </header>
+
+  <!-- Key dates hero -->
+    <div class="hero-dates">
+      <div class="hero-date primary">
+        <div class="when">ปฐมนิเทศ</div>
+        <div class="date">19 ก.ค. 2569</div>
+        <div class="detail">ออนไลน์ · 18:00–20:00 น.</div>
+      </div>
+      <div class="hero-date primary">
+        <div class="when">เปิดรุ่น / Hackathon</div>
+        <div class="date">25–26 ก.ค. 2569</div>
+        <div class="detail">Onsite เชียงราย · 2 วัน 1 คืน (มีที่พัก)</div>
+      </div>
+      <div class="hero-date accent-warm">
+        <div class="when">ปิดรุ่น / Demo Day</div>
+        <div class="date">28 พ.ย. – 20 ธ.ค. 2569</div>
+        <div class="detail">Onsite เชียงใหม่ · 3 วัน 2 คืน (มีที่พัก)</div>
+      </div>
+    </div>
+
+  <!-- Welcome -->
+    <section>
+      <h2>ยินดีต้อนรับสู่รุ่น 2</h2>
+      <div class="callout">
+        คุณกำลังจะเรียน <strong>22 สัปดาห์</strong> เพื่อสร้าง <strong>Web App Full-Stack + AI</strong> จากโจทย์จริงของคุณเอง
+        จบด้วย <strong>Demo Day</strong> และผ่านการประเมิน <strong>EoC ครบ 9 หน่วย (TPQI)</strong>
+      </div>
+      <p>คู่มือนี้รวมปฏิทิน · กิจกรรมบังคับ · กติกาเข้าร่วม · และสิ่งที่ต้องเตรียมก่อนเริ่มเรียน
+        อัปเดตล่าสุดที่ <a href="https://github.com/raisemfu-adt/batch2-student-handbook">github.com/raisemfu-adt</a></p>
+    </section>
+
+  <!-- Pre-launch -->
+    <section>
+      <h2>ไทม์ไลน์สำคัญ (ของคุณ)</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">ภายใน 30 มิถุนายน 2569</div>
+          <div class="tl-title">ส่งเลขบัตรประชาชน</div>
+          <div class="tl-desc">ผู้ที่ผ่านการคัดเลือกส่งข้อมูลตามอีเมลจากทีมงาน (สำหรับลงทะเบียนระบบ)</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">ก่อน 15 กรกฎาคม 2569</div>
+          <div class="tl-title">เตรียมอุปกรณ์ + ติดตั้งซอฟต์แวร์</div>
+          <div class="tl-desc">Laptop · Node.js · Git · ทดสอบอินเทอร์เน็ต ≥ 10 Mbps · ดูหัวข้อ「เตรียมเครื่องมือ」ด้านล่าง</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">19 กรกฎาคม 2569 · 18:00–20:00</div>
+          <div class="tl-title">Orientation ออนไลน์ — ห้ามพลาด</div>
+          <div class="tl-desc">แนะนำหลักสูตร · กติกา 80% · ลิงก์ Zoom · เตรียมตัว Hackathon · แจกทีม/เครื่องมือ</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">25–26 กรกฎาคม 2569</div>
+          <div class="tl-title">เริ่มเรียน — Hackathon สัปดาห์ที่ 1</div>
+          <div class="tl-desc">Onsite โรงแรมเชียงราย · 2 วัน 1 คืน · มีที่พัก · เดินทางผู้เรียนออกเอง</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">28 พ.ย. – 20 ธ.ค. 2569</div>
+          <div class="tl-title">Demo Day ปิดรุ่น — เชียงใหม่</div>
+          <div class="tl-desc">Onsite 3 วัน 2 คืน · มีที่พัก · นำเสนอ Final Defense + EoC รวบยอด</div>
+        </div>
+      </div>
+    </section>
+
+  <!-- Structure -->
+    <section>
+      <h2>โครงสร้าง 5 โมดูล · 22 สัปดาห์</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h4>M1 — Design-Ready</h4>
+          <p>Hackathon · Persona · Prototype · ส่ง Draft Spec Package ก่อนเข้า M2</p>
+        </div>
+        <div class="card">
+          <h4>M2 — MVP-Ready</h4>
+          <p>Claude Code · Full-Stack · Deploy · Sprint 1 Demo (สป. 9)</p>
+        </div>
+        <div class="card">
+          <h4>M3 — AI-Integrated</h4>
+          <p>Dashboard จาก DB · Office AI Lab · Sprint 2 (สป. 13)</p>
+        </div>
+        <div class="card">
+          <h4>M4 — Beta-Ready</h4>
+          <p>IoT + MQTT (Online) · Realtime · Sprint 3 (สป. 17)</p>
+        </div>
+        <div class="card">
+          <h4>M5 — Launch-Ready</h4>
+          <p>CI/CD · UAT · Rehearsal · Demo Day + Final EoC (สป. 20)</p>
+        </div>
+      </div>
+      <div class="module-flow">
+        <span class="step">Design-Ready สป.5</span>
+        <span class="arrow">→</span>
+        <span class="step">MVP-Ready สป.9</span>
+        <span class="arrow">→</span>
+        <span class="step">AI-Integrated สป.13</span>
+        <span class="arrow">→</span>
+        <span class="step">Beta-Ready สป.17</span>
+        <span class="arrow">→</span>
+        <span class="step final">Demo Day + EoC สป.20</span>
+      </div>
+    </section>
+
+  <!-- Mandatory events -->
+    <section>
+      <h2>กิจกรรมบังคับ — ต้องเข้าร่วมครบ</h2>
+      <p class="muted" style="margin-bottom: 14px;">คุณยืนยันไว้ตอนสมัครแล้ว · ขาดกิจกรรมเหล่านี้อาจมีผลต่อการผ่านหลักสูตร</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>กิจกรรม</th>
+              <th>วันที่</th>
+              <th>รูปแบบ</th>
+              <th>หมายเหตุ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>A — Orientation</strong></td>
+              <td>19 ก.ค. 2569</td>
+              <td><span class="badge online">Online</span></td>
+              <td>18:00–20:00 น.</td>
+            </tr>
+            <tr>
+              <td><strong>B — Hackathon เปิดรุ่น</strong></td>
+              <td>25–26 ก.ค. 2569</td>
+              <td><span class="badge onsite key">Onsite</span></td>
+              <td>เชียงราย · 2 วัน 1 คืน · มีที่พัก · เดินทางผู้เรียนออกเอง</td>
+            </tr>
+            <tr>
+              <td><strong>C — Sprint 1 Review</strong></td>
+              <td>19–20 ก.ย. 2569 (สป. 9)</td>
+              <td><span class="badge online">Online</span></td>
+              <td>MVP Demo · ทบทวน TPQI 7001–7005</td>
+            </tr>
+            <tr>
+              <td><strong>D — Sprint 2 Review</strong></td>
+              <td>26–30 ต.ค. 2569 (สป. 13)</td>
+              <td><span class="badge online">Online</span></td>
+              <td>AI-Integrated milestone</td>
+            </tr>
+            <tr>
+              <td><strong>E — Office AI Lab 11A &amp; 12A</strong></td>
+              <td>10–11 ต.ค. · 24–25 ต.ค. 2569</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Word · Spreadsheet · Deck · Search (TPQI 70042–70045)</td>
+            </tr>
+            <tr>
+              <td><strong>F — Sprint 3 Review</strong></td>
+              <td>16–20 พ.ย. 2569 (สป. 17)</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Beta-Ready · AI + IoT</td>
+            </tr>
+            <tr>
+              <td><strong>G — Production / UAT / Pitch</strong></td>
+              <td>21–27 พ.ย. 2569 (สป. 18–19)</td>
+              <td><span class="badge online">Online</span></td>
+              <td>CI/CD · UAT · Storytelling</td>
+            </tr>
+            <tr>
+              <td><strong>H — Demo Day ปิดรุ่น</strong></td>
+              <td>28 พ.ย. – 20 ธ.ค. 2569 (สป. 20)</td>
+              <td><span class="badge onsite key">Onsite</span></td>
+              <td>เชียงใหม่ · 3 วัน 2 คืน · มีที่พัก · Final Defense + EoC รวบยอด</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  <!-- Detailed schedule -->
+    <section>
+      <h2>ตารางเรียนละเอียด (วันที่ · เวลา)</h2>
+      <p class="schedule-note">
+        สัปดาห์ Online ส่วนใหญ่เรียน <strong>เสาร์–อาทิตย์</strong> · เสาร์ = บรรยาย · อาทิตย์ = ฝึกปฏิบัติ
+        · เริ่ม Zoom ประมาณ <strong>09:00 น.</strong> (ลิงก์แจ้งทางอีเมล/LMS ก่อนเรียน 7 วัน)
+      </p>
+
+      <h3>ปฐมนิเทศ — ศุกร์ 19 ก.ค. 2569 · Online</h3>
+      <div class="table-wrap" style="margin-bottom: 24px;">
+        <table class="compact">
+          <thead>
+            <tr><th>เวลา</th><th>กิจกรรม</th><th>ผู้นำ</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="time-col">18:00–18:20</td><td>เปิดรุ่น · PLO · Credential · 22 สัปดาห์</td><td>คณบดี</td></tr>
+            <tr><td class="time-col">18:20–18:40</td><td>ตารางเรียน · Onsite บังคับ · 80% rule · EoC</td><td>ผู้ประสานงาน</td></tr>
+            <tr><td class="time-col">18:40–19:00</td><td>เครื่องมือ: Zoom · Git · Claude · Logbook</td><td>Lead Instructor</td></tr>
+            <tr><td class="time-col">19:00–19:30</td><td>Q&amp;A · แนะนำ W1 Hackathon เชียงราย</td><td>ทีม</td></tr>
+            <tr><td class="time-col">19:30–20:00</td><td>Checklist เตรียมตัว W1 (เสื้อ · laptop · Pain deck)</td><td>TA</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Hackathon เปิดรุ่น — 25–26 ก.ค. 2569 · Onsite เชียงราย (2 วัน 1 คืน)</h3>
+      <div class="table-wrap" style="margin-bottom: 24px;">
+        <table class="compact">
+          <thead>
+            <tr><th>เวลา</th><th>กิจกรรม</th><th>ชม.</th><th>หมายเหตุ</th></tr>
+          </thead>
+          <tbody>
+            <tr class="day-row"><td colspan="4">▌ วันที่ 1 · เสาร์ 25 ก.ค. 2569</td></tr>
+            <tr><td class="time-col">08:30–09:00</td><td>ลงทะเบียน / รับเอกสาร / ตรวจสอบอุปกรณ์</td><td>0.5</td><td>เจ้าหน้าที่โครงการ</td></tr>
+            <tr><td class="time-col">09:00–11:00</td><td>พิธีเปิดโครงการ + Ice-Breaking · แนะนำหลักสูตร · จัดทีม</td><td>2</td><td>อ.พฤทธิ์ · ดร.ปรัสรา</td></tr>
+            <tr><td class="time-col">11:00–12:00</td><td>บรรยายโจทย์ Hackathon · Guest Speaker อุตสาหกรรม</td><td>1</td><td>นายสุธัม (Guest)</td></tr>
+            <tr><td class="time-col">12:00–13:00</td><td>พักรับประทานอาหารกลางวัน</td><td>–</td><td></td></tr>
+            <tr><td class="time-col">13:00–17:00</td><td>Group Workshop — Problem Co-Design · ตั้งทีม · ร่าง Problem Statement</td><td>4</td><td>Mentor ประจำกลุ่ม (~6 กลุ่ม)</td></tr>
+            <tr><td class="time-col">17:00–18:00</td><td>พักผ่อน / Networking Dinner</td><td>–</td><td></td></tr>
+            <tr><td class="time-col">18:00–19:00</td><td>Mentor Check-in (กลุ่มละ ~10 นาที)</td><td>1</td><td>Mentor ประจำกลุ่ม</td></tr>
+            <tr><td class="time-col">18:00–22:00</td><td>งานเลี้ยงค่ำ (บุฟเฟ่ต์) — ตามงบประมาณ</td><td>–</td><td>Grand Ballroom</td></tr>
+            <tr class="day-row"><td colspan="4">▌ วันที่ 2 · อาทิตย์ 26 ก.ค. 2569</td></tr>
+            <tr><td class="time-col">08:30–09:30</td><td>Rapid Prototyping Sprint · เตรียม Slide · ซ้อม pitch</td><td>1</td><td>Mentor ประจำกลุ่ม</td></tr>
+            <tr><td class="time-col">09:30–09:40</td><td>ชี้แจงกติกา / จับฉลากลำดับนำเสนอ</td><td>0.17</td><td>อ.พฤทธิ์</td></tr>
+            <tr><td class="time-col">09:40–14:35</td><td>Pitching 40 คน · 5 นาที/คน + Q&amp;A 2 นาที (พักทุก 10 คน)</td><td>4.92</td><td>คณะกรรมการ + Guest</td></tr>
+            <tr><td class="time-col">14:35–15:15</td><td>พักรับประทานอาหารกลางวัน (late lunch)</td><td>–</td><td></td></tr>
+            <tr><td class="time-col">15:15–16:15</td><td>สรุป Feedback · ประกาศทีมโครงการ · ยืนยัน Problem Statement</td><td>1</td><td>อ.พฤทธิ์ + Guest</td></tr>
+            <tr><td class="time-col">16:15–16:30</td><td>สรุปกิจกรรม / ถ่ายภาพหมู่ / ปิดงาน</td><td>0.25</td><td>ดร.ปรัสรา</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>ตาราง 22 สัปดาห์ — วันที่ · เวลา · ชั่วโมง</h3>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead>
+            <tr>
+              <th>สป.</th>
+              <th>วันที่</th>
+              <th>เวลา (โดยประมาณ)</th>
+              <th>รูปแบบ</th>
+              <th>หัวข้อ / ผลงาน</th>
+              <th>ท+ป</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="month-row"><td colspan="6">▌ เดือน 1 — วางแผนและออกแบบ (M1)</td></tr>
+            <tr>
+              <td><strong>1</strong></td>
+              <td>25–26 ก.ค. 69</td>
+              <td class="time-col">ดูตาราง Hackathon ด้านบน</td>
+              <td><span class="badge onsite key">Onsite</span></td>
+              <td>Hackathon + TPQI 7001 · Problem Statement · Pitch</td>
+              <td>0+17</td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td>1–2 ส.ค. 69</td>
+              <td class="time-col">ส. 09:00–17:00 · อา. 09:00–18:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Agile + TPQI 7003 · Charter · Backlog</td>
+              <td>8+9</td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td>8–9 ส.ค. 69</td>
+              <td class="time-col">ส. 09:00–13:00 · อา. 09:00–18:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Persona + Journey + TPQI 7002 · เก็บ Data</td>
+              <td>4+10</td>
+            </tr>
+            <tr>
+              <td><strong>4</strong></td>
+              <td>15–16 ส.ค. 69</td>
+              <td class="time-col">ส. 09:00–13:00 · อา. 09:00–18:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Prototype + TPQI 7004/5 · Solution prototype</td>
+              <td>4+10</td>
+            </tr>
+            <tr>
+              <td><strong>5</strong></td>
+              <td>22–23 ส.ค. 69</td>
+              <td class="time-col">ส. 09:00–12:00 · อา. 09:00–17:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Design-Ready Gate · Draft Spec Package · mentor sign-off</td>
+              <td>3+9</td>
+            </tr>
+
+            <tr class="month-row"><td colspan="6">▌ เดือน 2 — Full-Stack Development (M2)</td></tr>
+            <tr>
+              <td><strong>6</strong></td>
+              <td>29–30 ส.ค. 69</td>
+              <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Spec → Code · Node/Git · Workflow · CLAUDE.md v0.1</td>
+              <td>4+12</td>
+            </tr>
+            <tr>
+              <td><strong>7</strong></td>
+              <td>5–6 ก.ย. 69</td>
+              <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Full-Stack FE+BE+DB · GitHub · deploy แรก</td>
+              <td>4+12</td>
+            </tr>
+            <tr>
+              <td><strong>8</strong></td>
+              <td>12–13 ก.ย. 69</td>
+              <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Deploy จริง · Sub-Agent Reviewer</td>
+              <td>4+12</td>
+            </tr>
+            <tr>
+              <td><strong>9</strong> ★</td>
+              <td>19–20 ก.ย. 69</td>
+              <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
+              <td><span class="badge online">Online</span></td>
+              <td><strong>Sprint 1 Review</strong> · Playwright · MVP-Ready</td>
+              <td>4+12</td>
+            </tr>
+
+            <tr class="month-row"><td colspan="6">▌ เดือน 3 — AI และข้อมูล (M3)</td></tr>
+            <tr>
+              <td><strong>10</strong></td>
+              <td>26–27 ก.ย. 69</td>
+              <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Dashboard จาก DB (Recharts)</td>
+              <td>4+9</td>
+            </tr>
+            <tr>
+              <td><strong>11</strong></td>
+              <td>3–4 ต.ค. 69</td>
+              <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Full-Stack Deployment &amp; API Integration</td>
+              <td>4+9</td>
+            </tr>
+            <tr>
+              <td><strong>11A</strong></td>
+              <td>10–11 ต.ค. 69</td>
+              <td class="time-col">ส. 09:00–12:00 · อา. 09:00–13:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Office AI Lab I (TPQI 70042–70043) · Word · Spreadsheet</td>
+              <td>2+3</td>
+            </tr>
+            <tr>
+              <td><strong>12</strong></td>
+              <td>17–18 ต.ค. 69</td>
+              <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Model Evaluation &amp; Governance</td>
+              <td>4+9</td>
+            </tr>
+            <tr>
+              <td><strong>12A</strong></td>
+              <td>24–25 ต.ค. 69</td>
+              <td class="time-col">ส. 09:00–12:00 · อา. 09:00–13:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Office AI Lab II (TPQI 70044–70045) · Deck · Search</td>
+              <td>2+3</td>
+            </tr>
+            <tr>
+              <td><strong>13</strong> ★</td>
+              <td>26–30 ต.ค. 69</td>
+              <td class="time-col">Session รวม ~26–27 ต.ค. + ส่งงานภายใน 30 ต.ค.</td>
+              <td><span class="badge online">Online</span></td>
+              <td><strong>Sprint 2 Review</strong> · AI-Integrated milestone</td>
+              <td>0+9</td>
+            </tr>
+
+            <tr class="month-row"><td colspan="6">▌ เดือน 4 — IoT &amp; เชื่อมระบบ (M4)</td></tr>
+            <tr>
+              <td><strong>14</strong></td>
+              <td>31 ต.ค. – 1 พ.ย. 69</td>
+              <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>IoT Architecture &amp; Simulator · MQTT → DB (TPQI 7007)</td>
+              <td>3+9</td>
+            </tr>
+            <tr>
+              <td><strong>15</strong></td>
+              <td>7–8 พ.ย. 69</td>
+              <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
+              <td><span class="badge online">Hybrid</span></td>
+              <td>Realtime Firestore/WebSocket · onSnapshot</td>
+              <td>3+9</td>
+            </tr>
+            <tr>
+              <td><strong>16</strong></td>
+              <td>14–15 พ.ย. 69</td>
+              <td class="time-col">ส. 09:00–13:00 · อา. 09:00–17:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>AI from IoT + Alerts · แจ้งเตือนอัจฉริยะ</td>
+              <td>3+9</td>
+            </tr>
+            <tr>
+              <td><strong>17</strong> ★</td>
+              <td>16–20 พ.ย. 69</td>
+              <td class="time-col">Session รวม ~16–17 พ.ย. + ส่งงานภายใน 20 พ.ย.</td>
+              <td><span class="badge online">Online</span></td>
+              <td><strong>Sprint 3 Review</strong> · Beta-Ready · Smart Platform</td>
+              <td>0+9</td>
+            </tr>
+
+            <tr class="month-row"><td colspan="6">▌ เดือน 5 — เปิดตัวและนำเสนอ (M5)</td></tr>
+            <tr>
+              <td><strong>18</strong></td>
+              <td>21–22 พ.ย. 69</td>
+              <td class="time-col">ส. 09:00–18:00 · อา. 09:00–18:00</td>
+              <td><span class="badge online">Online</span></td>
+              <td>CI/CD Production · UAT</td>
+              <td>0+12</td>
+            </tr>
+            <tr>
+              <td><strong>19</strong></td>
+              <td>22–27 พ.ย. 69</td>
+              <td class="time-col">Session รวม ~22–23 พ.ย. + ส่งงานภายใน 27 พ.ย.</td>
+              <td><span class="badge online">Online</span></td>
+              <td>Data Storytelling · Pitch Deck · AI Policy (TPQI 7009)</td>
+              <td>0+12</td>
+            </tr>
+            <tr>
+              <td><strong>20</strong></td>
+              <td>28 พ.ย. – 20 ธ.ค. 69</td>
+              <td class="time-col">Onsite 3 วัน 2 คืน · ช่วง Demo Day ตามประกาศ</td>
+              <td><span class="badge onsite key">Onsite</span></td>
+              <td>Rehearsal · Demo Day · Final Defense + EoC รวบยอด 9 UoC · เชียงใหม่</td>
+              <td>0+20</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="margin-top: 10px;">★ = Sprint Review milestone · สป. 14 IoT = Online (ตามที่แจ้งผู้สมัคร) · Demo Day เชียงใหม่ มีที่พัก 2 คืน</p>
+    </section>
+
+  <!-- Commitments -->
+    <section>
+      <h2>กติกาและเงื่อนไขการเรียน</h2>
+      <div class="callout">
+        <strong>เข้าร่วม ≥ 80%</strong> — รวมเรียน Online · Onsite บังคับ · ส่งงานรายสัปดาห์ · Sprint Demo ทุกโมดูล
+        · ขาดเกินเกณฑ์อาจมีผลต่อสิทธิผ่านหลักสูตร/ใบรับรอง
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h4>เวลาเรียนแนะนำ</h4>
+          <p>≥ 12–15 ชั่วโมง/สัปดาห์ (นอกชั้นเรียน) · ส่งงานรายสัปดาห์ · Sprint Demo ทุกโมดูล</p>
+        </div>
+        <div class="card">
+          <h4>อุปกรณ์</h4>
+          <p>Laptop ส่วนตัว · ติดตั้ง Node.js + Git · อินเทอร์เน็ต ≥ 10 Mbps สำหรับเรียน Online</p>
+        </div>
+        <div class="card">
+          <h4>ค่าประกัน (ถ้ามี)</h4>
+          <p>2,000 บาท · คืนเมื่อเรียนครบเกิน 80%</p>
+        </div>
+        <div class="card">
+          <h4>ผลงานปลายทาง</h4>
+          <p>Web App Full-Stack + AI + (IoT) · Deploy จริง · Demo Day Defense · EoC Logbook ครบ 9 UoC</p>
+        </div>
+      </div>
+    </section>
+
+  <!-- Tools setup -->
+    <section>
+      <h2>เตรียมเครื่องมือ (ก่อน 15 ก.ค.)</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h4>Laptop</h4>
+          <p>Mac หรือ Windows · RAM ≥ 8 GB · พื้นที่ว่าง ≥ 20 GB · ชาร์จแบตได้ตลอดชั้นเรียน</p>
+        </div>
+        <div class="card">
+          <h4>Node.js + Git</h4>
+          <p>ติดตั้ง <a href="https://nodejs.org">Node.js LTS</a> และ <a href="https://git-scm.com">Git</a>
+            · สร้างบัญชี <a href="https://github.com">GitHub</a></p>
+        </div>
+        <div class="card">
+          <h4>Zoom</h4>
+          <p>ติดตั้งแอป Zoom · ทดสอบกล้อง/ไมค์ · ใช้ชื่อ-นามสกุลจริงเมื่อเข้าห้อง</p>
+        </div>
+        <div class="card">
+          <h4>Claude</h4>
+          <p>ทีมจะจัดสรรบัญชี Claude หลังจัดกลุ่ม (สัปดาห์ 4 เป็นต้นไป) · ระหว่างนี้เตรียมอีเมลใช้งาน</p>
+        </div>
+      </div>
+      <h3>Checklist ก่อน Orientation (19 ก.ค.)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>รายการ</th><th>สถานะ</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>ส่งเลขบัตร ปชช. ตามอีเมลทีมงาน (ภายใน 30 มิ.ย.)</td><td>☐</td></tr>
+            <tr><td>2</td><td>ติดตั้ง Node.js + Git + ทดสอบ <code>node -v</code> และ <code>git --version</code></td><td>☐</td></tr>
+            <tr><td>3</td><td>ลงทะเบียน GitHub และเตรียมอีเมลใช้งาน</td><td>☐</td></tr>
+            <tr><td>4</td><td>จองตั๋ว/ลางาน Hackathon <strong>25–26 ก.ค.</strong> เชียงราย</td><td>☐</td></tr>
+            <tr><td>5</td><td>เตรียม Pain deck / โจทย์ที่สนใจ (1 หน้า) สำหรับ Pitch วันที่ 26 ก.ค.</td><td>☐</td></tr>
+            <tr><td>6</td><td>บันทึกปฏิทินกิจกรรมบังคับ A–H ลง Google Calendar</td><td>☐</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  <!-- Pass criteria -->
+    <section>
+      <h2>เกณฑ์ผ่านหลักสูตร</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>หัวข้อ</th><th>รายละเอียด</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>การเข้าร่วม</strong></td>
+              <td>≥ 80% ของชั่วโมงเรียน (Online + Onsite บังคับ)</td>
+            </tr>
+            <tr>
+              <td><strong>งานรายสัปดาห์</strong></td>
+              <td>ส่งตามกำหนดทุกสัปดาห์ · ผ่าน rubric ขั้นต่ำของแต่ละ milestone</td>
+            </tr>
+            <tr>
+              <td><strong>Sprint Review</strong></td>
+              <td>สป. 9 (MVP) · สป. 13 (AI-Integrated) · สป. 17 (Beta) — Demo ตามกำหนด</td>
+            </tr>
+            <tr>
+              <td><strong>EoC / TPQI</strong></td>
+              <td>บันทึก Logbook ครบ 9 หน่วย (7001–7009) · ประเมินรวบยอดที่ Demo Day</td>
+            </tr>
+            <tr>
+              <td><strong>ผลงานปลายทาง</strong></td>
+              <td>Web App Deploy จริง · มี AI ในตัว · นำเสนอ Demo Day ผ่าน UAT</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  <!-- Contact -->
+    <section>
+      <h2>ติดต่อทีมงาน</h2>
+      <p class="muted" style="margin-bottom: 12px;">ช่องทางหลักคืออีเมลที่คุณใช้สมัคร · รายละเอียดเพิ่มจะแจ้งใน Orientation</p>
+      <div class="card-grid">
+        <div class="card">
+          <h4>ผู้ประสานงานโครงการ</h4>
+          <p>อีเมลตามจดหมายตอบรับ · เรื่องลงทะเบียน · ปฏิทิน · เอกสาร</p>
+        </div>
+        <div class="card">
+          <h4>TA / ช่วยเทคนิค</h4>
+          <p>แจ้งในกลุ่ม Line/Discord (ลิงก์แจก Orientation) · ปัญหา Git, Node, Zoom</p>
+        </div>
+        <div class="card">
+          <h4>ฉุกเฉิน Onsite</h4>
+          <p>เบอร์ติดต่อทีมงานบนเอกสาร Hackathon / Demo Day (แจกก่อนเดินทาง)</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      ADT-RAISE Non-Degree Batch 2 · สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ มหาวิทยาลัยแม่ฟ้าหลวง<br>
+      <a href="https://github.com/raisemfu-adt/batch2-student-handbook">github.com/raisemfu-adt/batch2-student-handbook</a>
+      · อัปเดต มิ.ย. 2569<br>
+      <span style="color:#9ca3af">หลักสูตร Non-Degree บัณฑิตพันธุ์ใหม่ (สปอว.) — ไม่ใช่หลักสูตรปริญญา SE</span>
+    </footer>
+
+  </div>
+</body>
+</html>
