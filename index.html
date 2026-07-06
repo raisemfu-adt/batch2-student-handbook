@@ -253,6 +253,36 @@
       border-left: 3px solid var(--accent);
     }
 
+    .hours-theory {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #1d4ed8;
+      background: #dbeafe;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+    }
+
+    .hours-practice {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #b45309;
+      background: #fef3c7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+    }
+
+    .time-slot { display: block; margin-bottom: 4px; font-size: 12px; line-height: 1.45; }
+    .time-slot:last-child { margin-bottom: 0; }
+    .hours-col { text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
     .badge {
       display: inline-block;
       font-size: 11px;
@@ -547,7 +577,7 @@
       </div>
       <div class="hero-date accent-warm">
         <div class="when">ปิดรุ่น / Showcase Day</div>
-        <div class="date">28 พ.ย. – 20 ธ.ค. 2569</div>
+        <div class="date">18–20 ธ.ค. 2569</div>
         <div class="detail">Onsite เชียงใหม่, 3 วัน 2 คืน, ศึกษาดูงาน + Final Pitch + พิธีปิด</div>
       </div>
     </div>
@@ -558,7 +588,6 @@
       <a href="#hackathon-prep">Hackathon</a>
       <a href="#schedule">ตารางเรียน</a>
       <a href="#plo">PLO</a>
-      <a href="#submissions">ส่งงาน &amp; EoC</a>
       <a href="#rules">กติกา</a>
       <a href="#contact">ติดต่อ</a>
     </nav>
@@ -593,7 +622,7 @@
           <div class="tl-desc">Onsite โรงแรม Heritage เชียงราย, Design Thinking, Pitch 5+2 นาที, จัดทีม</div>
         </div>
         <div class="tl-item">
-          <div class="tl-date">28 พ.ย. – 20 ธ.ค. 2569</div>
+          <div class="tl-date">18–20 ธ.ค. 2569</div>
           <div class="tl-title">Showcase Day ปิดรุ่น — เชียงใหม่</div>
           <div class="tl-desc">Onsite เชียงใหม่ 3 วัน 2 คืน, ศึกษาดูงาน, Dry-run, Final Pitch, พิธีปิด + EoC</div>
         </div>
@@ -669,22 +698,6 @@
           </tbody>
         </table>
       </div>
-      <h3>จุดตรวจผลงานหลัก (Capstone 5 ระยะ)</h3>
-      <div class="table-wrap">
-        <table class="compact">
-          <thead>
-            <tr><th>ระยะ</th><th>จุดตรวจ</th><th>ผลงานหลักที่ส่ง</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>1. Design &amp; Draft Blueprint</td><td>สป. 5 → Sprint 1 (สป. 9)</td><td>Persona, Journey, Prototype, Draft Spec Package, Backlog</td></tr>
-            <tr><td>2. Functional MVP</td><td>สป. 9: Sprint 1 Review</td><td>MVP V.1.0 URL, GitHub, Login/CRUD</td></tr>
-            <tr><td>3. Data, AI &amp; Governance</td><td>สป. 13: Sprint 2 Review</td><td>Dashboard, API, Office AI, Model Metrics, Governance Checklist</td></tr>
-            <tr><td>4. IoT &amp; Integrated Platform</td><td>สป. 17: Sprint 3 Review</td><td>IoT Simulator → DB, Live Dashboard, Beta (AI + IoT)</td></tr>
-            <tr><td>5. Production &amp; Launch</td><td>สป. 18–20 + Showcase Day</td><td>Production URL, UAT, AI Usage Policy, Pitch, Project Defense</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="muted" style="margin-top: 10px;">ประเมินรวบยอด TPQI 9 หน่วย (EoC) ที่ Showcase Day สป. 20 · ผ่านเกณฑ์รวมไม่ต่ำกว่า 60%</p>
     </section>
 
   <!-- Mandatory events -->
@@ -746,9 +759,9 @@
             </tr>
             <tr>
               <td><strong>H — Showcase Day ปิดรุ่น</strong></td>
-              <td>28 พ.ย. – 20 ธ.ค. 2569 (สป. 20)</td>
+              <td>18–20 ธ.ค. 2569 (สป. 20)</td>
               <td><span class="badge onsite key">Onsite</span></td>
-              <td>เชียงใหม่, 3 วัน 2 คืน, ศึกษาดูงาน + Final Pitch + EoC รวบยอด, วันจริงแจ้งในช่วง 28 พ.ย.–20 ธ.ค.</td>
+              <td>เชียงใหม่, 3 วัน 2 คืน, ศึกษาดูงาน + Final Pitch + EoC รวบยอด, จัดวันที่ 18–20 ธ.ค.</td>
             </tr>
           </tbody>
         </table>
@@ -837,9 +850,17 @@
       <h2>ตารางเรียนละเอียด (วันที่, เวลา)</h2>
       <p class="schedule-note">
         อ้างอิง <strong>ADT-RAISE-NonDegree-2-19June.xlsx</strong> (Sheet รายละเอียดงบ · StudyPlan · OpenDay · DemoDay)
-        · สัปดาห์ Online เรียน <strong>เสาร์–อาทิตย์</strong>, เสาร์ = บรรยาย, อาทิตย์ = ฝึกปฏิบัติ
-       , เริ่ม Zoom ประมาณ <strong>09:00 น.</strong> (ลิงก์แจ้งทางอีเมล/LMS ก่อนเรียน 7 วัน)
+        · รวม <strong>285 ชม.</strong> (ทฤษฎี 60 + ปฏิบัติ 225)
       </p>
+      <div class="callout" style="margin-bottom: 16px;">
+        <strong>รูปแบบเวลาเรียน (สัปดาห์ Online)</strong>
+        <ul style="margin: 8px 0 0 18px; font-size: 14px;">
+          <li><span class="hours-theory">ทฤษฎี</span> <strong>วันเสาร์</strong> (ช่วงเช้า–บ่าย) — คลาสสด (บันทึก VDO) · นับเข้าเกณฑ์ 80%</li>
+          <li><span class="hours-practice">ปฏิบัติ</span> <strong>เน้นวันเสาร์–อาทิตย์ ให้จบ</strong> — หากชั่วโมงเกินจึงเสริม <strong>เย็นวันธรรมดา</strong> (ทำชิ้นงานเอง · <em>ไม่บังคับเข้า Zoom ทุกครั้ง</em>)</li>
+          <li>ติดปัญหาระหว่างทำงาน → ขอนัดผู้สอนหรือ Mentor ล่วงหน้าได้ (อีเมล / กลุ่มแชท)</li>
+          <li>ขาดคลาสทฤษฎี → ดู VDO ย้อนหลัง + ส่งชิ้นงานใน Classroom ตามกำหนด = ถือว่าเข้าร่วมครบสำหรับสัปดาห์นั้น</li>
+        </ul>
+      </div>
 
       <h3>ปฐมนิเทศ — ศุกร์ 19 ก.ค. 2569, Online</h3>
       <div class="table-wrap" style="margin-bottom: 24px;">
@@ -878,7 +899,7 @@
       </div>
 
       <h3>Showcase Day ปิดรุ่น — Onsite เชียงใหม่ (3 วัน 2 คืน)</h3>
-      <p class="muted" style="margin-bottom: 10px;">ช่วงจัดงานภายใน <strong>28 พ.ย. – 20 ธ.ค. 2569</strong>, วันที่แน่นอนแจ้งล่วงหน้า, มีที่พัก 2 คืน</p>
+      <p class="muted" style="margin-bottom: 10px;">จัดวันที่ <strong>18–20 ธ.ค. 2569</strong> (3 วัน 2 คืน), มีที่พัก 2 คืน</p>
       <div class="table-wrap" style="margin-bottom: 24px;">
         <table class="compact">
           <thead>
@@ -900,240 +921,66 @@
         </table>
       </div>
 
-      <h3>ตาราง 22 สัปดาห์ — วันที่, เวลา</h3>
+
+      <h3>ตารางเรียนละเอียด — Module 1 (ผู้สอน &amp; ผลงาน)</h3>
       <div class="table-wrap">
         <table class="compact">
           <thead>
             <tr>
-              <th>สป.</th>
               <th>วันที่</th>
-              <th>เวลา (โดยประมาณ)</th>
-              <th>รูปแบบ</th>
-              <th>หัวข้อ / ผลงาน</th>
+              <th>เวลา</th>
+              <th>ประเภท</th>
+              <th>หัวข้อ</th>
+              <th>ผู้สอน</th>
+              <th>ผลงาน / กิจกรรม</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="month-row"><td colspan="5">▌ เดือน 1 — วางแผนและออกแบบ (M1)</td></tr>
-            <tr>
-              <td><strong>1</strong></td>
-              <td>25–26 ก.ค. 69</td>
-              <td class="time-col">ดูตาราง Hackathon ด้านบน</td>
-              <td><span class="badge onsite key">Onsite</span></td>
-              <td>เปิดโครงการ &amp; แฮกกาธอน — ระดมสมอง ตั้งทีม + TPQI 7001 · Problem Statement · Pitch</td>
-            </tr>
-            <tr>
-              <td><strong>2</strong></td>
-              <td>1–2 ส.ค. 69</td>
-              <td class="time-col">ส. 09:00–17:00, อา. 09:00–18:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>กรอบการเปลี่ยนแปลง &amp; Agile + TPQI 7003 (จริยธรรม AI, PDPA) · Product Backlog</td>
-            </tr>
-            <tr>
-              <td><strong>3</strong></td>
-              <td>8–9 ส.ค. 69</td>
-              <td class="time-col">ส. 09:00–13:00, อา. 09:00–18:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>ออกแบบโดยเน้นผู้ใช้ + AI — Persona, Journey + TPQI 7002</td>
-            </tr>
-            <tr>
-              <td><strong>4</strong></td>
-              <td>15–16 ส.ค. 69</td>
-              <td class="time-col">ส. 09:00–13:00, อา. 09:00–18:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>สร้างต้นแบบด้วย AI — Prompt Engineering + TPQI 7004/7005 · Interactive Prototype</td>
-            </tr>
-            <tr>
-              <td><strong>5</strong></td>
-              <td>22–23 ส.ค. 69</td>
-              <td class="time-col">ส. 09:00–12:00, อา. 09:00–17:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>เขียนข้อกำหนดระบบ — Database, API List · Draft Spec Package</td>
-            </tr>
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 1 — 25–26 ก.ค. (Onsite เชียงราย)</td></tr>
+            <tr><td>25–26 ก.ค.</td><td>เต็มวัน</td><td><span class="hours-practice">ปฏิบัติ</span></td><td>เปิดโครงการ &amp; Hackathon + TPQI 7001</td><td>ทีมผู้สอน + วิทยากร</td><td>Problem Statement, ชื่อโครงการ, Pitch</td></tr>
 
-            <tr class="month-row"><td colspan="5">▌ เดือน 2 — Full-Stack Development (M2)</td></tr>
-            <tr>
-              <td><strong>6</strong></td>
-              <td>29–30 ส.ค. 69</td>
-              <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
-              <td><span class="badge online">Online</span></td>
-              <td>ตั้งค่าระบบ &amp; แปลง Spec เป็นโค้ด — Node/Git, Workflow, Context &amp; Token</td>
-            </tr>
-            <tr>
-              <td><strong>7</strong></td>
-              <td>5–6 ก.ย. 69</td>
-              <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
-              <td><span class="badge online">Online</span></td>
-              <td>CLAUDE.md + Git/GitHub + Full Stack (FE + BE + Database)</td>
-            </tr>
-            <tr>
-              <td><strong>8</strong></td>
-              <td>12–13 ก.ย. 69</td>
-              <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
-              <td><span class="badge online">Online</span></td>
-              <td>Deploy ขึ้นใช้งานจริง + Sub-Agents Reviewer</td>
-            </tr>
-            <tr>
-              <td><strong>9</strong> ★</td>
-              <td>19–20 ก.ย. 69</td>
-              <td class="time-col">ส. 09:00–11:00 + 11:30–17:30<br>อา. 09:00–11:00 + 11:30–19:30</td>
-              <td><span class="badge online">Online</span></td>
-              <td><strong>Sprint 1 Review</strong> — Tester + Playwright MCP + เตรียมส่งมอบ</td>
-            </tr>
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 2 — 1–2 ส.ค. (Online)</td></tr>
+            <tr><td>เสาร์ 1 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Agile + TPQI 7003 (กรอบการเปลี่ยนแปลง)</td><td>นายปรัชญา เพชรอนัญญา</td><td>Agile + TPQI 7003 (assign)</td></tr>
+            <tr><td>เสาร์ 1 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>Setup + Product Backlog / Req (Markdown + HTML Spec)</td><td class="muted">—</td><td>Tool Installation (Claude, Github, Firebase), Product Backlog / Req</td></tr>
+            <tr><td>อาทิตย์ 2 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>จริยธรรม AI / PDPA</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 2 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-practice">ปฏิบัติ</span></td><td>ฝึกปฏิบัติ — จัดทำ Backlog / Requirement ของโปรเจ็ค</td><td class="muted">—</td><td>ทำชิ้นงานเอง</td></tr>
 
-            <tr class="month-row"><td colspan="5">▌ เดือน 3 — AI และข้อมูล (M3)</td></tr>
-            <tr>
-              <td><strong>10</strong></td>
-              <td>26–27 ก.ย. 69</td>
-              <td class="time-col">ส. 09:00–13:00, อา. 09:00–17:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>สร้าง Dashboard แสดงข้อมูล — Recharts ดึงข้อมูลจาก DB</td>
-            </tr>
-            <tr>
-              <td><strong>11</strong></td>
-              <td>3–4 ต.ค. 69</td>
-              <td class="time-col">ส. 09:00–13:00, อา. 09:00–17:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>Full-Stack Deployment &amp; API Integration</td>
-            </tr>
-            <tr>
-              <td><strong>11A</strong></td>
-              <td>10–11 ต.ค. 69</td>
-              <td class="time-col">ส. 09:00–12:00, อา. 09:00–13:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>Office AI Lab I (TPQI 70042–70043), Word, Spreadsheet</td>
-            </tr>
-            <tr>
-              <td><strong>12</strong></td>
-              <td>17–18 ต.ค. 69</td>
-              <td class="time-col">ส. 09:00–13:00, อา. 09:00–17:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>Model Evaluation &amp; Governance</td>
-            </tr>
-            <tr>
-              <td><strong>12A</strong></td>
-              <td>24–25 ต.ค. 69</td>
-              <td class="time-col">ส. 09:00–12:00, อา. 09:00–13:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>Office AI Lab II (TPQI 70044–70045), Deck, Search</td>
-            </tr>
-            <tr>
-              <td><strong>13</strong> ★</td>
-              <td>26–30 ต.ค. 69</td>
-              <td class="time-col">Session รวม ~26–27 ต.ค. + ส่งงานภายใน 30 ต.ค.</td>
-              <td><span class="badge online">Online</span></td>
-              <td><strong>Sprint 2 Review</strong> — ระบบรวม Web + Dashboard + AI (TPQI 7006–7008)</td>
-            </tr>
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 3 — 8–9 ส.ค. (Online)</td></tr>
+            <tr><td>เสาร์ 8 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>ออกแบบเน้นผู้ใช้ + TPQI 7002 (Persona / AI Technology Landscape)</td><td>นายสุธัม ธรรมวงศ์</td><td>UX + Persona + Customer Journey Map</td></tr>
+            <tr><td>เสาร์ 8 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td class="muted">—</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 9 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายสุธัม ธรรมวงศ์</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 9 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-practice">ปฏิบัติ</span></td><td>ฝึกปฏิบัติ — Persona / Journey ของโปรเจ็ค</td><td class="muted">—</td><td>ทำชิ้นงานเอง</td></tr>
 
-            <tr class="month-row"><td colspan="5">▌ เดือน 4 — IoT &amp; เชื่อมระบบ (M4)</td></tr>
-            <tr>
-              <td><strong>14</strong></td>
-              <td>31 ต.ค. – 1 พ.ย. 69</td>
-              <td class="time-col">ส. 09:00–13:00, อา. 09:00–17:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>สถาปัตยกรรม IoT &amp; Simulator — MQTT, ส่งข้อมูลขึ้น Cloud + TPQI 7007</td>
-            </tr>
-            <tr>
-              <td><strong>15</strong></td>
-              <td>7–8 พ.ย. 69</td>
-              <td class="time-col">ส. 09:00–13:00, อา. 09:00–17:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>เชื่อมข้อมูลแบบเรียลไทม์ — Firestore onSnapshot, WebSockets</td>
-            </tr>
-            <tr>
-              <td><strong>16</strong></td>
-              <td>14–15 พ.ย. 69</td>
-              <td class="time-col">ส. 09:00–13:00, อา. 09:00–17:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>ปรับแต่งระบบรวม — AI ทำงานจาก IoT, แจ้งเตือนอัจฉริยะ</td>
-            </tr>
-            <tr>
-              <td><strong>17</strong> ★</td>
-              <td>16–20 พ.ย. 69</td>
-              <td class="time-col">Session รวม ~16–17 พ.ย. + ส่งงานภายใน 20 พ.ย.</td>
-              <td><span class="badge online">Online</span></td>
-              <td><strong>Sprint 3 Review</strong> — Smart Platform (TPQI 7007) · Beta Product (AI+IoT)</td>
-            </tr>
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 4 — 15–16 ส.ค. (Online)</td></tr>
+            <tr><td>เสาร์ 15 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Prototype + TPQI 7004/7005 (Prompt Engineering / Claude / Zero-shot)</td><td>นายปรัชญา เพชรอนัญญา</td><td>Interactive Prototype (ลิงก์)</td></tr>
+            <tr><td>เสาร์ 15 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td class="muted">—</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 16 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 16 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-practice">ปฏิบัติ</span></td><td>ฝึกปฏิบัติ — สร้าง Prototype ของโปรเจ็ค</td><td class="muted">—</td><td>ทำชิ้นงานเอง</td></tr>
 
-            <tr class="month-row"><td colspan="5">▌ เดือน 5 — เปิดตัวและนำเสนอ (M5)</td></tr>
-            <tr>
-              <td><strong>18</strong></td>
-              <td>21–22 พ.ย. 69</td>
-              <td class="time-col">ส. 09:00–18:00, อา. 09:00–18:00</td>
-              <td><span class="badge online">Online</span></td>
-              <td>Deployment &amp; DevOps — CI/CD Production / UAT</td>
-            </tr>
-            <tr>
-              <td><strong>19</strong></td>
-              <td>22–27 พ.ย. 69</td>
-              <td class="time-col">Session รวม ~22–23 พ.ย. + ส่งงานภายใน 27 พ.ย.</td>
-              <td><span class="badge online">Online</span></td>
-              <td>Data Storytelling + เตรียมสไลด์ + AI Policy Workshop (TPQI 7009)</td>
-            </tr>
-            <tr>
-              <td><strong>20</strong></td>
-              <td>28 พ.ย. – 20 ธ.ค. 69</td>
-              <td class="time-col">ดูตาราง Showcase Day ด้านบน, แจ้งวันจริงล่วงหน้า</td>
-              <td><span class="badge onsite key">Onsite</span></td>
-              <td>ทบทวนและเตรียม Showcase — ซ้อมนำเสนอ · Final Pitch · EoC รวบยอด TPQI 9 หน่วย · เชียงใหม่</td>
-            </tr>
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 5 — 22–23 ส.ค. (Online)</td></tr>
+            <tr><td>เสาร์ 22 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>ข้อกำหนดระบบ (Spec: Functional, Non-Functional, Technical)</td><td>นายปรัชญา เพชรอนัญญา</td><td>Feature List, Technical Specs, API, DB Spec</td></tr>
+            <tr><td>เสาร์ 22 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td class="muted">—</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 23 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 23 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-practice">ปฏิบัติ</span></td><td>ฝึกปฏิบัติ — เขียน Draft Spec Package ของโปรเจ็ค</td><td class="muted">—</td><td>ทำชิ้นงานเอง</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="muted" style="margin-top: 10px;">★ = Sprint Review milestone · ตารางเรียนตาม ADT-RAISE-NonDegree-2-19June.xlsx (Sheet รายละเอียดงบ)</p>
+      <p class="muted" style="margin-top: 10px;">เวลาเรียนสด (เรียน) วันเสาร์ 2 ช่วง และอาทิตย์เช้า — ช่วงอาทิตย์บ่ายเป็นปฏิบัติทำโปรเจ็คของตนเอง (ตาราง M2–M20 จะเพิ่มในรูปแบบเดียวกันภายหลัง)</p>
     </section>
 
-  <!-- Submissions & EoC -->
-    <section id="submissions">
-      <h2>ส่งงาน &amp; EoC (Evidence of Competency)</h2>
-      <div class="callout">
-        <strong>EoC</strong> คือหลักฐานว่าคุณทำได้จริงในแต่ละหน่วย TPQI (7001–7009) — บันทึกใน Logbook ตลอดหลักสูตร, ประเมินรวบยอดที่ Showcase Day
-      </div>
-      <div class="table-wrap" style="margin-bottom: 16px;">
-        <table>
-          <thead><tr><th>ประเภท</th><th>ช่องทางส่ง</th><th>กำหนด</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><strong>งานรายสัปดาห์</strong></td>
-              <td>ลิงก์ที่ Instructor แจ้งในแต่ละสัปดาห์ (GitHub / Google Drive / ฟอร์ม)</td>
-              <td>ก่อนเริ่มสัปดาห์ถัดไป (มักคืออาทิตย์เย็น)</td>
-            </tr>
-            <tr>
-              <td><strong>Logbook EoC</strong></td>
-              <td>แบบฟอร์ม/เทมเพลตที่ทีมแจก, แนบลิงก์ repo, สกรีนช็อต, วิดีโอสั้น</td>
-              <td>อัปเดตทุกสัปดาห์, ตรวจครบ 9 หน่วยก่อนปิดรุ่น</td>
-            </tr>
-            <tr>
-              <td><strong>Sprint Review</strong></td>
-              <td>Showcase สดใน Zoom + ส่ง artefact ตาม checklist ของสป.</td>
-              <td>สป. 9, 13, 17 (ดู ★ ในตาราง)</td>
-            </tr>
-            <tr>
-              <td><strong>Draft Spec Package (สป. 5)</strong></td>
-              <td>Draft Spec Package + ลายเซ็น Mentor</td>
-              <td>ก่อนสิ้นสัปดาห์ 5</td>
-            </tr>
-            <tr>
-              <td><strong>โค้ดโครงการ</strong></td>
-              <td>GitHub repo ทีม (เริ่มใช้ร่วมกันตั้งแต่สัปดาห์ 6)</td>
-              <td>Push สม่ำเสมอ, tag ก่อน Sprint Review</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="muted">รายละเอียดฟอร์มและ rubric แจ้งใน Orientation และแต่ละสัปดาห์, สงสัยเรื่องส่งงานติดต่อ TA ในกลุ่มแชท</p>
-    </section>
 
   <!-- Commitments -->
     <section id="rules">
       <h2>กติกาและเงื่อนไขการเรียน</h2>
       <div class="callout">
-        <strong>เข้าร่วม ≥ 80%</strong> — รวมเรียน Online, Onsite บังคับ, ส่งงานรายสัปดาห์, Sprint Showcase ทุกโมดูล
-       , ขาดเกินเกณฑ์อาจมีผลต่อสิทธิผ่านหลักสูตร/ใบรับรอง
+        <strong>เข้าร่วม ≥ 80%</strong> — นับจาก <strong>คลาสทฤษฎีที่มีการสอนสด</strong> (เสาร์–อาทิตย์) และกิจกรรม Onsite บังคับ
+        · ขาดคลาสทฤษฎี → ดู VDO ย้อนหลัง + ส่งชิ้นงานใน Classroom ตามกำหนด = ถือว่าเข้าร่วมครบสำหรับสัปดาห์นั้น
+        · ช่วงปฏิบัติ (จ–ศ. เย็น) เป็นช่วงทำชิ้นงานด้วยตนเอง — ไม่บังคับเข้า Zoom ทุกครั้ง แต่ต้องส่งงานตามกำหนด
       </div>
       <div class="card-grid">
         <div class="card">
           <h4>เวลาเรียนแนะนำ</h4>
-          <p>≥ 12–15 ชั่วโมง/สัปดาห์ (นอกชั้นเรียน), ส่งงานรายสัปดาห์, Sprint Showcase ทุกโมดูล</p>
+          <p>ทฤษฎี ส–อา. (เช้า/เย็น) + ปฏิบัติ จ–ศ. (เย็น) รวม ≥ 12–15 ชม./สัปดาห์ · ส่งงานรายสัปดาห์ · Sprint Showcase ทุกโมดูล</p>
         </div>
         <div class="card">
           <h4>อุปกรณ์</h4>
@@ -1141,7 +988,11 @@
         </div>
         <div class="card">
           <h4>การลา / ขาดเรียน</h4>
-          <p>แจ้งผู้ประสานงานล่วงหน้า (อีเมล), Online ขาดเกิน 20% อาจไม่นับชั่วโมง, Onsite บังคับห้ามขาดโดยไม่แจ้ง</p>
+          <p>แจ้งผู้ประสานงานล่วงหน้า (อีเมล) · ขาดคลาสทฤษฎีดู VDO + ส่งงาน Classroom แทนได้ · Onsite บังคับห้ามขาดโดยไม่แจ้ง</p>
+        </div>
+        <div class="card">
+          <h4>ปรึกษา Mentor</h4>
+          <p>ช่วงปฏิบัติ (จ–ศ.) ทำชิ้นงานเองได้ · ติดปัญหาขอนัดผู้สอนหรือ Mentor ล่วงหน้า (อีเมล / กลุ่มแชท)</p>
         </div>
         <div class="card">
           <h4>ผลงานปลายทาง</h4>
@@ -1159,7 +1010,7 @@
           <tbody>
             <tr>
               <td><strong>การเข้าร่วม</strong></td>
-              <td>≥ 80% ของชั่วโมงเรียน (Online + Onsite บังคับ)</td>
+              <td>≥ 80% ของ<strong>คลาสทฤษฎีที่มีการสอน</strong> (ส–อา.) + Onsite บังคับ · ขาดคลาส → ดู VDO + ส่งงาน Classroom = นับครบ</td>
             </tr>
             <tr>
               <td><strong>งานรายสัปดาห์</strong></td>
