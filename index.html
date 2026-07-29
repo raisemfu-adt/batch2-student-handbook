@@ -341,6 +341,27 @@
       background: var(--accent);
     }
 
+    .tl-item.current::before {
+      background: var(--teal);
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px var(--teal-soft);
+    }
+
+    .badge.done {
+      background: var(--teal-soft);
+      color: var(--teal);
+      border-color: #99f6e4;
+      font-weight: 700;
+    }
+
+    .hero-date.done { opacity: 0.62; }
+    .hero-date.done .date { color: var(--text-muted); }
+    .hero-date.current {
+      background: linear-gradient(135deg, var(--teal-soft) 0%, #f0fdfa 100%);
+    }
+    .hero-date.current .when { color: var(--teal); font-weight: 700; }
+    .hero-date.current .date { color: var(--teal); }
+
     .tl-date {
       font-size: 12px;
       font-weight: 600;
@@ -563,17 +584,63 @@
       </div>
     </header>
 
+  <!-- ★ เดือนแรก Module 1 — กล่องเด่น -->
+    <style>
+      .m1box-grid{background:#fff;padding:18px 20px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+      @media (max-width:640px){.m1box-grid{grid-template-columns:1fr}}
+    </style>
+    <div style="margin:18px 0 22px;border-radius:12px;overflow:hidden;border:1px solid #d1d5db;box-shadow:0 4px 16px rgba(30,77,140,.12)">
+      <div style="background:linear-gradient(135deg,#1e4d8c,#0f766e);color:#fff;padding:16px 20px">
+        <div style="font-size:20px;font-weight:700">🎯 เดือนแรก — Module 1 (Design-Ready)</div>
+        <div style="font-size:14px;opacity:.92;margin-top:3px">เริ่มเรียน Online <strong>เสาร์ 1 ส.ค. 2569</strong> · เรียนเสาร์–อาทิตย์ · ส่งงานผ่าน Google Classroom · จบ M1 23 ส.ค.</div>
+      </div>
+      <div class="m1box-grid">
+
+        <div style="grid-column:1/-1;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px">
+          <div style="font-size:13px;font-weight:700;color:#1e4d8c;letter-spacing:.02em">เข้าห้องเรียนออนไลน์ (Zoom) — ใช้ลิงก์เดียวทุกสัปดาห์</div>
+          <a href="https://zoom.us/j/95353469386?pwd=uIsUwbI0hxGtC9vHzvtqEbiayaEuDl.1" style="display:inline-block;margin:10px 0 8px;background:#1e4d8c;color:#fff;font-weight:700;font-size:15px;text-decoration:none;padding:11px 22px;border-radius:8px">▶ เข้าห้อง Zoom</a>
+          <div style="font-size:14px;color:#374151;line-height:1.7">
+            <strong>Meeting ID:</strong> 953 5346 9386 &nbsp;·&nbsp; <strong>Passcode:</strong> 960242<br>
+            <span style="color:#6b7280">แชทในห้องประชุม:</span> <a href="https://zoom.us/launch/jc/95353469386" style="color:#1e4d8c">zoom.us/launch/jc/95353469386</a>
+          </div>
+        </div>
+
+        <div style="grid-column:1/-1">
+          <div style="font-size:13px;font-weight:700;color:#0f766e;margin-bottom:6px">Google Classroom (ส่งงาน/ประกาศ)</div>
+          <div style="font-size:14px;color:#374151;line-height:1.7">
+            รหัสเข้าชั้นเรียน: <strong style="font-size:16px;letter-spacing:.05em">5dx24rnm</strong> &nbsp;·&nbsp;
+            <a href="https://classroom.google.com/c/ODcwMjI5MzUxNDg3" style="color:#0f766e">classroom.google.com → เข้าร่วมด้วยรหัส</a>
+          </div>
+        </div>
+
+        <div style="grid-column:1/-1;border-top:1px solid #e5e7eb;padding-top:12px">
+          <div style="font-size:13px;font-weight:700;color:#1e4d8c;margin-bottom:6px">ตารางอาทิตย์แรก · 1–2 ส.ค. (Online)</div>
+          <div style="font-size:14px;color:#374151;line-height:1.7">
+            <strong>เสาร์ 1 ส.ค.</strong> 09:00–12:00 Agile (อ.ปรัชญา) · 13:00–16:00 Setup + Product Backlog/Requirement (ติดตั้ง Claude/GitHub/Firebase)<br>
+            <strong>อาทิตย์ 2 ส.ค.</strong> 09:00–12:00 จริยธรรม AI / PDPA · + ~8 ชม. ปฏิบัติ/นัดปรึกษา
+          </div>
+          <div style="font-size:13px;color:#6b7280;margin-top:8px">ชิ้นงาน M1: Persona · Journey Map · Interactive Prototype · Draft Spec Package (ส่งใน Classroom · M1 จบ 23 ส.ค.)</div>
+        </div>
+
+      </div>
+    </div>
+
   <!-- Key dates hero -->
     <div class="hero-dates">
-      <div class="hero-date primary">
-        <div class="when">ปฐมนิเทศ</div>
+      <div class="hero-date done">
+        <div class="when">✓ ปฐมนิเทศ (เสร็จแล้ว)</div>
         <div class="date">19 ก.ค. 2569</div>
         <div class="detail">ออนไลน์ 18:00–19:30 น.</div>
       </div>
-      <div class="hero-date primary">
-        <div class="when">เปิดรุ่น / Hackathon</div>
+      <div class="hero-date done">
+        <div class="when">✓ เปิดรุ่น / Hackathon (เสร็จแล้ว)</div>
         <div class="date">25–26 ก.ค. 2569</div>
-        <div class="detail">Onsite โรงแรม Heritage เชียงราย, 2 วัน 1 คืน (มีที่พัก)</div>
+        <div class="detail">Onsite โรงแรม Heritage เชียงราย, 2 วัน 1 คืน</div>
+      </div>
+      <div class="hero-date current">
+        <div class="when">▶ กำลังเรียน — Module 1</div>
+        <div class="date">1–23 ส.ค. 2569</div>
+        <div class="detail">Online เสาร์–อาทิตย์ · Persona → Prototype → Draft Spec</div>
       </div>
       <div class="hero-date accent-warm">
         <div class="when">ปิดรุ่น / Showcase Day</div>
@@ -584,7 +651,6 @@
 
     <nav class="toc-nav" aria-label="สารบัญ">
       <a href="#mandatory">กิจกรรมบังคับ</a>
-      <a href="#hackathon-prep">Hackathon</a>
       <a href="#schedule">ตารางเรียน</a>
       <a href="#plo">PLO</a>
       <a href="#rules">กติกา</a>
@@ -605,20 +671,20 @@
     <section>
       <h2>ไทม์ไลน์สำคัญ (ของคุณ)</h2>
       <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-date">ก่อน 15 กรกฎาคม 2569</div>
-          <div class="tl-title">เตรียมอุปกรณ์ + ติดตั้งซอฟต์แวร์</div>
-          <div class="tl-desc">Laptop, Node.js, Git, ทดสอบอินเทอร์เน็ต ≥ 10 Mbps</div>
+        <div class="tl-item done">
+          <div class="tl-date">19 กรกฎาคม 2569 เวลา 18:00–19:30 <span class="badge done">✓ เสร็จแล้ว</span></div>
+          <div class="tl-title">Orientation ออนไลน์</div>
+          <div class="tl-desc">แนะนำหลักสูตร, กติกา 80%, ลิงก์ Zoom, แจกทีม/เครื่องมือ</div>
         </div>
-        <div class="tl-item">
-          <div class="tl-date">19 กรกฎาคม 2569 เวลา 18:00–19:30</div>
-          <div class="tl-title">Orientation ออนไลน์ — ห้ามพลาด</div>
-          <div class="tl-desc">แนะนำหลักสูตร, กติกา 80%, ลิงก์ Zoom, เตรียมตัว Hackathon, แจกทีม/เครื่องมือ</div>
+        <div class="tl-item done">
+          <div class="tl-date">25–26 กรกฎาคม 2569 <span class="badge done">✓ เสร็จแล้ว</span></div>
+          <div class="tl-title">เปิดรุ่น — Hackathon (สัปดาห์ที่ 1)</div>
+          <div class="tl-desc">Onsite โรงแรม Heritage เชียงราย, Design Thinking, Pitch 5+2 นาที, จัดทีม 8 กลุ่ม</div>
         </div>
-        <div class="tl-item">
-          <div class="tl-date">25–26 กรกฎาคม 2569</div>
-          <div class="tl-title">เริ่มเรียน — Hackathon สัปดาห์ที่ 1</div>
-          <div class="tl-desc">Onsite โรงแรม Heritage เชียงราย, Design Thinking, Pitch 5+2 นาที, จัดทีม</div>
+        <div class="tl-item current">
+          <div class="tl-date">1–23 สิงหาคม 2569 <span class="badge key">ตอนนี้</span></div>
+          <div class="tl-title">Module 1 — Design-Ready (เรียน Online เสาร์–อาทิตย์)</div>
+          <div class="tl-desc">เริ่มเสาร์ 1 ส.ค. · Agile → Persona/Journey → Prototype → Draft Spec · เข้า Zoom (ลิงก์เดียว) + ส่งงานใน Classroom · ดูรายละเอียดในกล่องด้านบนสุด</div>
         </div>
         <div class="tl-item">
           <div class="tl-date">18–20 ธ.ค. 2569</div>
@@ -634,7 +700,7 @@
       <div class="card-grid">
         <div class="card">
           <h4>M1 — Design-Ready</h4>
-          <p>Hackathon, Persona, Prototype, ส่ง Draft Spec Package ก่อนเข้า M2</p>
+          <p>Persona, Journey, Prototype, ส่ง Draft Spec Package ก่อนเข้า M2</p>
         </div>
         <div class="card">
           <h4>M2 — MVP-Ready</h4>
@@ -769,46 +835,6 @@
 
   <!-- Prep: tools + checklist -->
 
-  <!-- Hackathon logistics -->
-    <section id="hackathon-prep">
-      <h2>เตรียมตัว Hackathon — 25–26 ก.ค., เชียงราย</h2>
-      <div class="callout">
-        <strong>เช็คอิน 08:30 น.</strong> วันเสาร์ 25 ก.ค., แต่งกายสุภาพลำลอง, นำ laptop มาทุกวัน
-      </div>
-      <div class="table-wrap" style="margin-bottom: 16px;">
-        <table>
-          <thead><tr><th>หัวข้อ</th><th>รายละเอียด</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><strong>สถานที่</strong></td>
-              <td>โรงแรม Heritage เชียงราย โฮเทล แอนด์ คอนเวนชั่น<br>
-                199 หมู่ 13 ถ.พหลโยธิน ต.สันทราย อ.เมือง จ.เชียงราย 57000</td>
-            </tr>
-            <tr>
-              <td><strong>การเดินทาง</strong></td>
-              <td>ผู้เรียนเดินทางเอง, แนะนำบิน/รถมาเชียงรายล่วงหน้า, รายละเอียดรถรับส่ง (ถ้ามี) แจ้งทางอีเมลก่อนงาน</td>
-            </tr>
-            <tr>
-              <td><strong>ที่พัก</strong></td>
-              <td>2 วัน 1 คืน, โครงการจัดที่พักให้ (พักคู่), อาหารหลักรวมตามกำหนดการ</td>
-            </tr>
-            <tr>
-              <td><strong>ของที่ต้องนำ</strong></td>
-              <td>Laptop + สายชาร์จ, บัตรประชาชน, Pain deck 1 หน้า, สมุด/ปากกา, เสื้อสุภาพ</td>
-            </tr>
-            <tr>
-              <td><strong>Pitch วันที่ 26 ก.ค.</strong></td>
-              <td>นำเสนอเดี่ยว <strong>5 นาที + Q&amp;A 2 นาที</strong>, เตรียมสไลด์/โน้ตสั้นๆ, โฟกัสปัญหาและผู้ใช้</td>
-            </tr>
-            <tr>
-              <td><strong>หลัง Hackathon</strong></td>
-              <td>ประกาศทีมโครงการ, เริ่มทำงานเป็นทีมตั้งแต่สัปดาห์ 2, ใช้ repo ร่วมกันตั้งแต่สัปดาห์ 6</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
   <!-- Detailed schedule -->
     <section id="schedule">
       <h2>ตารางเรียนละเอียด (วันที่, เวลา)</h2>
@@ -819,47 +845,10 @@
       <div class="callout" style="margin-bottom: 16px;">
         <strong>รูปแบบเวลาเรียน (สัปดาห์ Online)</strong>
         <ul style="margin: 8px 0 0 18px; font-size: 14px;">
-          <li><span class="hours-theory">ทฤษฎี</span> <strong>วันเสาร์</strong> (ช่วงเช้า–บ่าย) — คลาสสด (บันทึก VDO) · นับเข้าเกณฑ์ 80%</li>
-          <li><span class="hours-practice">ปฏิบัติ</span> <strong>เน้นวันเสาร์–อาทิตย์ ให้จบ</strong> — หากชั่วโมงเกินจึงเสริม <strong>เย็นวันธรรมดา</strong> (ทำชิ้นงานเอง · <em>ไม่บังคับเข้า Zoom ทุกครั้ง</em>)</li>
-          <li>ติดปัญหาระหว่างทำงาน → ขอนัดผู้สอนหรือ Mentor ล่วงหน้าได้ (อีเมล / กลุ่มแชท)</li>
-          <li>ขาดคลาสทฤษฎี → ดู VDO ย้อนหลัง + ส่งชิ้นงานใน Classroom ตามกำหนด = ถือว่าเข้าร่วมครบสำหรับสัปดาห์นั้น</li>
+          <li><span class="hours-theory">ทฤษฎี</span> <strong>วันเสาร์</strong> (ช่วงเช้า–บ่าย) — คลาสสด บันทึก VDO</li>
+          <li><span class="hours-practice">ปฏิบัติ</span> <strong>เน้นวันเสาร์–อาทิตย์ ให้จบ</strong> — หากชั่วโมงเกินจึงเสริม <strong>เย็นวันธรรมดา</strong> (ทำชิ้นงานด้วยตนเอง)</li>
+          <li>การนับเวลาเข้าร่วม 80%, การลา และช่วงที่ไม่บังคับเข้า Zoom → ดูหัวข้อ <a href="#rules">กติกาและเงื่อนไขการเรียน</a></li>
         </ul>
-      </div>
-
-      <h3>ปฐมนิเทศ — ศุกร์ 19 ก.ค. 2569, Online</h3>
-      <div class="table-wrap" style="margin-bottom: 24px;">
-        <table class="compact">
-          <thead>
-            <tr><th>เวลา</th><th>กิจกรรม</th><th>ผู้นำ</th></tr>
-          </thead>
-          <tbody>
-            <tr><td class="time-col">18:00–18:20</td><td>เปิดรุ่น, PLO, Credential, 22 สัปดาห์</td><td>คณบดี</td></tr>
-            <tr><td class="time-col">18:20–18:40</td><td>ตารางเรียน, Onsite บังคับ, 80% rule, EoC</td><td>ผู้ประสานงาน</td></tr>
-            <tr><td class="time-col">18:40–19:00</td><td>เครื่องมือ: Zoom, Git, Claude, Logbook</td><td>Lead Instructor</td></tr>
-            <tr><td class="time-col">19:00–19:30</td><td>Q&amp;A, แนะนำ W1 Hackathon เชียงราย</td><td>ทีม</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Hackathon เปิดรุ่น — 25–26 ก.ค. 2569, Onsite โรงแรม Heritage เชียงราย (2 วัน 1 คืน · 17 ชม.)</h3>
-      <div class="table-wrap" style="margin-bottom: 24px;">
-        <table class="compact">
-          <thead>
-            <tr><th>เวลา</th><th>กิจกรรม</th><th>หมายเหตุ</th></tr>
-          </thead>
-          <tbody>
-            <tr class="day-row"><td colspan="3">▌ วันที่ 1, เสาร์ 25 ก.ค. 2569</td></tr>
-            <tr><td class="time-col">08:30–12:00</td><td>Ice-breaking และบรรยายโจทย์ Hackathon (01A)</td><td>Guest จากสถานประกอบการ</td></tr>
-            <tr><td class="time-col">12:00–13:00</td><td>พักรับประทานอาหารกลางวัน</td><td></td></tr>
-            <tr><td class="time-col">13:00–17:00</td><td>Group Workshop — วิเคราะห์โจทย์, Problem Co-Design กับ Mentor</td><td>Mentor ประจำกลุ่ม</td></tr>
-            <tr><td class="time-col">17:00–18:00</td><td>พักผ่อน / Networking Dinner</td><td></td></tr>
-            <tr><td class="time-col">18:00–20:30</td><td>Mentoring Session — ให้คำปรึกษาประจำกลุ่ม, พัฒนาโครงร่างผลงาน</td><td>Mentor ประจำกลุ่ม</td></tr>
-            <tr class="day-row"><td colspan="3">▌ วันที่ 2, อาทิตย์ 26 ก.ค. 2569</td></tr>
-            <tr><td class="time-col">08:30–12:00</td><td>นำเสนอผลงาน (Pitching), คณะกรรมการให้ข้อเสนอแนะ (01B)</td><td>5 นาที/คน + Q&amp;A 2 นาที, Summit/อุตสาหกรรมร่วมฟัง</td></tr>
-            <tr><td class="time-col">12:00–13:00</td><td>พักรับประทานอาหารกลางวัน</td><td></td></tr>
-            <tr><td class="time-col">13:00–16:30</td><td>นำเสนอผลงาน (ต่อ), สรุป Feedback, ประกาศทีมโครงการ</td><td>คณะกรรมการ + Guest</td></tr>
-          </tbody>
-        </table>
       </div>
 
       <h3>Showcase Day ปิดรุ่น — Onsite เชียงใหม่ (3 วัน 2 คืน)</h3>
@@ -1020,16 +1009,12 @@
           <p>ทฤษฎี ส–อา. (เช้า/เย็น) + ปฏิบัติ จ–ศ. (เย็น) รวม ≥ 12–15 ชม./สัปดาห์ · ส่งงานรายสัปดาห์ · Sprint Showcase ทุกโมดูล</p>
         </div>
         <div class="card">
-          <h4>อุปกรณ์</h4>
-          <p>Laptop ส่วนตัว, ติดตั้ง Node.js + Git, อินเทอร์เน็ต ≥ 10 Mbps สำหรับเรียน Online</p>
-        </div>
-        <div class="card">
           <h4>การลา / ขาดเรียน</h4>
-          <p>แจ้งผู้ประสานงานล่วงหน้า (อีเมล) · ขาดคลาสทฤษฎีดู VDO + ส่งงาน Classroom แทนได้ · Onsite บังคับห้ามขาดโดยไม่แจ้ง</p>
+          <p>แจ้งผู้ประสานงานล่วงหน้าทางอีเมล · Onsite บังคับห้ามขาดโดยไม่แจ้ง (การนับเมื่อขาดคลาสทฤษฎี ดูกล่องด้านบน)</p>
         </div>
         <div class="card">
           <h4>ปรึกษา Mentor</h4>
-          <p>ช่วงปฏิบัติ (จ–ศ.) ทำชิ้นงานเองได้ · ติดปัญหาขอนัดผู้สอนหรือ Mentor ล่วงหน้า (อีเมล / กลุ่มแชท)</p>
+          <p>ติดปัญหาระหว่างทำชิ้นงาน → ขอนัดผู้สอนหรือ Mentor ล่วงหน้า (อีเมล / กลุ่มแชท)</p>
         </div>
         <div class="card">
           <h4>ผลงานปลายทาง</h4>
@@ -1047,7 +1032,7 @@
           <tbody>
             <tr>
               <td><strong>การเข้าร่วม</strong></td>
-              <td>≥ 80% ของ<strong>คลาสทฤษฎีที่มีการสอน</strong> (ส–อา.) + Onsite บังคับ · ขาดคลาส → ดู VDO + ส่งงาน Classroom = นับครบ</td>
+              <td>≥ 80% ของ<strong>คลาสทฤษฎีที่มีการสอน</strong> (ส–อา.) + Onsite บังคับ (วิธีนับเมื่อขาดคลาส ดูหัวข้อกติกา)</td>
             </tr>
             <tr>
               <td><strong>งานรายสัปดาห์</strong></td>
