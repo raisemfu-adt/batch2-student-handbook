@@ -361,6 +361,8 @@
     }
     .hero-date.current .when { color: var(--teal); font-weight: 700; }
     .hero-date.current .date { color: var(--teal); }
+    .wk-done td { color: var(--text-soft); }
+    .wk-done .hours-theory, .wk-done .hours-practice { opacity: 0.5; }
 
     .tl-date {
       font-size: 12px;
@@ -555,6 +557,13 @@
       .header h1 { font-size: 22px; }
       .hero-date .date { font-size: 17px; }
     }
+      details.foldable { border: 0.5px solid var(--border); border-radius: 8px; padding: 0 16px; margin-bottom: 16px; }
+    details.foldable > summary { cursor: pointer; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); padding: 14px 0; list-style: none; }
+    details.foldable > summary::-webkit-details-marker { display: none; }
+    details.foldable > summary::before { content: "\25B8  "; }
+    details.foldable[open] > summary::before { content: "\25BE  "; }
+    details.foldable[open] > summary { border-bottom: 0.5px solid var(--border); margin-bottom: 14px; }
+    details.foldable > *:last-child { margin-bottom: 16px; }
   </style>
 </head>
 <body>
@@ -614,16 +623,144 @@
         </div>
 
         <div style="grid-column:1/-1;border-top:1px solid #e5e7eb;padding-top:12px">
-          <div style="font-size:13px;font-weight:700;color:#1e4d8c;margin-bottom:6px">ตารางอาทิตย์แรก · 1–2 ส.ค. (Online)</div>
+          <div style="font-size:13px;font-weight:700;color:#0f766e;margin-bottom:6px">▶ สัปดาห์นี้ · เสาร์ 8 – อาทิตย์ 9 ส.ค. (Online) · สัปดาห์ 3</div>
           <div style="font-size:14px;color:#374151;line-height:1.7">
-            <strong>เสาร์ 1 ส.ค.</strong> 09:00–12:00 Agile (อ.ปรัชญา) · 13:00–16:00 Setup + Product Backlog/Requirement (ติดตั้ง Claude/GitHub/Firebase)<br>
-            <strong>อาทิตย์ 2 ส.ค.</strong> 09:00–12:00 จริยธรรม AI / PDPA · + ~8 ชม. ปฏิบัติ/นัดปรึกษา
+            <strong>เสาร์ 8 ส.ค.</strong> 09:00–16:00 · ออกแบบเน้นผู้ใช้ + Persona / Journey Map (อ.สุธัม ธรรมวงศ์)<br>
+            <strong>อาทิตย์ 9 ส.ค.</strong> 09:00–12:00 · (ต่อเนื่อง) · + ~5 ชม. ปฏิบัติ/นัดปรึกษา
           </div>
-          <div style="font-size:13px;color:#6b7280;margin-top:8px">ชิ้นงาน M1: Persona · Journey Map · Interactive Prototype · Draft Spec Package (ส่งใน Classroom · M1 จบ 23 ส.ค.)</div>
+          <div style="font-size:13px;color:#6b7280;margin-top:8px">ส่งสัปดาห์นี้: Persona + Journey Map · (ชิ้นงานรวม M1: Persona · Journey · Prototype · Draft Spec — จบ 23 ส.ค.)</div>
         </div>
 
       </div>
     </div>
+
+  <!-- Module 1 detailed schedule (moved to top — current module) -->
+    <section>
+      <h2>ตารางเรียน Module 1 (เดือนแรก)</h2>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead>
+            <tr>
+              <th>วันที่</th><th>เวลา</th><th>ประเภท</th><th>หัวข้อ</th><th>ผู้สอน</th><th>ผลงาน / กิจกรรม</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="month-row wk-done"><td colspan="6">▌ สัปดาห์ 1 — 25–26 ก.ค. (Onsite เชียงราย) · 17 ชม. <span class="badge done">เรียนแล้ว</span></td></tr>
+            <tr class="wk-done"><td>25–26 ก.ค.</td><td>เต็มวัน (17 ชม.)</td><td><span class="hours-practice">ปฏิบัติ</span></td><td>เปิดโครงการ &amp; Hackathon + TPQI 7001</td><td>ทีมผู้สอน + วิทยากร</td><td>Problem Statement, ชื่อโครงการ, Pitch</td></tr>
+
+            <tr class="month-row wk-done"><td colspan="6">▌ สัปดาห์ 2 — 1–2 ส.ค. (Online) · 17 ชม. = สอน 9 + ปฏิบัติ/ปรึกษา 8 <span class="badge done">เรียนแล้ว</span></td></tr>
+            <tr class="wk-done"><td>เสาร์ 1 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Agile + TPQI 7003 (กรอบการเปลี่ยนแปลง)</td><td>นายปรัชญา เพชรอนัญญา</td><td>Agile assignment</td></tr>
+            <tr class="wk-done"><td>เสาร์ 1 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>Setup + Product Backlog / Req (Markdown + HTML Spec)</td><td>นายปรัชญา เพชรอนัญญา</td><td>ติดตั้ง Claude/GitHub/Firebase</td></tr>
+            <tr class="wk-done"><td>อาทิตย์ 2 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>จริยธรรม AI / PDPA</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
+            <tr class="wk-done"><td>ที่เหลือ</td><td>~8 ชม. (นัดหมาย)</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติ — Backlog/Requirement + นัดขอคำปรึกษา</td><td>ผู้สอน / Mentor</td><td>Backlog/Requirement</td></tr>
+
+            <tr class="month-row"><td colspan="6" style="background:#ecfdf5;">▌ สัปดาห์ 3 — 8–9 ส.ค. (Online) · 14 ชม. = สอน 9 + ปฏิบัติ/ปรึกษา 5 <span class="badge key">สัปดาห์นี้</span></td></tr>
+            <tr><td>เสาร์ 8 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>ออกแบบเน้นผู้ใช้ + TPQI 7002 (Persona / AI Landscape)</td><td>นายสุธัม ธรรมวงศ์</td><td>UX + Persona + Journey Map</td></tr>
+            <tr><td>เสาร์ 8 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายสุธัม ธรรมวงศ์</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 9 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายสุธัม ธรรมวงศ์</td><td class="muted">—</td></tr>
+            <tr><td>ที่เหลือ</td><td>~5 ชม. (นัดหมาย)</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติ — Persona/Journey + นัดปรึกษา</td><td>ผู้สอน / Mentor</td><td>Persona/Journey</td></tr>
+
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 4 — 15–16 ส.ค. (Online) · 14 ชม. = สอน 9 + ปฏิบัติ/ปรึกษา 5</td></tr>
+            <tr><td>เสาร์ 15 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Prototype + TPQI 7004/7005 (Prompt Engineering / Claude)</td><td>นายปรัชญา เพชรอนัญญา</td><td>Interactive Prototype (ลิงก์)</td></tr>
+            <tr><td>เสาร์ 15 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 16 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
+            <tr><td>ที่เหลือ</td><td>~5 ชม. (นัดหมาย)</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติ — สร้าง Prototype + นัดปรึกษา</td><td>ผู้สอน / Mentor</td><td>Prototype</td></tr>
+
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 5 — 22–23 ส.ค. (Online) · 12 ชม. = สอน 9 + ปฏิบัติ/ปรึกษา 3</td></tr>
+            <tr><td>เสาร์ 22 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>ข้อกำหนดระบบ (Spec: Functional/Non-Functional/Technical)</td><td>นายปรัชญา เพชรอนัญญา</td><td>Feature List, API, DB Spec</td></tr>
+            <tr><td>เสาร์ 22 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 23 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
+            <tr><td>ที่เหลือ</td><td>~3 ชม. (นัดหมาย)</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติ — Draft Spec Package + นัดปรึกษา</td><td>ผู้สอน / Mentor</td><td>Spec Package</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  <!-- Module 2 & 3 detailed schedules (moved to top) -->
+    <section>
+      <h2>ตารางเรียน Module 2</h2>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead>
+            <tr>
+              <th>วันที่</th><th>เวลา</th><th>ประเภท</th><th>หัวข้อ</th><th>ผู้สอน</th><th>ผลงาน / กิจกรรม</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 6 (W6) — 29 ส.ค. – 1 ก.ย. (Online)</td></tr>
+            <tr><td>เสาร์ 29 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">Lecture</span></td><td>Full-Stack Setup — Node/Git + Workflow + Context &amp; Token</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr><td>เสาร์ 29 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-practice">Workshop</span></td><td>ฝึกปฏิบัติตามหัวข้อ Lecture</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td>Repo + หน้าเว็บครบ (ยังไม่มี DB)</td></tr>
+            <tr><td>อาทิตย์ 30 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 1</span></td><td>ให้คำปรึกษา (นัดหมายล่วงหน้า)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr><td>อังคาร 1 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 1</span></td><td>ให้คำปรึกษา (นัดหมายล่วงหน้า)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 7 (W7) — 5–8 ก.ย. (Online)</td></tr>
+            <tr><td>เสาร์ 5 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">Lecture</span></td><td>CLAUDE.md + Git/GitHub — Full Stack: FE + BE + Database</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr><td>เสาร์ 5 ก.ย.</td><td class="time-col">13:00–16:00</td><td><span class="hours-practice">Workshop</span></td><td>ฝึกปฏิบัติตามหัวข้อ Lecture</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td>CLAUDE.md + GitHub + CRUD logic</td></tr>
+            <tr><td>อาทิตย์ 6 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 2</span></td><td>ให้คำปรึกษา (นัดหมายล่วงหน้า)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr><td>อังคาร 8 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 2</span></td><td>ให้คำปรึกษา (นัดหมายล่วงหน้า)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 8 (W8) — 12–15 ก.ย. (Online)</td></tr>
+            <tr><td>เสาร์ 12 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">Lecture</span></td><td>Deploy ขึ้นใช้งานจริง (Sub-Agents Reviewer)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr><td>เสาร์ 12 ก.ย.</td><td class="time-col">13:00–16:00</td><td><span class="hours-practice">Workshop</span></td><td>ฝึกปฏิบัติตามหัวข้อ Lecture</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td>ระบบออนไลน์ + Reviewer agent</td></tr>
+            <tr><td>อาทิตย์ 13 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 3</span></td><td>ให้คำปรึกษา (นัดหมายล่วงหน้า)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr><td>อังคาร 15 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 3</span></td><td>ให้คำปรึกษา (นัดหมายล่วงหน้า)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 9 (W9) — 19–22 ก.ย. (Online)</td></tr>
+            <tr><td>เสาร์ 19 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">Lecture</span></td><td>Sprint 1 Review — Tester + Playwright MCP + เตรียมส่งมอบ</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr><td>เสาร์ 19 ก.ย.</td><td class="time-col">13:00–16:00</td><td><span class="hours-practice">Workshop</span></td><td>ฝึกปฏิบัติตามหัวข้อ Lecture</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td>Full-Stack block + Sprint 1 (MVP ส่งมอบ)</td></tr>
+            <tr><td>อาทิตย์ 20 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 4</span></td><td>ให้คำปรึกษา (นัดหมายล่วงหน้า)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr><td>อังคาร 22 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 4</span></td><td>ให้คำปรึกษา (นัดหมายล่วงหน้า)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>ตารางเรียน Module 3</h2>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead>
+            <tr>
+              <th>วันที่</th><th>เวลา</th><th>ประเภท</th><th>หัวข้อ</th><th>ผู้สอน</th><th>ผลงาน / กิจกรรม</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 10 — 26–27 ก.ย. (Online) · 12 ชม.</td></tr>
+            <tr><td>เสาร์ 26 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Introduction to M3: Data Analytic and AI</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td class="muted">—</td></tr>
+            <tr><td>เสาร์ 26 ก.ย.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>Basic Data Analytics &amp; Visualization (AI Vibe coding) → Dashboard (Recharts / ดึงข้อมูลจาก DB)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 27 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Basic Data Analytics &amp; Visualization (ต่อ)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 27 ก.ย.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td>Basic data analytic dashboard</td></tr>
+
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 11 — 3–4 ต.ค. (Online) · 12 ชม.</td></tr>
+            <tr><td>เสาร์ 3 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Advance Data Analytics &amp; Visualization (AI Vibe coding)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
+            <tr><td>เสาร์ 3 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 4 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Advance Data Analytics &amp; Visualization (ต่อ)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 4 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td>Advance data analytic + DB connection</td></tr>
+
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 11A — 10–11 ต.ค. (Online) · 9 ชม.</td></tr>
+            <tr><td>เสาร์ 10 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Data Analytic &amp; Visualization in Practice (TPQI 7004.2, 7004.3)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td class="muted">—</td></tr>
+            <tr><td>เสาร์ 10 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 11 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Data Analytic &amp; Visualization in Practice (ต่อ)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td>Data analytic &amp; visualization app</td></tr>
+
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 12 — 17–18 ต.ค. (Online) · 12 ชม.</td></tr>
+            <tr><td>เสาร์ 17 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>AI Model and LLM with Vibe coding</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
+            <tr><td>เสาร์ 17 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td>AI model app</td></tr>
+            <tr><td>อาทิตย์ 18 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>AI Model and LLM with Vibe coding (ต่อ)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 18 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td>AI + LLM app</td></tr>
+
+            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 12A — 24–25 ต.ค. (Online) · 12 ชม.</td></tr>
+            <tr><td>เสาร์ 24 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>AI Model and LLM in Practice (TPQI 7004.4, 7004.5)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td>Data analytic &amp; AI project progression</td></tr>
+            <tr><td>เสาร์ 24 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 25 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Sprint 2 Review: Data Analytic &amp; AI project (ระบบรวม TPQI 7006–7008)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td>Project presentation</td></tr>
+            <tr><td>อาทิตย์ 25 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td class="muted">—</td></tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
 
   <!-- Key dates hero -->
     <div class="hero-dates">
@@ -695,8 +832,8 @@
     </section>
 
   <!-- Structure -->
-    <section>
-      <h2>โครงสร้าง 5 โมดูล, 22 สัปดาห์</h2>
+    <details class="foldable">
+      <summary>โครงสร้าง 5 โมดูล, 22 สัปดาห์</summary>
       <div class="card-grid">
         <div class="card">
           <h4>M1 — Design-Ready</h4>
@@ -730,11 +867,11 @@
         <span class="arrow">→</span>
         <span class="step final">Showcase Day + EoC สป.20</span>
       </div>
-    </section>
+    </details>
 
   <!-- PLO (TOR ฉบับยื่น สปอว.) -->
-    <section id="plo">
-      <h2>ผลลัพธ์การเรียนรู้เมื่อจบหลักสูตร (PLO)</h2>
+    <details class="foldable" id="plo">
+      <summary>ผลลัพธ์การเรียนรู้เมื่อจบหลักสูตร (PLO)</summary>
       <p class="muted" style="margin-bottom: 14px;">อ้างอิง <strong>TOR มหาวิทยาลัยแม่ฟ้าหลวง Batch 2</strong> (ฉบับยื่น สปอว.) · Credential: <strong>Digital Technology and AI Developer for Modern Enterprise</strong> ระดับ Associate Level / Junior-Ready</p>
       <div class="card-grid" style="margin-bottom: 16px;">
         <div class="card">
@@ -763,11 +900,11 @@
           </tbody>
         </table>
       </div>
-    </section>
+    </details>
 
   <!-- Mandatory events -->
-    <section id="mandatory">
-      <h2>กิจกรรมบังคับ — ต้องเข้าร่วมครบ</h2>
+    <details class="foldable" id="mandatory">
+      <summary>กิจกรรมบังคับ — ต้องเข้าร่วมครบ</summary>
       <p class="muted" style="margin-bottom: 14px;">คุณยืนยันไว้ตอนสมัครแล้ว, ขาดกิจกรรมเหล่านี้อาจมีผลต่อการผ่านหลักสูตร</p>
       <div class="table-wrap">
         <table>
@@ -831,13 +968,13 @@
           </tbody>
         </table>
       </div>
-    </section>
+    </details>
 
   <!-- Prep: tools + checklist -->
 
   <!-- Detailed schedule -->
-    <section id="schedule">
-      <h2>ตารางเรียนละเอียด (วันที่, เวลา)</h2>
+    <details class="foldable" id="schedule">
+      <summary>ตารางเรียนละเอียด (วันที่, เวลา)</summary>
       <p class="schedule-note">
         อ้างอิง <strong>ADT-RAISE-NonDegree-2-19June.xlsx</strong> (Sheet รายละเอียดงบ · StudyPlan · OpenDay · Showcase Day)
         · รวม <strong>285 ชม.</strong> (ทฤษฎี 60 + ปฏิบัติ 225)
@@ -875,124 +1012,8 @@
       </div>
 
 
-      <h3>ตารางเรียนละเอียด — Module 1 (ผู้สอน &amp; ผลงาน)</h3>
-      <div class="table-wrap">
-        <table class="compact">
-          <thead>
-            <tr>
-              <th>วันที่</th><th>เวลา</th><th>ประเภท</th><th>หัวข้อ</th><th>ผู้สอน</th><th>ผลงาน / กิจกรรม</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 1 — 25–26 ก.ค. (Onsite เชียงราย) · 17 ชม.</td></tr>
-            <tr><td>25–26 ก.ค.</td><td>เต็มวัน (17 ชม.)</td><td><span class="hours-practice">ปฏิบัติ</span></td><td>เปิดโครงการ &amp; Hackathon + TPQI 7001</td><td>ทีมผู้สอน + วิทยากร</td><td>Problem Statement, ชื่อโครงการ, Pitch</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 2 — 1–2 ส.ค. (Online) · 17 ชม. = สอน 9 + ปฏิบัติ/ปรึกษา 8</td></tr>
-            <tr><td>เสาร์ 1 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Agile + TPQI 7003 (กรอบการเปลี่ยนแปลง)</td><td>นายปรัชญา เพชรอนัญญา</td><td>Agile assignment</td></tr>
-            <tr><td>เสาร์ 1 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>Setup + Product Backlog / Req (Markdown + HTML Spec)</td><td>นายปรัชญา เพชรอนัญญา</td><td>ติดตั้ง Claude/GitHub/Firebase</td></tr>
-            <tr><td>อาทิตย์ 2 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>จริยธรรม AI / PDPA</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
-            <tr><td>ที่เหลือ</td><td>~8 ชม. (นัดหมาย)</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติ — Backlog/Requirement + นัดขอคำปรึกษา</td><td>ผู้สอน / Mentor</td><td>Backlog/Requirement</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 3 — 8–9 ส.ค. (Online) · 14 ชม. = สอน 9 + ปฏิบัติ/ปรึกษา 5</td></tr>
-            <tr><td>เสาร์ 8 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>ออกแบบเน้นผู้ใช้ + TPQI 7002 (Persona / AI Landscape)</td><td>นายสุธัม ธรรมวงศ์</td><td>UX + Persona + Journey Map</td></tr>
-            <tr><td>เสาร์ 8 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายสุธัม ธรรมวงศ์</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 9 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายสุธัม ธรรมวงศ์</td><td class="muted">—</td></tr>
-            <tr><td>ที่เหลือ</td><td>~5 ชม. (นัดหมาย)</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติ — Persona/Journey + นัดปรึกษา</td><td>ผู้สอน / Mentor</td><td>Persona/Journey</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 4 — 15–16 ส.ค. (Online) · 14 ชม. = สอน 9 + ปฏิบัติ/ปรึกษา 5</td></tr>
-            <tr><td>เสาร์ 15 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Prototype + TPQI 7004/7005 (Prompt Engineering / Claude)</td><td>นายปรัชญา เพชรอนัญญา</td><td>Interactive Prototype (ลิงก์)</td></tr>
-            <tr><td>เสาร์ 15 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 16 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
-            <tr><td>ที่เหลือ</td><td>~5 ชม. (นัดหมาย)</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติ — สร้าง Prototype + นัดปรึกษา</td><td>ผู้สอน / Mentor</td><td>Prototype</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 5 — 22–23 ส.ค. (Online) · 12 ชม. = สอน 9 + ปฏิบัติ/ปรึกษา 3</td></tr>
-            <tr><td>เสาร์ 22 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>ข้อกำหนดระบบ (Spec: Functional/Non-Functional/Technical)</td><td>นายปรัชญา เพชรอนัญญา</td><td>Feature List, API, DB Spec</td></tr>
-            <tr><td>เสาร์ 22 ส.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 23 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>นายปรัชญา เพชรอนัญญา</td><td class="muted">—</td></tr>
-            <tr><td>ที่เหลือ</td><td>~3 ชม. (นัดหมาย)</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติ — Draft Spec Package + นัดปรึกษา</td><td>ผู้สอน / Mentor</td><td>Spec Package</td></tr>
-
-          </tbody>
-        </table>
-      </div>
-
-
-      <h3>ตารางเรียนละเอียด — Module 2 (ผู้สอน &amp; ผลงาน)</h3>
-      <div class="table-wrap">
-        <table class="compact">
-          <thead>
-            <tr>
-              <th>วันที่</th><th>เวลา</th><th>ประเภท</th><th>หัวข้อ</th><th>ผู้สอน</th><th>ผลงาน / กิจกรรม</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 6 — 29–30 ส.ค. (Online) · 16 ชม.</td></tr>
-            <tr><td>เสาร์ 29 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Full-Stack Setup — Node/Git + Workflow + Context &amp; Token</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 30 ส.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td>Repo + หน้าเว็บครบ (ยังไม่มี DB)</td></tr>
-            <tr><td>ที่เหลือ</td><td>ตามนัดหมาย</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติทำชิ้นงาน + นัดผู้สอน/Mentor ขอคำปรึกษา</td><td>รศ.ดร.นชา ชลดำรงค์กุล / Mentor</td><td>Repo + หน้าเว็บ</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 7 — 5–6 ก.ย. (Online) · 16 ชม.</td></tr>
-            <tr><td>เสาร์ 5 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>CLAUDE.md + Git/GitHub — Full Stack: FE + BE + Database</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 6 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td>CLAUDE.md + GitHub + CRUD logic</td></tr>
-            <tr><td>ที่เหลือ</td><td>ตามนัดหมาย</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติ + นัดขอคำปรึกษา</td><td>รศ.ดร.นชา ชลดำรงค์กุล / Mentor</td><td>CRUD logic</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 8 — 12–13 ก.ย. (Online) · 16 ชม.</td></tr>
-            <tr><td>เสาร์ 12 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Deploy ขึ้นใช้งานจริง (Sub-Agents Reviewer)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 13 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td>ระบบออนไลน์ + Reviewer agent</td></tr>
-            <tr><td>ที่เหลือ</td><td>ตามนัดหมาย</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>ฝึกปฏิบัติ + นัดขอคำปรึกษา</td><td>รศ.ดร.นชา ชลดำรงค์กุล / Mentor</td><td>ระบบออนไลน์</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 9 — 19–20 ก.ย. (Online) · 16 ชม.</td></tr>
-            <tr><td>เสาร์ 19 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Sprint 1 Review — Tester + Playwright MCP + เตรียมส่งมอบ</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td>Full-Stack block + Sprint 1 (MVP ส่งมอบ)</td></tr>
-            <tr><td>อาทิตย์ 20 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
-            <tr><td>ที่เหลือ</td><td>ตามนัดหมาย</td><td><span class="hours-practice">ปฏิบัติ + ปรึกษา</span></td><td>Pitch + Industry Feedback + ฝึกปฏิบัติ</td><td>ธีรเมธ แก้ววิเศษ (Summit) / Mentor</td><td>Pitch + Industry feedback</td></tr>
-
-          </tbody>
-        </table>
-      </div>
-
-
-      <h3>ตารางเรียนละเอียด — Module 3 (ผู้สอน &amp; ผลงาน)</h3>
-      <div class="table-wrap">
-        <table class="compact">
-          <thead>
-            <tr>
-              <th>วันที่</th><th>เวลา</th><th>ประเภท</th><th>หัวข้อ</th><th>ผู้สอน</th><th>ผลงาน / กิจกรรม</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 10 — 26–27 ก.ย. (Online) · 12 ชม.</td></tr>
-            <tr><td>เสาร์ 26 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Introduction to M3: Data Analytic and AI</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td class="muted">—</td></tr>
-            <tr><td>เสาร์ 26 ก.ย.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>Basic Data Analytics &amp; Visualization (AI Vibe coding) → Dashboard (Recharts / ดึงข้อมูลจาก DB)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 27 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Basic Data Analytics &amp; Visualization (ต่อ)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 27 ก.ย.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td>Basic data analytic dashboard</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 11 — 3–4 ต.ค. (Online) · 12 ชม.</td></tr>
-            <tr><td>เสาร์ 3 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Advance Data Analytics &amp; Visualization (AI Vibe coding)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
-            <tr><td>เสาร์ 3 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 4 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Advance Data Analytics &amp; Visualization (ต่อ)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 4 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td>Advance data analytic + DB connection</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 11A — 10–11 ต.ค. (Online) · 9 ชม.</td></tr>
-            <tr><td>เสาร์ 10 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Data Analytic &amp; Visualization in Practice (TPQI 7004.2, 7004.3)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td class="muted">—</td></tr>
-            <tr><td>เสาร์ 10 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 11 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Data Analytic &amp; Visualization in Practice (ต่อ)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td>Data analytic &amp; visualization app</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 12 — 17–18 ต.ค. (Online) · 12 ชม.</td></tr>
-            <tr><td>เสาร์ 17 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>AI Model and LLM with Vibe coding</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
-            <tr><td>เสาร์ 17 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td>AI model app</td></tr>
-            <tr><td>อาทิตย์ 18 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>AI Model and LLM with Vibe coding (ต่อ)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 18 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.นงนุช (สมาคมปัญญาประดิษฐ์ฯ)</td><td>AI + LLM app</td></tr>
-
-            <tr class="month-row"><td colspan="6">▌ สัปดาห์ 12A — 24–25 ต.ค. (Online) · 12 ชม.</td></tr>
-            <tr><td>เสาร์ 24 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>AI Model and LLM in Practice (TPQI 7004.4, 7004.5)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td>Data analytic &amp; AI project progression</td></tr>
-            <tr><td>เสาร์ 24 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td class="muted">—</td></tr>
-            <tr><td>อาทิตย์ 25 ต.ค.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">เรียน</span></td><td>Sprint 2 Review: Data Analytic &amp; AI project (ระบบรวม TPQI 7006–7008)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td>Project presentation</td></tr>
-            <tr><td>อาทิตย์ 25 ต.ค.</td><td class="time-col">13:00–16:00</td><td><span class="hours-theory">เรียน</span></td><td>(ต่อเนื่อง)</td><td>ผศ.ดร.ขวัญตา คีรีมาศทอง</td><td class="muted">—</td></tr>
-
-          </tbody>
-        </table>
-      </div>
-      <p class="muted" style="margin-top: 10px;">สอนสด (เรียน) + ช่วง “ปฏิบัติ/ปรึกษา” นัดหมายกับผู้สอนหรือ Mentor เพื่อทำชิ้นงานและขอคำปรึกษา ให้ครบชั่วโมงต่อสัปดาห์ · M1 บรรยายเยอะ · M2 เรียนเช้าเสาร์–อาทิตย์ ที่เหลือนัดหมาย · M3 สอนเต็มทุกคาบ (ตาราง M4–M20 จะเพิ่มในรูปแบบเดียวกันภายหลัง)</p>
-    </section>
+<p class="muted" style="margin-top: 10px;">สอนสด (เรียน) + ช่วง “ปฏิบัติ/ปรึกษา” นัดหมายกับผู้สอนหรือ Mentor เพื่อทำชิ้นงานและขอคำปรึกษา ให้ครบชั่วโมงต่อสัปดาห์ · M1 บรรยายเยอะ · M2 เรียนเช้าเสาร์–อาทิตย์ ที่เหลือนัดหมาย · M3 สอนเต็มทุกคาบ (ตาราง M4–M20 จะเพิ่มในรูปแบบเดียวกันภายหลัง)</p>
+    </details>
 
 
   <!-- Commitments -->
