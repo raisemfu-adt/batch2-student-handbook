@@ -364,6 +364,11 @@
     .wk-done td { color: var(--text-soft); }
     .wk-done .hours-theory, .wk-done .hours-practice { opacity: 0.5; }
 
+    tr.month-row.wk-done { cursor: pointer; user-select: none; }
+    tr.month-row.wk-done td::before { content: "▾  "; display: inline-block; width: 12px; }
+    tr.month-row.wk-done.collapsed td::before { content: "▸  "; }
+    tr.month-row.wk-done td::after { content: "  (คลิกเพื่อดูรายละเอียด)"; font-weight: 400; opacity: 0.6; }
+
     .tl-date {
       font-size: 12px;
       font-weight: 600;
@@ -1109,5 +1114,23 @@
     </footer>
 
   </div>
+
+  <script>
+    (function () {
+      function toggleWeek(header) {
+        header.classList.toggle('collapsed');
+        var hide = header.classList.contains('collapsed');
+        var row = header.nextElementSibling;
+        while (row && !row.classList.contains('month-row')) {
+          row.style.display = hide ? 'none' : '';
+          row = row.nextElementSibling;
+        }
+      }
+      document.querySelectorAll('tr.month-row.wk-done').forEach(function (header) {
+        header.addEventListener('click', function () { toggleWeek(header); });
+        toggleWeek(header); // collapsed by default
+      });
+    })();
+  </script>
 </body>
 </html>
