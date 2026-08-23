@@ -168,7 +168,7 @@
   </div>
 
   <div class="privacy-note">
-    🔒 หน้านี้แสดงเฉพาะ <strong>รหัสนักศึกษา</strong> เพื่อความเป็นส่วนตัว — ไม่แสดงชื่อ-นามสกุล ค้นหาแถวของตนเองด้วยรหัสของคุณในช่องค้นหาด้านล่าง
+    🔒 หน้านี้แสดงเฉพาะ <strong>รหัสนักศึกษา</strong> เพื่อความเป็นส่วนตัว — ไม่แสดงชื่อ-นามสกุล และรหัสจะแสดงแบบซ่อนบางส่วน (เช่น 6910•••) จนกว่าคุณจะพิมพ์รหัสเต็มของตนเองในช่องค้นหาด้านล่างเพื่อดูแถวของตนเอง
   </div>
 
   <div class="callout">
@@ -257,6 +257,11 @@
     return `<span class="pct-badge ${cls}">${p}%</span>`;
   }
 
+  function maskId(id) {
+    // keep the shared prefix, hide the digits that actually identify the student
+    return id.slice(0, 4) + '•••';
+  }
+
   // Build header
   const headRow = document.getElementById('head-row');
   let headHtml = '<th class="id-col">รหัสนักศึกษา</th>';
@@ -269,7 +274,7 @@
   // Build body
   const bodyEl = document.getElementById('body-rows');
   bodyEl.innerHTML = students.map(s => {
-    let row = `<tr data-id="${s.id}"><td class="id-col">${s.id}</td>`;
+    let row = `<tr data-id="${s.id}"><td class="id-col" data-full="${s.id}">${maskId(s.id)}</td>`;
     weekLabels.forEach((w, i) => {
       if (weekHasData[i]) row += `<td>${markCell(s.weeks[i])}</td>`;
     });
@@ -287,7 +292,10 @@
   document.getElementById('search').addEventListener('input', e => {
     const q = e.target.value.trim();
     bodyEl.querySelectorAll('tr').forEach(tr => {
-      tr.classList.toggle('hidden', q !== '' && !tr.dataset.id.includes(q));
+      const match = q !== '' && tr.dataset.id.includes(q);
+      tr.classList.toggle('hidden', q !== '' && !match);
+      const idCell = tr.querySelector('.id-col');
+      idCell.textContent = match ? idCell.dataset.full : maskId(idCell.dataset.full);
     });
     updateCount();
   });
