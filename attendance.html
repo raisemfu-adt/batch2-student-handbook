@@ -168,7 +168,7 @@
   </div>
 
   <div class="privacy-note">
-    🔒 หน้านี้แสดงเฉพาะ <strong>รหัสนักศึกษา</strong> เพื่อความเป็นส่วนตัว — ไม่แสดงชื่อ-นามสกุล และรหัสจะแสดงแบบซ่อนบางส่วน (เช่น 6910•••) จนกว่าคุณจะพิมพ์รหัสเต็มของตนเองในช่องค้นหาด้านล่างเพื่อดูแถวของตนเอง
+    🔒 เพื่อความเป็นส่วนตัว หน้านี้จะ<strong>ไม่แสดงข้อมูลของใครเลย</strong>จนกว่าคุณจะพิมพ์ <strong>รหัสนักศึกษา</strong> ของตนเองให้ครบในช่องค้นหาด้านล่าง — ไม่แสดงชื่อ-นามสกุล และไม่แสดงรายชื่อทั้งหมด
   </div>
 
   <div class="callout">
@@ -283,21 +283,29 @@
   }).join('');
 
   const countEl = document.getElementById('count');
-  function updateCount() {
-    const visible = bodyEl.querySelectorAll('tr:not(.hidden)').length;
-    countEl.textContent = `แสดง ${visible} / ${students.length} คน`;
-  }
-  updateCount();
+  const tableWrapEl = document.querySelector('.table-wrap');
 
-  document.getElementById('search').addEventListener('input', e => {
-    const q = e.target.value.trim();
+  function applyFilter(q) {
+    let visible = 0;
     bodyEl.querySelectorAll('tr').forEach(tr => {
       const match = q !== '' && tr.dataset.id.includes(q);
-      tr.classList.toggle('hidden', q !== '' && !match);
+      tr.classList.toggle('hidden', !match);
       const idCell = tr.querySelector('.id-col');
       idCell.textContent = match ? idCell.dataset.full : maskId(idCell.dataset.full);
+      if (match) visible++;
     });
-    updateCount();
+    if (q === '') {
+      countEl.textContent = 'พิมพ์รหัสนักศึกษาของคุณเพื่อดูสถานะ';
+      tableWrapEl.style.display = 'none';
+    } else {
+      countEl.textContent = visible > 0 ? `พบ ${visible} รายการ` : 'ไม่พบรหัสนี้ในระบบ';
+      tableWrapEl.style.display = visible > 0 ? '' : 'none';
+    }
+  }
+  applyFilter('');
+
+  document.getElementById('search').addEventListener('input', e => {
+    applyFilter(e.target.value.trim());
   });
 </script>
 </body>
