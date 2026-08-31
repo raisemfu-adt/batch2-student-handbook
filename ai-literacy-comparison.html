@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เทียบหลักสูตร บัณฑิตพันธุ์ใหม่ × AI Literacy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1b2a; --bg2:#132840;
+    --ink:#0f1720; --paper:#ffffff; --muted:#5b6b7d;
+    --brand:#1f6feb; --brand2:#0a9396; --accent:#ee9b00;
+    --gen:#2a9d8f; --biz:#1f6feb; --pow:#9b2226;
+    --line:#e2e8f0; --soft:#f5f8fc;
+    --ok:#2a9d8f; --warn:#ca6702; --gap:#bb3e03;
+    --font:'IBM Plex Sans Thai',-apple-system,'Segoe UI',sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:var(--font);background:#060d16;color:var(--ink);overflow:hidden}
+
+  .deck{position:fixed;inset:0}
+  .slide{
+    position:absolute;inset:0;display:none;
+    padding:56px 72px 72px;background:var(--paper);
+    flex-direction:column;animation:fade .35s ease;
+  }
+  .slide.active{display:flex}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .slide.dark{
+    background:radial-gradient(1200px 600px at 80% -10%,var(--bg2),var(--bg));
+    color:#eef4fb;justify-content:center;
+  }
+  .slide.dark .eyebrow{color:#8ecae6}
+  .slide.dark h1{color:#fff}
+
+  .eyebrow{font-size:16px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin-bottom:14px}
+  h1{font-size:52px;line-height:1.12;font-weight:700;letter-spacing:-.01em}
+  h2{font-size:34px;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+  .sub{font-size:19px;color:var(--muted);margin-bottom:26px;font-weight:500}
+  .slide.dark .sub{color:#a9c3dd}
+  p{font-size:19px;line-height:1.6}
+
+  .kicker{display:inline-block;font-size:15px;font-weight:600;color:var(--brand);background:var(--soft);
+    border:1px solid var(--line);padding:5px 14px;border-radius:999px;margin-bottom:18px;width:max-content}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px;flex:1;align-content:start}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+  .fill{flex:1;display:flex;flex-direction:column;justify-content:center}
+
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+  .card h3{font-size:21px;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+  .card ul{margin:0;padding-left:20px}
+  .card li{font-size:17px;line-height:1.55;margin:5px 0}
+  .tag{font:600 13px/1 var(--mono);padding:4px 9px;border-radius:6px;color:#fff}
+
+  table{width:100%;border-collapse:collapse;font-size:16.5px}
+  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--bg);color:#fff;font-weight:600;font-size:15px}
+  thead th:first-child{border-top-left-radius:10px}
+  thead th:last-child{border-top-right-radius:10px}
+  tbody tr:nth-child(even){background:var(--soft)}
+  td code,.mono{font-family:var(--mono);font-size:14.5px}
+
+  .pill{display:inline-block;font:600 13px/1 var(--mono);padding:4px 8px;border-radius:6px}
+  .p-ok{background:#d8f3ec;color:#1b5e51}
+  .p-part{background:#fdead0;color:#8a4b00}
+  .p-gap{background:#fbdcd4;color:#8a1c0a}
+
+  /* ladder — Power on top, General base at bottom */
+  .ladder{display:flex;flex-direction:column;gap:14px;max-width:940px;margin:0 auto}
+  .rung{display:flex;align-items:center;gap:20px;border-radius:14px;padding:18px 24px;color:#fff}
+  .rung .lv{font:700 22px var(--mono);min-width:96px}
+  .rung .code{font:600 15px var(--mono);opacity:.9;min-width:92px}
+  .rung .desc{font-size:17px}
+  .r-gen{background:linear-gradient(90deg,#2a9d8f,#3cb6a6)}
+  .r-biz{background:linear-gradient(90deg,#1f6feb,#4b90f7);margin-left:60px}
+  .r-pow{background:linear-gradient(90deg,#9b2226,#c1414a);margin-left:120px}
+
+  .flow{display:flex;gap:12px;align-items:stretch}
+  .mod{flex:1;background:var(--soft);border:1px solid var(--line);border-top:5px solid var(--brand);
+    border-radius:12px;padding:16px 14px;position:relative}
+  .mod .mno{font:700 15px var(--mono);color:var(--brand)}
+  .mod h4{font-size:17px;margin:4px 0 8px}
+  .mod .wk{font:600 13px var(--mono);color:var(--muted)}
+  .mod .exit{margin-top:10px;font-size:13.5px;font-weight:600;background:#fff;border:1px dashed var(--brand);
+    color:var(--brand);border-radius:8px;padding:5px 8px;text-align:center}
+  .mod .tp{margin-top:8px;font:600 12.5px var(--mono);color:var(--muted)}
+  .mod .stat{font-size:12px;font-weight:700;border-radius:6px;padding:3px 7px;text-align:center;margin-bottom:8px}
+  .st-done{background:#d8f3ec;color:#1b5e51}
+  .st-now{background:#fdead0;color:#8a4b00}
+  .st-next{background:transparent;color:var(--muted)}
+  .mod.done{border-top-color:var(--ok);background:#f2fbf8}
+  .mod.now{border-top-color:var(--accent);background:#fffaf1;box-shadow:0 0 0 2px rgba(238,155,0,.25)}
+
+  .big{font-size:40px;line-height:1.28;font-weight:600;max-width:14ch}
+  .big em{font-style:normal;color:var(--accent)}
+
+  .lead{font-size:23px;line-height:1.5;font-weight:500}
+  .accentbar{width:64px;height:6px;background:var(--accent);border-radius:3px;margin:20px 0 26px}
+
+  .foot{position:absolute;left:72px;right:72px;bottom:26px;display:flex;justify-content:space-between;
+    align-items:center;font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+  .slide.dark .foot{color:#9fb6cd;border-color:rgba(255,255,255,.15)}
+  .foot .pg{font-family:var(--mono)}
+  .brandmark{font-weight:700;color:var(--brand)}
+  .slide.dark .brandmark{color:#8ecae6}
+
+  .progress{position:fixed;left:0;top:0;height:4px;background:var(--accent);z-index:50;transition:width .3s}
+
+  .navbtn{position:fixed;top:50%;transform:translateY(-50%);z-index:60;width:42px;height:42px;border-radius:50%;
+    border:none;background:rgba(31,111,235,.85);color:#fff;font-size:20px;cursor:pointer;
+    display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  #prev{left:16px}#next{right:16px}
+  .navbtn:hover{background:var(--brand)}
+
+  .note{font-size:15px;color:var(--muted);margin-top:8px}
+  .hl{background:linear-gradient(transparent 60%,#ffe08a 60%);padding:0 2px;font-weight:600}
+
+  /* Venn — clean */
+  .venn{position:relative;width:960px;height:452px;margin:4px auto 0}
+  .venn .circle{position:absolute;top:6px;width:540px;height:440px;border-radius:50%}
+  .v-left{left:24px;background:radial-gradient(circle at 38% 42%,rgba(31,111,235,.20),rgba(31,111,235,.09));
+    border:2px solid rgba(31,111,235,.5)}
+  .v-right{right:24px;background:radial-gradient(circle at 62% 42%,rgba(10,147,150,.22),rgba(10,147,150,.10));
+    border:2px solid rgba(10,147,150,.55)}
+  .venn .zone{position:absolute;text-align:center}
+  .venn .zt{font-weight:700;font-size:19px;line-height:1.2}
+  .venn .zt small{display:block;font-weight:500;font-size:12.5px;color:var(--muted);margin-top:2px}
+  .venn .zl{list-style:none;margin:14px 0 0;padding:0}
+  .venn .zl li{font-size:14px;line-height:1.75;color:#3a4a5c;font-weight:500}
+  .z-left{left:40px;top:150px;width:250px}
+  .z-left .zt{color:var(--brand)}
+  .z-right{right:40px;top:150px;width:250px}
+  .z-right .zt{color:var(--brand2)}
+  .z-ctr{left:380px;top:120px;width:200px}
+  .z-ctr .zt{color:#0a5c5e}
+  .z-ctr .card{background:rgba(255,255,255,.82);border:1px solid rgba(10,92,94,.18);border-radius:14px;
+    padding:12px 8px 14px;box-shadow:0 6px 18px rgba(13,27,42,.10)}
+  .z-ctr .zl li{font-size:12.8px;line-height:1.7;color:#0a5c5e;font-weight:600}
+
+  /* EoC appendix */
+  .eoc{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px;flex:1;align-content:start}
+  .uoc{break-inside:avoid}
+  .uoc>.head{display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--line);padding-bottom:4px;margin-bottom:5px}
+  .uoc>.head .u{font:700 14px var(--mono)}
+  .uoc>.head .un{font-size:14px;font-weight:600;color:var(--ink)}
+  .uoc .lvdot{width:9px;height:9px;border-radius:50%;flex:none;align-self:center}
+  .uoc ul{list-style:none;margin:0;padding:0}
+  .uoc li{display:flex;gap:8px;font-size:12.5px;line-height:1.42;margin:2px 0;color:#39485a}
+  .uoc li .c{font:600 11.5px var(--mono);color:var(--muted);flex:none;min-width:44px}
+  .lg-gen{color:var(--gen)} .lg-biz{color:var(--biz)} .lg-pow{color:var(--pow)}
+  .bg-gen{background:var(--gen)} .bg-biz{background:var(--biz)} .bg-pow{background:var(--pow)}
+
+  /* EoC mapping table */
+  .eoctab{font-size:14px}
+  .eoctab th,.eoctab td{padding:6px 12px}
+  .eoctab .grp td{background:#eef4fb;font-weight:700;font-size:13.5px;border-bottom:2px solid var(--line);
+    padding-top:9px;padding-bottom:7px}
+  .eoctab .grp td .gu{font-family:var(--mono);margin-right:8px;padding:2px 7px;border-radius:5px;color:#fff;font-size:12.5px}
+  .eoctab tbody tr:nth-child(even){background:transparent}
+  .eoctab .cc{font-family:var(--mono);font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .eoctab .wk{font-family:var(--mono);font-size:12.5px;color:var(--brand);white-space:nowrap;font-weight:600}
+  .eoctab .ct{font-size:13px;line-height:1.45;color:#37475a}
+  .eoctab .ct b{font-family:var(--mono);font-size:11.5px;color:var(--brand);margin-right:5px}
+  .eoctab .ct .fut{font-family:var(--mono);font-size:11px;color:var(--warn);font-weight:700;margin-right:5px;
+    background:#fdead0;padding:1px 5px;border-radius:4px}
+
+  /* Performance Criteria slides */
+  .pcgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px;align-content:start;margin-top:6px}
+  .pccard{break-inside:avoid}
+  .pccard .eh{display:flex;gap:8px;align-items:baseline;border-bottom:2px solid var(--line);
+    padding-bottom:4px;margin-bottom:5px}
+  .pccard .eh .ec{font-family:var(--mono);font-size:13.5px;color:#fff;padding:2px 8px;border-radius:5px;flex:none}
+  .pccard .eh .en{font-size:15.5px;font-weight:700;color:var(--ink);line-height:1.3}
+  .pclist{list-style:none;margin:0 0 6px;padding:0}
+  .pclist li{display:flex;gap:8px;font-size:14.5px;line-height:1.5;color:#37475a;margin:2px 0}
+  .pclist li .n{font-family:var(--mono);font-size:13px;color:var(--brand);flex:none;min-width:30px;font-weight:600}
+
+  @media print{
+    body{overflow:visible}
+    .slide{display:flex!important;position:relative;inset:auto;height:100vh;page-break-after:always;
+      box-shadow:none;padding:44px 56px 60px}
+    .navbtn,.progress{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="bar"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide dark active">
+    <div>
+      <div class="eyebrow">ADT-RAISE &nbsp;|&nbsp; บัณฑิตพันธุ์ใหม่ Batch 2</div>
+      <h1>การเทียบเคียงหลักสูตรบัณฑิตพันธุ์ใหม่<br>กับมาตรฐาน AI Literacy<br><span style="font-size:34px;font-weight:600;color:#8ecae6">(สคช./TPQI พ.ศ. 2568)</span></h1>
+      <p class="sub" style="margin-top:26px;max-width:44ch">หลักสูตรประกาศนียบัตร (Non-Degree) นักพัฒนาเทคโนโลยีดิจิทัลและ AI สำหรับองค์กรสมัยใหม่</p>
+      <p style="margin-top:20px;font-size:18px;font-weight:600;color:#cfe2f3">สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ &nbsp;|&nbsp; มหาวิทยาลัยแม่ฟ้าหลวง</p>
+    </div>
+    <div class="foot">
+      <span><span class="brandmark">MFU</span> สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ × Summit</span>
+      <span>31 ส.ค. 2569</span>
+    </div>
+  </section>
+
+  <!-- 2 · AI LITERACY LADDER (Power on top) -->
+  <section class="slide">
+    <span class="kicker">ฝั่งมาตรฐาน สคช. (พ.ศ. 2568)</span>
+    <h2>AI Literacy — บันได 3 ชั้นคุณวุฒิสะสม</h2>
+    <p class="sub">9 หน่วยสมรรถนะ (UoC)&nbsp;&nbsp;/&nbsp;&nbsp;25 EoC&nbsp;&nbsp;/&nbsp;&nbsp;ประเมินด้วยข้อสอบปรนัยเป็นหลัก</p>
+    <div class="fill">
+      <div class="ladder">
+        <div class="rung r-pow"><span class="lv">Power</span><span class="code">7007–7009</span><span class="desc">ML/เทคโนโลยี &nbsp;→&nbsp; ประเมินโมเดล &nbsp;→&nbsp; นโยบายองค์กร</span></div>
+        <div class="rung r-biz"><span class="lv">Business</span><span class="code">7004–7006</span><span class="desc">ใช้เครื่องมือ &nbsp;→&nbsp; ตั้งค่า &nbsp;→&nbsp; Governance</span></div>
+        <div class="rung r-gen"><span class="lv">General</span><span class="code">7001–7003</span><span class="desc">รู้ &nbsp;→&nbsp; อธิบาย &nbsp;→&nbsp; ระวังจริยธรรม</span></div>
+      </div>
+      <p class="note" style="text-align:center;margin-top:22px">คุณวุฒิ <strong>สะสมขึ้นเป็นชั้น</strong> — General คือฐานราก ต่อยอดสู่ Business แล้วจึงถึง Power</p>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">02</span></div>
+  </section>
+
+  <!-- 4 · NEWGEN STRUCTURE -->
+  <section class="slide">
+    <span class="kicker">ฝั่งหลักสูตร บัณฑิตพันธุ์ใหม่ Batch 2</span>
+    <h2>5 โมดูล 22 สัปดาห์ ~285 ชม.</h2>
+    <p class="sub">Project-based ทุกโมดูลจบด้วย Exit Package และฝังหน่วย TPQI</p>
+    <div class="fill">
+      <div class="flow">
+        <div class="mod done"><div class="stat st-done">✓ เรียนแล้ว</div><div class="mno">M1</div><h4>Foundation & MVP Design</h4><div class="wk">สป. 1–5</div><div class="exit">Design-Ready</div><div class="tp">TPQI 7001–7004</div></div>
+        <div class="mod now"><div class="stat st-now">● กำลังเรียน</div><div class="mno">M2</div><h4>Full-Stack (Claude Code)</h4><div class="wk">สป. 6–9</div><div class="exit">MVP-Ready</div><div class="tp">TPQI 7004–7005</div></div>
+        <div class="mod"><div class="stat st-next">ถัดไป</div><div class="mno">M3</div><h4>Data & AI + Office Lab</h4><div class="wk">สป. 10–13</div><div class="exit">AI-Integrated</div><div class="tp">TPQI 7004–7008</div></div>
+        <div class="mod"><div class="stat st-next">&nbsp;</div><div class="mno">M4</div><h4>IoT & Integration</h4><div class="wk">สป. 14–17</div><div class="exit">Beta-Ready</div><div class="tp">TPQI 7007–7008</div></div>
+        <div class="mod"><div class="stat st-next">&nbsp;</div><div class="mno">M5</div><h4>Launch & Showcase</h4><div class="wk">สป. 18–22</div><div class="exit">Launch-Ready</div><div class="tp">TPQI 7009 + รวบยอด</div></div>
+      </div>
+      <p class="note" style="text-align:center;margin-top:20px"><b style="color:var(--accent)">สถานะปัจจุบัน:</b> เรียนจบ M1 แล้ว และกำลังอยู่ระหว่าง M2 (Full-Stack)</p>
+      <p class="note" style="text-align:center;margin-top:6px">คู่มือผู้เรียน (Student Handbook): <a href="https://raisemfu-adt.github.io/batch2-student-handbook/" style="color:var(--brand);font-weight:600;text-decoration:none">raisemfu-adt.github.io/batch2-student-handbook</a></p>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">03</span></div>
+  </section>
+
+  <!-- 5 · MAPPING TABLE (STAR) — shows บัณฑิตพันธุ์ใหม่ content -->
+  <section class="slide">
+    <span class="kicker">สไลด์หัวใจ ตารางแมป AI Literacy ↔ บัณฑิตพันธุ์ใหม่</span>
+    <h2>หน่วยสมรรถนะ 7001–7009 กับเนื้อหาในหลักสูตร</h2>
+    <table style="font-size:15px">
+      <thead><tr>
+        <th style="width:52px">UoC</th>
+        <th>สมรรถนะ (AI Literacy)</th>
+        <th style="width:76px">ระดับ</th>
+        <th>เนื้อหา / ชิ้นงานในหลักสูตร บัณฑิตพันธุ์ใหม่</th>
+        <th style="width:98px">ครอบคลุม</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="mono">7001</td><td>อธิบายความรู้พื้นฐานเกี่ยวกับปัญญาประดิษฐ์</td><td>General</td><td><b>M1 W1</b> พื้นฐาน AI, ประเภท AI, Quiz</td><td><span class="pill p-ok">สอนแล้ว</span></td></tr>
+        <tr><td class="mono">7002</td><td>อธิบายหลักการทำงานของปัญญาประดิษฐ์</td><td>General</td><td><b>M1 W3–4</b> AI Landscape, Persona/Journey, Prompt</td><td><span class="pill p-ok">สอนแล้ว</span></td></tr>
+        <tr><td class="mono">7003</td><td>ประเมินข้อจำกัดและผลกระทบทางสังคมและจริยธรรมของปัญญาประดิษฐ์</td><td>General</td><td><b>M1 W2</b> ข้อจำกัด, Malfunction, จริยธรรม, PDPA</td><td><span class="pill p-ok">สอนแล้ว</span></td></tr>
+        <tr><td class="mono">7004</td><td>ใช้เครื่องมือปัญญาประดิษฐ์เพื่อการทำงาน</td><td>Business</td><td><b>M2</b> AI Reviewer + <span class="pill p-part">แผน M3</span> Office AI Lab</td><td><span class="pill p-part">บางส่วน</span></td></tr>
+        <tr><td class="mono">7005</td><td>พัฒนาทักษะเชิงเทคนิคของปัญญาประดิษฐ์</td><td>Business</td><td><b>M2</b> Claude Code, CLAUDE.md, Context, Deploy</td><td><span class="pill p-ok">สอนแล้ว</span></td></tr>
+        <tr><td class="mono">7006</td><td>ปฏิบัติตามกรอบธรรมาภิบาล (AI Governance Framework) การใช้ปัญญาประดิษฐ์</td><td>Business</td><td><b>M1 W2</b> เกริ่น Governance + <span class="pill p-part">แผน M3</span></td><td><span class="pill p-part">บางส่วน</span></td></tr>
+        <tr><td class="mono">7007</td><td>อธิบายเทคโนโลยีที่เกี่ยวข้องกับปัญญาประดิษฐ์</td><td>Power</td><td><b>M1 W5</b> Tech selection + <span class="pill p-part">แผน M3–M4</span></td><td><span class="pill p-part">บางส่วน</span></td></tr>
+        <tr><td class="mono">7008</td><td>วิเคราะห์ประสิทธิภาพโมเดลปัญญาประดิษฐ์</td><td>Power</td><td><span class="pill p-part">แผน M3–M4</span> Bias/metrics, ROI</td><td><span class="pill p-gap">ตามแผน</span></td></tr>
+        <tr><td class="mono">7009</td><td>แนะนำนโยบาย กฎหมายและมาตรฐานเกี่ยวกับปัญญาประดิษฐ์</td><td>Power</td><td><span class="pill p-part">แผน M5</span> AI Usage Policy, Final defense</td><td><span class="pill p-gap">ตามแผน</span></td></tr>
+      </tbody>
+    </table>
+    <p class="note">สถานะ ณ ปัจจุบัน (จบ M1 กำลังอยู่ M2): <b>7001–7003, 7005 สอนแล้ว</b>&nbsp;&nbsp;|&nbsp;&nbsp;7004/7006/7007 บางส่วน&nbsp;&nbsp;|&nbsp;&nbsp;7008–7009 อยู่ในแผน M3–M5</p>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">04</span></div>
+  </section>
+
+  <!-- 6 · DIFFERENCES -->
+  <section class="slide">
+    <span class="kicker">การวิเคราะห์เปรียบเทียบเชิงโครงสร้าง</span>
+    <h2>บทบาทที่แตกต่างและส่งเสริมซึ่งกันและกัน</h2>
+    <p class="sub" style="margin-bottom:18px">หลักสูตร บัณฑิตพันธุ์ใหม่ และมาตรฐาน AI Literacy มีธรรมชาติต่างกัน แต่ทำงานเสริมกันอย่างเป็นระบบ</p>
+    <table>
+      <thead><tr><th style="width:150px">ประเด็นเปรียบเทียบ</th><th>หลักสูตร บัณฑิตพันธุ์ใหม่</th><th>มาตรฐาน AI Literacy (สคช.)</th></tr></thead>
+      <tbody>
+        <tr><td><b>รูปแบบการพัฒนา</b></td><td>การเรียนรู้ผ่านโครงงาน (Project-Based) ร่วมกับพี่เลี้ยงและกระบวนการ Sprint</td><td>มาตรฐานสมรรถนะวิชาชีพ (หน่วยสมรรถนะ + EoC + เกณฑ์การปฏิบัติงาน)</td></tr>
+        <tr><td><b>ระดับการใช้ AI</b></td><td>ประยุกต์ AI เพื่อสร้างระบบจริง (Vibe Coding / Agentic Workflow)</td><td>รู้ เข้าใจ ใช้ และกำกับดูแล AI ตั้งแต่ระดับทั่วไปถึงระดับองค์กร</td></tr>
+        <tr><td><b>เครื่องมือหลัก</b></td><td>Claude Code, Firebase, Playwright และเครื่องมือร่วมสมัย</td><td>ไม่ผูกกับผู้ให้บริการรายใด มุ่งวัดที่สมรรถนะเป็นสำคัญ</td></tr>
+        <tr><td><b>ขอบเขต Full-Stack / IoT</b></td><td>เป็นแกนกลางของหลักสูตร</td><td><b>อยู่นอกขอบเขตของมาตรฐาน</b></td></tr>
+        <tr><td><b>วิธีการประเมินผล</b></td><td>ผลงาน (Deliverable) การทบทวน Sprint และบันทึกการเรียนรู้ (Logbook)</td><td>การทดสอบด้วยข้อสอบปรนัยตามเกณฑ์ของแต่ละหน่วยสมรรถนะ</td></tr>
+        <tr><td><b>ผลการรับรอง</b></td><td>ประกาศนียบัตรหลักสูตร ADT-RAISE พร้อมเตรียมยื่นรับรองต่อ TPQI</td><td>หนังสือรับรองสมรรถนะตามระดับคุณวุฒิ (General / Business / Power)</td></tr>
+      </tbody>
+    </table>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">05</span></div>
+  </section>
+
+  <!-- 7 · CLOSE — AI Literacy Integration -->
+  <section class="slide dark">
+    <span class="eyebrow">สรุป</span>
+    <div class="fill" style="justify-content:center">
+      <h1 style="font-size:60px">AI Literacy Integration</h1>
+      <div class="accentbar"></div>
+      <p class="lead" style="max-width:38ch;color:#eaf2fb;font-weight:600;margin-bottom:22px">
+        บูรณาการกรอบมาตรฐาน TPQI ทั้ง 3 ระดับ สู่หลักสูตรนักพัฒนาบัณฑิตพันธุ์ใหม่
+      </p>
+      <p style="max-width:52ch;color:#c4d6e8;font-size:20px;line-height:1.6;margin-bottom:16px">
+        ด้วยการเรียนการสอนแบบ <b style="color:#fff">Competency-Based Approach</b>
+        ผ่านการเทียบเคียงมาตรฐานวิชาชีพด้านการใช้ปัญญาประดิษฐ์ (AI Literacy)
+      </p>
+      <p style="max-width:52ch;color:#c4d6e8;font-size:20px;line-height:1.6">
+        ครอบคลุม <b style="color:var(--accent)">9 หน่วยสมรรถนะ</b> จากระดับพื้นฐานสู่ผู้เชี่ยวชาญ
+      </p>
+    </div>
+    <div class="foot">
+      <span><span class="brandmark">MFU ADT</span> × Summit ADT-RAISE</span>
+      <span class="pg">06</span>
+    </div>
+  </section>
+
+  <!-- APPENDIX A · EoC General -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก ก (สไลด์สำรอง) แมป EoC กับเนื้อหา บัณฑิตพันธุ์ใหม่</span>
+    <h2 style="font-size:26px"><b class="lg-gen">General Users</b> — หน่วย 7001–7003 (10 EoC)</h2>
+    <table class="eoctab" style="margin-top:8px">
+      <thead><tr><th style="width:64px">EoC</th><th style="width:44%">สมรรถนะย่อย (Element of Competence)</th><th>เนื้อหา / ชิ้นงานในหลักสูตร บัณฑิตพันธุ์ใหม่</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="3"><span class="gu bg-gen">7001</span>อธิบายความรู้พื้นฐานเกี่ยวกับปัญญาประดิษฐ์</td></tr>
+        <tr><td class="cc">70011</td><td>ระบุแนวคิดพื้นฐานของปัญญาประดิษฐ์</td><td class="ct"><b>M1 W1</b>พื้นฐาน AI (Hackathon) + Quiz</td></tr>
+        <tr><td class="cc">70012</td><td>จำแนกประเภทของปัญญาประดิษฐ์</td><td class="ct"><b>M1 W1</b>ประเภท AI (ANI/AGI/ASI), Worksheet</td></tr>
+
+        <tr class="grp"><td colspan="3"><span class="gu bg-gen">7002</span>อธิบายหลักการทำงานของปัญญาประดิษฐ์</td></tr>
+        <tr><td class="cc">70021</td><td>อธิบายกระบวนการทำงานของปัญญาประดิษฐ์</td><td class="ct"><b>M1 W3–4</b>หลักการทำงาน AI / LLM</td></tr>
+        <tr><td class="cc">70022</td><td>อธิบายขอบเขตของเทคโนโลยีปัญญาประดิษฐ์ (AI Technology Landscape)</td><td class="ct"><b>M1 W3</b>AI Landscape + LLM Benchmark</td></tr>
+        <tr><td class="cc">70023</td><td>อธิบายความสำคัญของข้อมูลสำหรับการประมวลผลปัญญาประดิษฐ์</td><td class="ct"><b>M1 W3</b>Persona / Journey, Data snapshot</td></tr>
+        <tr><td class="cc">70024</td><td>ให้คำสั่งกับปัญญาประดิษฐ์เชิงสร้างสรรค์ (Prompt for Generative AI)</td><td class="ct"><b>M1 W4</b>Prompt Anatomy, Prompt log</td></tr>
+
+        <tr class="grp"><td colspan="3"><span class="gu bg-gen">7003</span>ประเมินข้อจำกัดและผลกระทบทางสังคมและจริยธรรมของปัญญาประดิษฐ์</td></tr>
+        <tr><td class="cc">70031</td><td>ระบุข้อจำกัดของปัญญาประดิษฐ์ (Limitations of AI)</td><td class="ct"><b>M1 W2</b>ข้อจำกัด AI (Bias, Hallucination)</td></tr>
+        <tr><td class="cc">70032</td><td>ระบุสถานการณ์ที่ปัญญาประดิษฐ์อาจทำงานผิดพลาด (Identify Situations AI Malfunction)</td><td class="ct"><b>M1 W2</b>เคส AI Malfunction + Workshop</td></tr>
+        <tr><td class="cc">70033</td><td>ระบุผลกระทบของปัญญาประดิษฐ์ด้านสังคม (Social Impact)</td><td class="ct"><b>M1 W2</b>ผลกระทบสังคม (Labor, Privacy)</td></tr>
+        <tr><td class="cc">70034</td><td>ปฏิบัติตามหลักจริยธรรมและกฎหมายที่เกี่ยวข้องกับปัญญาประดิษฐ์ (Ethic and Law)</td><td class="ct"><b>M1 W2</b>จริยธรรม AI, พ.ร.บ.คอมฯ, PDPA</td></tr>
+      </tbody>
+    </table>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">ภาคผนวก ก</span></div>
+  </section>
+
+  <!-- APPENDIX B · EoC Business -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก ข (สไลด์สำรอง) แมป EoC กับเนื้อหา บัณฑิตพันธุ์ใหม่</span>
+    <h2 style="font-size:26px"><b class="lg-biz">Business Users</b> — หน่วย 7004–7006 (9 EoC)</h2>
+    <table class="eoctab" style="margin-top:8px">
+      <thead><tr><th style="width:64px">EoC</th><th style="width:44%">สมรรถนะย่อย (Element of Competence)</th><th>เนื้อหา / ชิ้นงานในหลักสูตร บัณฑิตพันธุ์ใหม่</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="3"><span class="gu bg-biz">7004</span>ใช้เครื่องมือปัญญาประดิษฐ์เพื่อการทำงาน</td></tr>
+        <tr><td class="cc">70041</td><td>ประเมินผลลัพธ์ของการใช้ปัญญาประดิษฐ์</td><td class="ct"><b>M1 W4 / M2 W8</b>Loop check + AI Reviewer</td></tr>
+        <tr><td class="cc">70042</td><td>ใช้ปัญญาประดิษฐ์เพื่อสนับสนุนการทำงานด้านการประมวลผลคำ (Word Processing)</td><td class="ct"><span class="fut">แผน M3</span>Office AI Lab: Word (11A)</td></tr>
+        <tr><td class="cc">70043</td><td>ใช้ปัญญาประดิษฐ์เพื่อสนับสนุนการทำงานด้านตารางคำนวณ (Spreadsheet)</td><td class="ct"><span class="fut">แผน M3</span>Office AI Lab: Sheet (11A)</td></tr>
+        <tr><td class="cc">70044</td><td>ใช้ปัญญาประดิษฐ์เพื่อสนับสนุนการทำงานด้านงานนำเสนอ (Presentation)</td><td class="ct"><span class="fut">แผน M3</span>Office AI Lab: Deck (12A)</td></tr>
+        <tr><td class="cc">70045</td><td>ใช้ปัญญาประดิษฐ์เพื่อสนับสนุนการทำงานด้านการค้นหาข้อมูล (Information Search)</td><td class="ct"><span class="fut">แผน M3</span>Office AI Lab: Research (12A)</td></tr>
+
+        <tr class="grp"><td colspan="3"><span class="gu bg-biz">7005</span>พัฒนาทักษะเชิงเทคนิคของปัญญาประดิษฐ์</td></tr>
+        <tr><td class="cc">70051</td><td>ประยุกต์ใช้เครื่องมือปัญญาประดิษฐ์สำหรับงานเฉพาะด้าน</td><td class="ct"><b>M1 W4 / M2</b>Claude Code, Prototype → ระบบจริง</td></tr>
+        <tr><td class="cc">70052</td><td>กำหนดค่าการใช้งานเครื่องมือปัญญาประดิษฐ์</td><td class="ct"><b>M2 W6</b>CLAUDE.md, Context, tool config</td></tr>
+
+        <tr class="grp"><td colspan="3"><span class="gu bg-biz">7006</span>ปฏิบัติตามกรอบธรรมาภิบาล (AI Governance Framework) การใช้ปัญญาประดิษฐ์</td></tr>
+        <tr><td class="cc">70061</td><td>ปฏิบัติตามกรอบธรรมาภิบาลการใช้ปัญญาประดิษฐ์ ด้านการจัดการความเสี่ยง (Risk)</td><td class="ct"><b>M1 W2</b> เกริ่น Governance <span class="fut">เต็ม M3</span></td></tr>
+        <tr><td class="cc">70062</td><td>ปฏิบัติตามกฎหมายสากลและมาตรฐานสากลที่เกี่ยวข้องกับปัญญาประดิษฐ์ (Law and Standard)</td><td class="ct"><b>M1 W2</b> กฎหมายไทย <span class="fut">มาตรฐานสากล M3</span></td></tr>
+      </tbody>
+    </table>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">ภาคผนวก ข</span></div>
+  </section>
+
+  <!-- APPENDIX C · EoC Power -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก ค (สไลด์สำรอง) แมป EoC กับเนื้อหา บัณฑิตพันธุ์ใหม่</span>
+    <h2 style="font-size:26px"><b class="lg-pow">Power Users</b> — หน่วย 7007–7009 (6 EoC)</h2>
+    <table class="eoctab" style="margin-top:8px">
+      <thead><tr><th style="width:64px">EoC</th><th style="width:44%">สมรรถนะย่อย (Element of Competence)</th><th>เนื้อหา / ชิ้นงานในหลักสูตร บัณฑิตพันธุ์ใหม่</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="3"><span class="gu bg-pow">7007</span>อธิบายเทคโนโลยีที่เกี่ยวข้องกับปัญญาประดิษฐ์</td></tr>
+        <tr><td class="cc">70071</td><td>เลือกใช้เทคโนโลยีปัญญาประดิษฐ์</td><td class="ct"><b>M1 W5</b> Tech selection <span class="fut">IoT/AI M4</span></td></tr>
+        <tr><td class="cc">70072</td><td>อธิบายหลักการทำงานของการเรียนรู้ของเครื่อง (Machine Learning)</td><td class="ct"><span class="fut">แผน M3</span>หลักการ ML / LLM + Model Eval</td></tr>
+
+        <tr class="grp"><td colspan="3"><span class="gu bg-pow">7008</span>วิเคราะห์ประสิทธิภาพโมเดลปัญญาประดิษฐ์</td></tr>
+        <tr><td class="cc">70081</td><td>ประเมินความเป็นธรรม (Fairness) และความลำเอียง (Bias) ของโมเดลปัญญาประดิษฐ์</td><td class="ct"><b>M1 W2</b> เกริ่น Bias <span class="fut">M3–M4</span></td></tr>
+        <tr><td class="cc">70082</td><td>ประเมินความคุ้มค่าของการนำปัญญาประดิษฐ์มาใช้ในองค์กร</td><td class="ct"><span class="fut">แผน M4</span>ROI / ความคุ้มค่าในองค์กร</td></tr>
+
+        <tr class="grp"><td colspan="3"><span class="gu bg-pow">7009</span>แนะนำนโยบาย กฎหมายและมาตรฐานเกี่ยวกับปัญญาประดิษฐ์</td></tr>
+        <tr><td class="cc">70091</td><td>ระบุนโยบายที่เกี่ยวข้องกับปัญญาประดิษฐ์สำหรับการใช้งานในองค์กร</td><td class="ct"><span class="fut">แผน M5</span>AI Usage Policy</td></tr>
+        <tr><td class="cc">70092</td><td>แนะนำข้อปฏิบัติตามจริยธรรม กฎหมายและมาตรฐานเกี่ยวกับปัญญาประดิษฐ์ภายในองค์กร</td><td class="ct"><span class="fut">แผน M5</span>Final defense + ข้อเสนอนโยบาย</td></tr>
+      </tbody>
+    </table>
+    <p class="note" style="margin-top:16px">การประเมินตามมาตรฐาน สคช.: ข้อสอบปรนัยชนิด 4 ตัวเลือก&nbsp;&nbsp;|&nbsp;&nbsp;การแมปเนื้อหาอ้างอิงจากโครงสร้างหลักสูตร บัณฑิตพันธุ์ใหม่ Batch 2 (5 โมดูล 22 สัปดาห์)</p>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">ภาคผนวก ค</span></div>
+  </section>
+
+  <!-- PC 7001 -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก — เกณฑ์การปฏิบัติงาน (Performance Criteria)</span>
+    <h2 style="font-size:24px"><span class="tag" style="background:var(--gen)">7001</span> อธิบายความรู้พื้นฐานเกี่ยวกับปัญญาประดิษฐ์ <span style="font-size:15px;color:var(--gen)">General</span></h2>
+    <div class="pcgrid">
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-gen">70011</span><span class="en">ระบุแนวคิดพื้นฐานของปัญญาประดิษฐ์</span></div>
+        <ul class="pclist">
+          <li><span class="n">1.1</span>ระบุความหมายของปัญญาประดิษฐ์</li>
+          <li><span class="n">1.2</span>ระบุบทบาทของปัญญาประดิษฐ์ในสมาร์ตโฟน</li>
+          <li><span class="n">1.3</span>ระบุบทบาทของปัญญาประดิษฐ์ในสื่อสังคมออนไลน์</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-gen">70012</span><span class="en">จำแนกประเภทของปัญญาประดิษฐ์</span></div>
+        <ul class="pclist">
+          <li><span class="n">2.1</span>ระบุประเภทปัญญาประดิษฐ์ประเภทเฉพาะทาง (Artificial Narrow Intelligence (ANI))</li>
+          <li><span class="n">2.2</span>ระบุปัญญาประดิษฐ์ประเภททั่วไป (Artificial General Intelligence (AGI))</li>
+          <li><span class="n">2.3</span>ระบุปัญญาประดิษฐ์ประเภทขั้นสูง (Artificial Superintelligence (ASI))</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">PC 7001</span></div>
+  </section>
+
+  <!-- PC 7002 -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก — เกณฑ์การปฏิบัติงาน (Performance Criteria)</span>
+    <h2 style="font-size:24px"><span class="tag" style="background:var(--gen)">7002</span> อธิบายหลักการทำงานของปัญญาประดิษฐ์ <span style="font-size:15px;color:var(--gen)">General</span></h2>
+    <div class="pcgrid">
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-gen">70021</span><span class="en">อธิบายกระบวนการทำงานของปัญญาประดิษฐ์</span></div>
+        <ul class="pclist">
+          <li><span class="n">1.1</span>ระบุกระบวนการการรับรู้ของปัญญาประดิษฐ์</li>
+          <li><span class="n">1.2</span>ระบุกระบวนการการแทนค่าและการใช้เหตุผลของปัญญาประดิษฐ์</li>
+          <li><span class="n">1.3</span>ระบุกระบวนการการเรียนรู้ของปัญญาประดิษฐ์</li>
+          <li><span class="n">1.4</span>ระบุกระบวนการปฏิสัมพันธ์ตามธรรมชาติของปัญญาประดิษฐ์</li>
+          <li><span class="n">1.5</span>ระบุกระบวนการผลกระทบทางสังคมของปัญญาประดิษฐ์</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-gen">70022</span><span class="en">อธิบายขอบเขตของเทคโนโลยีปัญญาประดิษฐ์ (AI Technology Landscape)</span></div>
+        <ul class="pclist">
+          <li><span class="n">2.1</span>ระบุขอบเขตเทคโนโลยีการเรียนรู้ของเครื่อง (Machine Learning)</li>
+          <li><span class="n">2.2</span>ระบุขอบเขตเทคโนโลยีการเรียนรู้เชิงลึก (Deep Learning)</li>
+          <li><span class="n">2.3</span>ระบุขอบเขตเทคโนโลยีการประมวลผลภาษาธรรมชาติ (NLP)</li>
+          <li><span class="n">2.4</span>ระบุขอบเขตเทคโนโลยีการมองเห็นของเครื่อง (Computer Vision)</li>
+          <li><span class="n">2.5</span>ระบุขอบเขตเทคโนโลยีปัญญาประดิษฐ์เชิงสร้างสรรค์ (Generative AI)</li>
+          <li><span class="n">2.6</span>ระบุขอบเขตเทคโนโลยีระบบผู้ช่วยปัญญาประดิษฐ์ (Agentic AI)</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-gen">70023</span><span class="en">อธิบายความสำคัญของข้อมูลสำหรับการประมวลผลปัญญาประดิษฐ์</span></div>
+        <ul class="pclist">
+          <li><span class="n">3.1</span>ระบุประเภทข้อมูลสำหรับการประมวลผลปัญญาประดิษฐ์</li>
+          <li><span class="n">3.2</span>ระบุข้อมูลที่มีคุณภาพสำหรับการประมวลผลปัญญาประดิษฐ์</li>
+          <li><span class="n">3.3</span>ระบุข้อมูลที่ไม่มีคุณภาพสำหรับการประมวลผลของปัญญาประดิษฐ์</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-gen">70024</span><span class="en">ให้คำสั่งกับปัญญาประดิษฐ์เชิงสร้างสรรค์ (Prompt for Generative AI)</span></div>
+        <ul class="pclist">
+          <li><span class="n">4.1</span>ให้คำสั่งแบบไม่กำหนดแนวทางการตอบ (Zero-shot Prompting)</li>
+          <li><span class="n">4.2</span>ให้คำสั่งแบบกำหนดแนวทางการตอบเพียงเล็กน้อย (Few-shot Prompting)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">PC 7002</span></div>
+  </section>
+
+  <!-- PC 7003 -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก — เกณฑ์การปฏิบัติงาน (Performance Criteria)</span>
+    <h2 style="font-size:24px"><span class="tag" style="background:var(--gen)">7003</span> ประเมินข้อจำกัดและผลกระทบทางสังคมและจริยธรรมของปัญญาประดิษฐ์ <span style="font-size:15px;color:var(--gen)">General</span></h2>
+    <div class="pcgrid">
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-gen">70031</span><span class="en">ระบุข้อจำกัดของปัญญาประดิษฐ์ (Limitations of AI)</span></div>
+        <ul class="pclist">
+          <li><span class="n">1.1</span>ด้านความโปร่งใส (Transparency)</li>
+          <li><span class="n">1.2</span>ด้านความลำเอียง (Bias)</li>
+          <li><span class="n">1.3</span>ด้านความเป็นส่วนตัว (Privacy)</li>
+          <li><span class="n">1.4</span>ด้านจริยธรรม (Ethical Dilemmas)</li>
+          <li><span class="n">1.5</span>ด้านความปลอดภัยทางไซเบอร์ (Cyber Security)</li>
+          <li><span class="n">1.6</span>ด้านทรัพยากรระบบ (Resource)</li>
+          <li><span class="n">1.7</span>ด้านความคิดสร้างสรรค์ (Creativity)</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-gen">70032</span><span class="en">ระบุสถานการณ์ที่ปัญญาประดิษฐ์อาจทำงานผิดพลาด (AI Malfunction)</span></div>
+        <ul class="pclist">
+          <li><span class="n">2.1</span>การรู้จำภาพ (Image Recognition Errors)</li>
+          <li><span class="n">2.2</span>การแปลภาษา (Translation Errors)</li>
+          <li><span class="n">2.3</span>การทำนาย (Prediction Errors)</li>
+          <li><span class="n">2.4</span>การสร้างข้อมูล (Information Errors)</li>
+          <li><span class="n">2.5</span>การตัดสินใจผิดพลาด (Decision Making Errors)</li>
+          <li><span class="n">2.6</span>การประมวลผลเสียง (Speech Recognition Errors)</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-gen">70033</span><span class="en">ระบุผลกระทบของปัญญาประดิษฐ์ด้านสังคม (Social Impact)</span></div>
+        <ul class="pclist">
+          <li><span class="n">3.1</span>ด้านตลาดแรงงาน (Labor Market)</li>
+          <li><span class="n">3.2</span>ด้านสุขภาพ (Healthcare)</li>
+          <li><span class="n">3.3</span>ด้านการศึกษา (Education)</li>
+          <li><span class="n">3.4</span>ด้านความเท่าเทียม (Equality)</li>
+          <li><span class="n">3.5</span>ด้านความเป็นส่วนตัว (Privacy)</li>
+          <li><span class="n">3.6</span>ด้านความปลอดภัยของข้อมูล (Data Security)</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-gen">70034</span><span class="en">ปฏิบัติตามหลักจริยธรรมและกฎหมายที่เกี่ยวข้อง (Ethic and Law)</span></div>
+        <ul class="pclist">
+          <li><span class="n">4.1</span>หลักจริยธรรมปัญญาประดิษฐ์ (AI Ethic Principle)</li>
+          <li><span class="n">4.2</span>กฎหมายอาญา หมวด 3 ความผิดฐานหมิ่นประมาท</li>
+          <li><span class="n">4.3</span>กฎหมายแพ่งและพาณิชย์ หมวด 1 ความรับผิดเพื่อละเมิด</li>
+          <li><span class="n">4.4</span>พ.ร.บ. ลิขสิทธิ์และทรัพย์สินทางปัญญา</li>
+          <li><span class="n">4.5</span>พ.ร.บ. การกระทำความผิดเกี่ยวกับคอมพิวเตอร์</li>
+          <li><span class="n">4.6</span>พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)</li>
+          <li><span class="n">4.7</span>พ.ร.บ. คุ้มครองแรงงาน</li>
+          <li><span class="n">4.8</span>พ.ร.บ. ธุรกรรมทางอิเล็กทรอนิกส์</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">PC 7003</span></div>
+  </section>
+
+  <!-- PC 7004 -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก — เกณฑ์การปฏิบัติงาน (Performance Criteria)</span>
+    <h2 style="font-size:24px"><span class="tag" style="background:var(--biz)">7004</span> ใช้เครื่องมือปัญญาประดิษฐ์เพื่อการทำงาน <span style="font-size:15px;color:var(--biz)">Business</span></h2>
+    <div class="pcgrid">
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-biz">70041</span><span class="en">ประเมินผลลัพธ์ของการใช้ปัญญาประดิษฐ์</span></div>
+        <ul class="pclist">
+          <li><span class="n">1.1</span>ด้านความถูกต้องของข้อมูล (Accuracy)</li>
+          <li><span class="n">1.2</span>ด้านความน่าเชื่อถือของแหล่งข้อมูล (Source Reliability)</li>
+          <li><span class="n">1.3</span>ด้านความสม่ำเสมอของคำตอบ (Consistency)</li>
+          <li><span class="n">1.4</span>ด้านความสามารถในการอธิบายผลลัพธ์ (Explainability)</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-biz">70042</span><span class="en">สนับสนุนการทำงานด้านการประมวลผลคำ (Word Processing)</span></div>
+        <ul class="pclist">
+          <li><span class="n">2.1</span>ใช้ AI สรุปข้อความ (Text Summarization)</li>
+          <li><span class="n">2.2</span>ใช้ AI แปลภาษา (Machine Translation)</li>
+          <li><span class="n">2.3</span>ใช้ AI ตรวจสอบไวยากรณ์ (Grammar Check)</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-biz">70043</span><span class="en">สนับสนุนการทำงานด้านตารางคำนวณ (Spreadsheet)</span></div>
+        <ul class="pclist">
+          <li><span class="n">3.1</span>ใช้ AI วิเคราะห์ข้อมูลในตารางคำนวณ (Data Analysis)</li>
+          <li><span class="n">3.2</span>ใช้ AI ช่วยเขียนสูตรคำนวณ (Formula Suggestion)</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-biz">70044</span><span class="en">สนับสนุนการทำงานด้านงานนำเสนอ (Presentation)</span></div>
+        <ul class="pclist">
+          <li><span class="n">4.1</span>ใช้ AI สร้างเนื้อหาในงานนำเสนอ (Content Creation)</li>
+          <li><span class="n">4.2</span>ใช้ AI ช่วยออกแบบงานนำเสนอ (Design)</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-biz">70045</span><span class="en">สนับสนุนการทำงานด้านการค้นหาข้อมูล (Information Search)</span></div>
+        <ul class="pclist">
+          <li><span class="n">5.1</span>ใช้ AI ตรวจสอบแหล่งอ้างอิง (Reference)</li>
+          <li><span class="n">5.2</span>ใช้ AI อธิบายข้อมูลที่ได้จากการค้นหา (Description Information)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">PC 7004</span></div>
+  </section>
+
+  <!-- PC 7005 -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก — เกณฑ์การปฏิบัติงาน (Performance Criteria)</span>
+    <h2 style="font-size:24px"><span class="tag" style="background:var(--biz)">7005</span> พัฒนาทักษะเชิงเทคนิคของปัญญาประดิษฐ์ <span style="font-size:15px;color:var(--biz)">Business</span></h2>
+    <div class="pcgrid">
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-biz">70051</span><span class="en">ประยุกต์ใช้เครื่องมือปัญญาประดิษฐ์สำหรับงานเฉพาะด้าน</span></div>
+        <ul class="pclist">
+          <li><span class="n">1.1</span>ระบุขั้นตอนการปรับแต่งคำสั่งปัญญาประดิษฐ์เชิงสร้างสรรค์</li>
+          <li><span class="n">1.2</span>ปรับแต่งคำสั่งปัญญาประดิษฐ์เชิงสร้างสรรค์</li>
+          <li><span class="n">1.3</span>บูรณาการเครื่องมือปัญญาประดิษฐ์สำหรับงานเฉพาะด้าน</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-biz">70052</span><span class="en">กำหนดค่าการใช้งานเครื่องมือปัญญาประดิษฐ์</span></div>
+        <ul class="pclist">
+          <li><span class="n">2.1</span>ระบุความแตกต่างของเครื่องมือปัญญาประดิษฐ์ (AI Tools)</li>
+          <li><span class="n">2.2</span>เลือกใช้เครื่องมือปัญญาประดิษฐ์</li>
+          <li><span class="n">2.3</span>เลือกโมเดลปัญญาประดิษฐ์เชิงสร้างสรรค์</li>
+          <li><span class="n">2.4</span>ตั้งค่าพื้นฐานให้กับเครื่องมือปัญญาประดิษฐ์</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">PC 7005</span></div>
+  </section>
+
+  <!-- PC 7006 -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก — เกณฑ์การปฏิบัติงาน (Performance Criteria)</span>
+    <h2 style="font-size:24px"><span class="tag" style="background:var(--biz)">7006</span> ปฏิบัติตามกรอบธรรมาภิบาล (AI Governance Framework) <span style="font-size:15px;color:var(--biz)">Business</span></h2>
+    <div class="pcgrid">
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-biz">70061</span><span class="en">ธรรมาภิบาลการใช้ปัญญาประดิษฐ์ ด้านการจัดการความเสี่ยง (Risk)</span></div>
+        <ul class="pclist">
+          <li><span class="n">1.1</span>ระบุความเสี่ยง (Risk) ของการใช้ปัญญาประดิษฐ์ในองค์กร</li>
+          <li><span class="n">1.2</span>ระบุวิธีประเมินความเสี่ยงของการใช้ปัญญาประดิษฐ์ในองค์กร</li>
+          <li><span class="n">1.3</span>ระบุแนวทางลดความเสี่ยงของการใช้ปัญญาประดิษฐ์ในองค์กร</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-biz">70062</span><span class="en">ปฏิบัติตามกฎหมายสากลและมาตรฐานสากลที่เกี่ยวข้อง (Law and Standard)</span></div>
+        <ul class="pclist">
+          <li><span class="n">2.1</span>ปฏิบัติตามมาตรฐานสากล (ISO/IEC 22989:2022, IEEE 7000-2021)</li>
+          <li><span class="n">2.2</span>ปฏิบัติตามกฎหมายสากลที่เกี่ยวข้องกับปัญญาประดิษฐ์ (GDPR)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">PC 7006</span></div>
+  </section>
+
+  <!-- PC 7007 -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก — เกณฑ์การปฏิบัติงาน (Performance Criteria)</span>
+    <h2 style="font-size:24px"><span class="tag" style="background:var(--pow)">7007</span> อธิบายเทคโนโลยีที่เกี่ยวข้องกับปัญญาประดิษฐ์ <span style="font-size:15px;color:var(--pow)">Power</span></h2>
+    <div class="pcgrid">
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-pow">70071</span><span class="en">เลือกใช้เทคโนโลยีปัญญาประดิษฐ์</span></div>
+        <ul class="pclist">
+          <li><span class="n">1.1</span>วิเคราะห์เทคโนโลยีปัญญาประดิษฐ์</li>
+          <li><span class="n">1.2</span>เปรียบเทียบเทคโนโลยีปัญญาประดิษฐ์</li>
+          <li><span class="n">1.3</span>ประเมินเทคโนโลยีปัญญาประดิษฐ์</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-pow">70072</span><span class="en">อธิบายหลักการทำงานของการเรียนรู้ของเครื่อง (Machine Learning)</span></div>
+        <ul class="pclist">
+          <li><span class="n">2.1</span>การเรียนรู้แบบมีผู้สอน (Supervised Learning)</li>
+          <li><span class="n">2.2</span>การเรียนรู้แบบไม่มีผู้สอน (Unsupervised Learning)</li>
+          <li><span class="n">2.3</span>การเรียนรู้แบบเสริมกำลัง (Reinforcement Learning)</li>
+          <li><span class="n">2.4</span>อัลกอริทึมการถดถอยเชิงเส้น (Linear Regression)</li>
+          <li><span class="n">2.5</span>อัลกอริทึมการจำแนกประเภท (Classification)</li>
+          <li><span class="n">2.6</span>อัลกอริทึมการจัดกลุ่ม (Clustering)</li>
+          <li><span class="n">2.7</span>อัลกอริทึมการลดมิติข้อมูล (Dimensionality Reduction)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">PC 7007</span></div>
+  </section>
+
+  <!-- PC 7008 -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก — เกณฑ์การปฏิบัติงาน (Performance Criteria)</span>
+    <h2 style="font-size:24px"><span class="tag" style="background:var(--pow)">7008</span> วิเคราะห์ประสิทธิภาพโมเดลปัญญาประดิษฐ์ <span style="font-size:15px;color:var(--pow)">Power</span></h2>
+    <div class="pcgrid">
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-pow">70081</span><span class="en">ประเมินความเป็นธรรม (Fairness) และความลำเอียง (Bias) ของโมเดล</span></div>
+        <ul class="pclist">
+          <li><span class="n">1.1</span>ตรวจสอบความลำเอียง (Bias) ของข้อมูลที่ได้จากผลลัพธ์ของโมเดล</li>
+          <li><span class="n">1.2</span>เสนอแนวทางลดความลำเอียง (Bias) ของผลลัพธ์ของโมเดล</li>
+          <li><span class="n">1.3</span>ตรวจสอบความเป็นธรรม (Fairness) ของผลลัพธ์ของโมเดล</li>
+          <li><span class="n">1.4</span>เสนอแนวทางเพิ่มความเป็นธรรม (Fairness) ของผลลัพธ์ของโมเดล</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-pow">70082</span><span class="en">ประเมินความคุ้มค่าของการนำปัญญาประดิษฐ์มาใช้ในองค์กร</span></div>
+        <ul class="pclist">
+          <li><span class="n">2.1</span>ระบุวิธีการประเมินความคุ้มค่า</li>
+          <li><span class="n">2.2</span>วิเคราะห์ความคุ้มค่าด้านเทคโนโลยี</li>
+          <li><span class="n">2.3</span>วิเคราะห์ความคุ้มค่าด้านบุคลากร</li>
+          <li><span class="n">2.4</span>วิเคราะห์ความคุ้มค่าด้านการเงิน</li>
+          <li><span class="n">2.5</span>สรุปผลการประเมินความคุ้มค่า</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">PC 7008</span></div>
+  </section>
+
+  <!-- PC 7009 -->
+  <section class="slide">
+    <span class="kicker">ภาคผนวก — เกณฑ์การปฏิบัติงาน (Performance Criteria)</span>
+    <h2 style="font-size:24px"><span class="tag" style="background:var(--pow)">7009</span> แนะนำนโยบาย กฎหมายและมาตรฐานเกี่ยวกับปัญญาประดิษฐ์ <span style="font-size:15px;color:var(--pow)">Power</span></h2>
+    <div class="pcgrid">
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-pow">70091</span><span class="en">ระบุนโยบายที่เกี่ยวข้องกับปัญญาประดิษฐ์สำหรับการใช้งานในองค์กร</span></div>
+        <ul class="pclist">
+          <li><span class="n">1.1</span>นโยบายด้านการใช้ปัญญาประดิษฐ์ (AI Acceptable Use Policy)</li>
+          <li><span class="n">1.2</span>นโยบายด้านความปลอดภัยการใช้ปัญญาประดิษฐ์ (AI Security and Safety Policy)</li>
+          <li><span class="n">1.3</span>นโยบายด้านการใช้ปัญญาประดิษฐ์อย่างมีความรับผิดชอบ (Accountability)</li>
+        </ul>
+      </div>
+      <div class="pccard">
+        <div class="eh"><span class="ec bg-pow">70092</span><span class="en">แนะนำข้อปฏิบัติตามจริยธรรม กฎหมายและมาตรฐานภายในองค์กร</span></div>
+        <ul class="pclist">
+          <li><span class="n">2.1</span>หลักจริยธรรมปัญญาประดิษฐ์ (AI Ethic Principle)</li>
+          <li><span class="n">2.2</span>กฎหมายอาญา หมวด 3 ความผิดฐานหมิ่นประมาท</li>
+          <li><span class="n">2.3</span>กฎหมายแพ่งและพาณิชย์ หมวด 1 ความรับผิดเพื่อละเมิด</li>
+          <li><span class="n">2.4</span>พ.ร.บ. ลิขสิทธิ์และทรัพย์สินทางปัญญา</li>
+          <li><span class="n">2.5</span>พ.ร.บ. การกระทำความผิดเกี่ยวกับคอมพิวเตอร์</li>
+          <li><span class="n">2.6</span>พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)</li>
+          <li><span class="n">2.7</span>พ.ร.บ. คุ้มครองแรงงาน</li>
+          <li><span class="n">2.8</span>พ.ร.บ. ธุรกรรมทางอิเล็กทรอนิกส์</li>
+          <li><span class="n">2.9</span>กฎหมายสากลที่เกี่ยวข้องกับปัญญาประดิษฐ์ (GDPR)</li>
+          <li><span class="n">2.10</span>มาตรฐานสากล (ISO/IEC 22989:2022, IEEE 7000-2021)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span class="brandmark">บัณฑิตพันธุ์ใหม่ × AI Literacy</span><span class="pg">PC 7009</span></div>
+  </section>
+
+</div>
+
+<button class="navbtn" id="prev" aria-label="ก่อนหน้า">‹</button>
+<button class="navbtn" id="next" aria-label="ถัดไป">›</button>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  const bar=document.getElementById('bar');
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    location.hash=i+1;
+  }
+  document.getElementById('next').onclick=()=>show(i+1);
+  document.getElementById('prev').onclick=()=>show(i-1);
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();show(i+1);}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
+    if(e.key==='Home')show(0);
+    if(e.key==='End')show(slides.length-1);
+  });
+  document.addEventListener('click',e=>{if(e.target.closest('.navbtn'))return;
+    const x=e.clientX/innerWidth; if(x>0.5)show(i+1); else show(i-1);});
+  const start=parseInt(location.hash.slice(1));
+  show(isNaN(start)?0:start-1);
+</script>
+</body>
+</html>
