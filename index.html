@@ -313,6 +313,27 @@
       background: var(--amber-soft);
     }
 
+    .badge.cancel {
+      border-color: #fca5a5;
+      color: #b91c1c;
+      background: #fef2f2;
+      font-weight: 700;
+    }
+    .hours-lab {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #0f766e;
+      background: #ccfbf1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+    }
+    tr.row-cancel td { background: #fef2f2; }
+    tr.row-cancel .cancel-topic { text-decoration: line-through; color: var(--text-soft); }
+
     /* Timeline */
     .timeline {
       border-left: 2px solid #bfdbfe;
@@ -665,6 +686,20 @@
       </div>
     </div>
 
+  <!-- ★ ประกาศ — งดเรียนเสาร์ 19 ก.ย. -->
+    <div style="margin:0 0 22px;border-radius:12px;overflow:hidden;border:1px solid #fca5a5;box-shadow:0 4px 16px rgba(185,28,28,.12)">
+      <div style="background:linear-gradient(135deg,#b91c1c,#c2410c);color:#fff;padding:14px 20px">
+        <div style="font-size:18px;font-weight:700">📢 ประกาศ — งดการเรียนการสอน วันเสาร์ที่ 19 ก.ย. 2569</div>
+      </div>
+      <div style="background:#fff;padding:16px 20px;font-size:14px;color:#374151;line-height:1.8">
+        <strong>งดการเรียนการสอนสด</strong> ในวันเสาร์ที่ 19 กันยายน 2569 (ทั้งช่วงเช้าและบ่าย)
+        <div style="margin-top:10px;display:grid;gap:8px">
+          <div>🎬 ผู้สอนได้จัดเตรียม <strong>วิดีโอบันทึกการสอนไว้ให้รับชมล่วงหน้า</strong> — เปิดชมได้ที่ <a href="https://drive.google.com/drive/folders/1r1QHuEozwHHaLn3jKEplRGCw83uspKL_" target="_blank" rel="noopener" style="color:#1e4d8c;font-weight:600">โฟลเดอร์ VDO ย้อนหลัง</a></div>
+          <div>🧪 <strong>กิจกรรมปฏิบัติการ (Lab)</strong> จัดในช่วง <strong>เช้าวันอาทิตย์ที่ 20 ก.ย. เวลา 09:00–12:00</strong> ผ่าน Zoom (ลิงก์เดิม)</div>
+        </div>
+      </div>
+    </div>
+
   <!-- Module 1 detailed schedule (moved to top — current module) -->
     <section>
       <h2>ตารางเรียน Module 1 (เดือนแรก)</h2>
@@ -741,9 +776,9 @@
             <tr><td>พุธ 16 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 3</span></td><td>ให้คำปรึกษา (<a href="https://raise2-58508.web.app/" target="_blank" rel="noopener">จองคิวล่วงหน้า</a>)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
 
             <tr class="month-row"><td colspan="6">▌ สัปดาห์ 9 (W9) — 19–23 ก.ย. (Online)</td></tr>
-            <tr><td>เสาร์ 19 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-theory">Lecture</span></td><td>Sprint 1 Review — Tester + Playwright MCP + เตรียมส่งมอบ</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
-            <tr><td>เสาร์ 19 ก.ย.</td><td class="time-col">13:00–16:00</td><td><span class="hours-practice">Workshop</span></td><td>ฝึกปฏิบัติตามหัวข้อ Lecture</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td>Full-Stack block + Sprint 1 (MVP ส่งมอบ)</td></tr>
-            <tr><td>อาทิตย์ 20 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 4</span></td><td>ให้คำปรึกษา (<a href="https://raise2-58508.web.app/" target="_blank" rel="noopener">จองคิวล่วงหน้า</a>)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr class="row-cancel"><td>เสาร์ 19 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="badge cancel">งด — ดู VDO</span></td><td class="cancel-topic">Sprint 1 Review — Tester + Playwright MCP + เตรียมส่งมอบ <span style="color:#b91c1c;font-weight:600">(งดสอนสด · รับชม <a href="https://drive.google.com/drive/folders/1r1QHuEozwHHaLn3jKEplRGCw83uspKL_" target="_blank" rel="noopener" style="color:#b91c1c">VDO บันทึกล่วงหน้า</a>)</span></td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr class="row-cancel"><td>เสาร์ 19 ก.ย.</td><td class="time-col">13:00–16:00</td><td><span class="badge cancel">งด — ดู VDO</span></td><td class="cancel-topic">ฝึกปฏิบัติตามหัวข้อ Lecture <span style="color:#b91c1c;font-weight:600">(งดสอนสด · รับชม VDO บันทึกล่วงหน้า)</span></td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
+            <tr><td>อาทิตย์ 20 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-lab">Lab</span></td><td>กิจกรรมปฏิบัติการ (Lab) — Sprint 1 / เตรียมส่งมอบ MVP <span style="color:#0f766e;font-weight:600">(ทดแทนคาบเสาร์ 19 ก.ย.)</span></td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td>Full-Stack block + Sprint 1 (MVP ส่งมอบ)</td></tr>
             <tr><td>พุธ 23 ก.ย.</td><td class="time-col">09:00–12:00</td><td><span class="hours-practice">Consult 4</span></td><td>ให้คำปรึกษา (<a href="https://raise2-58508.web.app/" target="_blank" rel="noopener">จองคิวล่วงหน้า</a>)</td><td>รศ.ดร.นชา ชลดำรงค์กุล</td><td class="muted">—</td></tr>
 
           </tbody>
