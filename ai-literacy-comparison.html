@@ -112,11 +112,11 @@
 
   .progress{position:fixed;left:0;top:0;height:4px;background:var(--accent);z-index:50;transition:width .3s}
 
-  .navbtn{position:fixed;top:50%;transform:translateY(-50%);z-index:60;width:42px;height:42px;border-radius:50%;
-    border:none;background:rgba(31,111,235,.85);color:#fff;font-size:20px;cursor:pointer;
-    display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-  #prev{left:16px}#next{right:16px}
-  .navbtn:hover{background:var(--brand)}
+  .navbtn{position:fixed;top:50%;transform:translateY(-50%);z-index:60;width:36px;height:48px;
+    border:none;background:none;box-shadow:none;color:#94a3b8;opacity:.4;font-size:30px;line-height:1;
+    cursor:pointer;display:grid;place-items:center;padding:0;transition:opacity .2s,color .2s}
+  #prev{left:14px}#next{right:14px}
+  .navbtn:hover{opacity:.9;color:var(--brand);background:none}
 
   .note{font-size:15px;color:var(--muted);margin-top:8px}
   .hl{background:linear-gradient(transparent 60%,#ffe08a 60%);padding:0 2px;font-weight:600}
