@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Day 1–2 · Data Analytics & Visualization ด้วย AI Vibe Coding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9EDF2; --paper:#FFFFFF; --ink:#16233B; --muted:#56627A; --line:#DCE1EA;
+  --accent:#0F8B8D; --accent-soft:#E3F3F3; --warn:#B4461F; --warn-soft:#FBEDE7; --ok:#2F7D5B; --ok-soft:#E6F3EC;
+  --code:#EEF1F6; --coffee:#6B3E26;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#070C16; --paper:#131C2E; --ink:#E6EBF5; --muted:#9AA6BE; --line:#2A3650;
+  --accent:#3CC4C6; --accent-soft:#12303A; --warn:#FF8A5B; --warn-soft:#3A2019; --ok:#5CC592; --ok-soft:#16322A;
+  --code:#1C2740; --coffee:#D9A07E;
+}}
+:root[data-theme="dark"]{
+  --bg:#070C16; --paper:#131C2E; --ink:#E6EBF5; --muted:#9AA6BE; --line:#2A3650;
+  --accent:#3CC4C6; --accent-soft:#12303A; --warn:#FF8A5B; --warn-soft:#3A2019; --ok:#5CC592; --ok-soft:#16322A;
+  --code:#1C2740; --coffee:#D9A07E;
+}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Anuphan","Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif;overflow:hidden}
+#viewport{position:fixed;inset:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px) 0;display:flex;align-items:center;justify-content:center}
+#stage{width:1280px;height:720px;position:relative;transform-origin:center center;flex:none}
+.slide{position:absolute;inset:0;background:var(--paper);padding:56px 72px 64px;display:none;flex-direction:column;overflow:hidden;border-radius:6px}
+.slide.active{display:flex}
+.slide h1{font-size:56px;line-height:1.2;margin:0 0 16px;font-weight:700}
+.slide h2{font-size:40px;line-height:1.25;margin:0 0 24px;font-weight:700}
+.slide h3{font-size:26px;margin:0 0 10px;font-weight:600}
+.slide p,.slide li{font-size:25px;line-height:1.6}
+.slide p{margin:0 0 14px;max-width:1040px}
+.slide ul,.slide ol{margin:0;padding-left:34px}
+.slide li{margin:6px 0}
+.small{font-size:20px!important;color:var(--muted)}
+.muted{color:var(--muted)}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);padding:1px 6px;border-radius:4px}
+pre{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:var(--code);border-radius:10px;padding:18px 22px;margin:0;font-size:19px;line-height:1.55;white-space:pre-wrap;overflow:auto}
+pre code{background:none;padding:0;font-size:inherit}
+.kw{color:var(--accent);font-weight:500}
+.cm{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.box{border:2px solid var(--line);border-radius:12px;padding:20px 24px}
+.box.accent{border-color:var(--accent);background:var(--accent-soft)}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box h3{margin-top:0}
+.box li,.box p{font-size:22px}
+.tag{display:inline-block;font-size:18px;font-weight:600;color:var(--accent);margin-bottom:8px}
+.lab-tag{display:inline-block;background:var(--accent);color:var(--paper);font-weight:700;font-size:20px;padding:4px 14px;border-radius:999px;margin-bottom:14px}
+.spacer{flex:1}
+/* session cover */
+.cover{background:var(--ink);color:var(--paper)}
+.cover .num{font-size:220px;line-height:.9;font-weight:700;color:var(--accent);letter-spacing:-.04em}
+.cover h1{color:var(--paper);font-size:60px;max-width:1000px}
+.cover p{color:color-mix(in srgb,var(--paper) 72%,transparent)}
+.cover .when{font-size:24px;margin-top:auto}
+/* big statement */
+.statement{justify-content:center}
+.statement .big{font-size:64px;line-height:1.3;font-weight:700;max-width:1060px}
+/* loop */
+.loop{display:flex;align-items:stretch;gap:0;margin-top:10px}
+.loop .step{flex:1;border:2px solid var(--accent);padding:22px 20px;border-radius:12px;background:var(--accent-soft);position:relative}
+.loop .step b{display:block;font-size:30px;color:var(--accent)}
+.loop .step span{font-size:21px;line-height:1.5;display:block;margin-top:6px}
+.loop .arrow{flex:none;width:44px;display:flex;align-items:center;justify-content:center;font-size:34px;color:var(--accent)}
+.back{margin-top:18px;font-size:22px;color:var(--muted);text-align:center}
+/* tables */
+table{border-collapse:collapse;width:100%;font-size:22px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:19px}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+/* agenda */
+.agenda td:first-child{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted);width:170px}
+.agenda tr.lab td{background:var(--accent-soft)}
+/* checklist */
+.check li{list-style:none;position:relative;padding-left:4px}
+.check li::before{content:"☐";position:absolute;left:-34px;color:var(--accent)}
+/* prompt anatomy */
+.anat span{padding:2px 4px;border-radius:4px}
+.a1{background:#DDEBFF}.a2{background:#FFF1C9}.a3{background:#DDF3E4}.a4{background:#FDE0E4}.a5{background:#EADFFD}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .a1{background:#1F3558}:root:not([data-theme="light"]) .a2{background:#4A3D12}:root:not([data-theme="light"]) .a3{background:#173D27}:root:not([data-theme="light"]) .a4{background:#4A1C24}:root:not([data-theme="light"]) .a5{background:#33245A}}
+:root[data-theme="dark"] .a1{background:#1F3558}:root[data-theme="dark"] .a2{background:#4A3D12}:root[data-theme="dark"] .a3{background:#173D27}:root[data-theme="dark"] .a4{background:#4A1C24}:root[data-theme="dark"] .a5{background:#33245A}
+.legend-a{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:20px;margin-top:16px}
+.legend-a i{display:inline-block;width:16px;height:16px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+/* chart chooser */
+.chooser{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.chooser .c{border:2px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+.chooser svg{width:100%;height:110px;display:block;margin-bottom:10px}
+.chooser b{display:block;font-size:22px}
+.chooser span{font-size:19px;color:var(--muted);display:block;line-height:1.4}
+/* notes */
+.notes{display:none}
+body.show-notes .slide.active .notes{display:block;position:absolute;left:0;right:0;bottom:0;max-height:46%;overflow:auto;background:#FFF7D6;color:#3A2E00;border-top:3px solid #E0A100;padding:14px 72px;font-size:19px;line-height:1.55;z-index:3}
+.notes b{color:#7A5200}
+/* chrome */
+.foot{position:absolute;left:72px;right:72px;bottom:22px;display:flex;justify-content:space-between;font-size:16px;color:var(--muted);pointer-events:none}
+.cover .foot{color:color-mix(in srgb,var(--paper) 55%,transparent)}
+#progress{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:4px;background:var(--accent);transition:width .2s;z-index:10}
+#controls{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;z-index:10}
+#controls button{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:6px 11px;cursor:pointer;opacity:.75}
+#controls button:hover,#controls button:focus-visible{opacity:1}
+#menu{position:fixed;right:14px;bottom:calc(58px + env(safe-area-inset-bottom,0px));background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px;display:none;z-index:11;max-height:70vh;overflow:auto;min-width:280px;box-shadow:0 8px 30px rgba(0,0,0,.18)}
+#menu.open{display:block}
+#menu button{display:block;width:100%;text-align:left;font:inherit;font-size:16px;background:none;border:0;color:var(--ink);padding:8px 10px;border-radius:6px;cursor:pointer}
+#menu button:hover{background:var(--accent-soft)}
+#menu .hint{font-size:13px;color:var(--muted);padding:8px 10px 4px;border-top:1px solid var(--line);margin-top:6px;line-height:1.6}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media print{
+  body{overflow:visible;background:#fff}
+  #viewport{position:static;display:block}
+  #stage{transform:none!important;width:auto;height:auto}
+  .slide{display:flex!important;position:relative;width:1280px;height:720px;page-break-after:always;border-radius:0}
+  #progress,#controls,#menu,.notes{display:none!important}
+  @page{size:1280px 720px;margin:0}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="viewport"><div id="stage">
+
+<!-- ============================ SESSION 1 ============================ -->
+<section class="slide cover" data-title="คาบ 1 · Vibe Coding และ Dashboard แรก">
+  <div class="num">01</div>
+  <h1>Vibe Coding 101 และ Dashboard แรกใน 3 ชั่วโมง</h1>
+  <p>Basic Data Analytics and Data Visualization using AI Vibe Coding</p>
+  <p class="when">เสาร์ 26 ก.ย. 2026 · 13.00–16.00</p>
+</section>
+
+<section class="slide">
+  <h2>วันนี้เราจะออกจากห้องพร้อมอะไร</h2>
+  <div class="grid2">
+    <div>
+      <p>Dashboard ยอดขายที่รันบนเครื่องของตัวเอง สร้างด้วย AI และ<b>ตรวจแล้วว่าตัวเลขถูก</b></p>
+      <ul>
+        <li>KPI 4 ตัว</li>
+        <li>กราฟเส้นยอดขายรายวัน</li>
+        <li>กราฟแท่งเปรียบเทียบ 5 สาขา</li>
+        <li>โค้ดทั้งหมดอยู่บน GitHub</li>
+      </ul>
+    </div>
+    <table class="agenda">
+      <tr><td>13.00–13.25</td><td>Vibe Coding คืออะไร</td></tr>
+      <tr><td>13.25–13.45</td><td>สาธิต: 2 วิธีสร้าง Dashboard</td></tr>
+      <tr class="lab"><td>13.45–14.30</td><td>Lab 1.1 ตั้งโปรเจกต์</td></tr>
+      <tr><td>14.30–14.40</td><td>พัก</td></tr>
+      <tr class="lab"><td>14.40–15.40</td><td>Lab 1.2 สร้าง Dashboard + Verify</td></tr>
+      <tr><td>15.40–16.00</td><td>Show & tell, การบ้าน</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>ลูกค้าของเราตลอดคอร์ส: ร้านกาแฟ “บ้านบรู”</h2>
+  <div class="grid2">
+    <div>
+      <p>เครือร้านกาแฟ 5 สาขาในกรุงเทพฯ ข้อมูล 18 เดือน (1 เม.ย. 2025 – 20 ก.ย. 2026)</p>
+      <table>
+        <tr><th>สาขา</th><th>ประเภท</th></tr>
+        <tr><td>สยาม</td><td>ห้าง</td></tr>
+        <tr><td>สีลม</td><td>ออฟฟิศ</td></tr>
+        <tr><td>อารีย์</td><td>ชุมชน</td></tr>
+        <tr><td>บางนา</td><td>ห้าง</td></tr>
+        <tr><td>มหาวิทยาลัย</td><td>สถานศึกษา</td></tr>
+      </table>
+    </div>
+    <div class="box accent">
+      <h3>เจ้าของร้านอยากรู้</h3>
+      <ul>
+        <li>สาขาไหนขายดีที่สุด</li>
+        <li>ยอดขายโตขึ้นหรือลดลง</li>
+        <li>ลูกค้ามาช่วงไหน ซื้ออะไร</li>
+        <li>ลูกค้าบ่นเรื่องอะไร</li>
+        <li>เดือนหน้าจะขายได้เท่าไร</li>
+      </ul>
+      <p class="small">เราจะตอบคำถามเหล่านี้ทีละข้อจนจบคอร์ส</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>ปลายทางวันที่ 25 ต.ค.</h2>
+  <table>
+    <tr><th>ช่วง</th><th>Dashboard ของคุณจะมี</th></tr>
+    <tr><td class="num">วันนี้</td><td>KPI + กราฟพื้นฐาน อ่านจาก CSV</td></tr>
+    <tr><td class="num">Day 2</td><td>ข้อมูลสะอาด เก็บบน Firebase อัปเดตแบบ real-time ออนไลน์พร้อม login</td></tr>
+    <tr><td class="num">Day 3–4</td><td>RFM, Cohort, drill-down, แผนที่, พยากรณ์ยอดขาย, แจ้งเตือนวันผิดปกติ</td></tr>
+    <tr><td class="num">Day 5–6</td><td>AI สรุปผล, วิเคราะห์รีวิวภาษาไทย, แชตถามข้อมูล, แชตบอตตอบจากคู่มือร้าน</td></tr>
+    <tr><td class="num">Day 7</td><td>โปรเจกต์ของทีมคุณเอง นำเสนอใน Demo Day</td></tr>
+  </table>
+</section>
+
+<section class="slide statement">
+  <p class="tag">Vibe Coding คืออะไร</p>
+  <div class="big">บอก AI ว่าอยากได้อะไรเป็นภาษาคน ให้ AI เขียนโค้ด แล้วเราคุมทิศทางและตรวจผล</div>
+  <p class="small" style="margin-top:28px">คำนี้ Andrej Karpathy ใช้ต้นปี 2025 จนกลายเป็นคำเรียกวิธีทำงานแบบนี้ ในคอร์สนี้เราใช้แบบ “มีวินัย” คือไม่เชื่อโค้ดจนกว่าจะตรวจ</p>
+</section>
+
+<section class="slide">
+  <h2>วงจรที่เราจะใช้ทุกคาบ</h2>
+  <div class="loop">
+    <div class="step"><b>Prompt</b><span>บอกบริบท ข้อมูล งาน และข้อกำหนด</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>Run</b><span>รันจริง ดูผลบนหน้าจอ อ่าน error</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>Verify</b><span>เทียบตัวเลขกับต้นทาง คำนวณมือ 2–3 จุด</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>Refine</b><span>บอกสิ่งที่ผิดให้ชัด แล้วสั่งแก้</span></div>
+  </div>
+  <p class="back">↺ วนจนตัวเลขถูกและหน้าตาใช้งานได้</p>
+  <div class="spacer"></div>
+  <div class="box warn"><p style="margin:0">ขั้นที่คนข้ามบ่อยที่สุดคือ <b>Verify</b> และเป็นขั้นที่สำคัญที่สุดในงานข้อมูล กราฟสวยแต่ตัวเลขผิดอันตรายกว่าไม่มีกราฟ</p></div>
+</section>
+
+<section class="slide">
+  <h2>จุดแข็งและกับดัก</h2>
+  <div class="grid2">
+    <div class="box ok">
+      <h3>AI ช่วยได้มาก</h3>
+      <ul>
+        <li>ตั้งโปรเจกต์และเขียนโค้ดซ้ำ ๆ ในไม่กี่นาที</li>
+        <li>ลองไอเดียได้เร็ว ทิ้งได้ไม่เสียดาย</li>
+        <li>อธิบายโค้ดและ error เป็นภาษาไทย</li>
+        <li>คนที่ไม่ใช่โปรแกรมเมอร์สร้างเครื่องมือเองได้</li>
+      </ul>
+    </div>
+    <div class="box warn">
+      <h3>ต้องระวัง</h3>
+      <ul>
+        <li>มั่นใจแต่ผิด โดยเฉพาะตัวเลขและสูตร</li>
+        <li>แก้จุดหนึ่ง พังอีกจุดโดยไม่บอก</li>
+        <li>โค้ดยาวขึ้นเรื่อย ๆ จนไม่มีใครเข้าใจ</li>
+        <li>ใส่ API key หรือข้อมูลลับลงโค้ด</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>เครื่องมือ 2 แบบ</h2>
+  <div class="grid2">
+    <div class="box">
+      <p class="tag">สร้างแอปจาก prompt</p>
+      <h3>v0, Lovable, Bolt</h3>
+      <ul>
+        <li>เร็วมาก เห็นผลบนเว็บทันที</li>
+        <li>เหมาะกับต้นแบบ ทดลองหน้าตา</li>
+        <li>ควบคุมโครงสร้างโค้ดได้น้อย</li>
+      </ul>
+    </div>
+    <div class="box accent">
+      <p class="tag">AI ในโปรแกรมเขียนโค้ด</p>
+      <h3>Cursor, Claude Code, Copilot</h3>
+      <ul>
+        <li>ทำงานในโปรเจกต์จริงบนเครื่องเรา</li>
+        <li>เหมาะกับงานที่ต้องดูแลต่อยาว ๆ</li>
+        <li>เป็นแบบหลักของคอร์สนี้</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Prompt ที่ดีมี 5 ส่วน</h2>
+  <pre class="anat" style="font-size:22px;line-height:2"><span class="a1">ฉันมีไฟล์ public/sales.csv คอลัมน์ order_id, datetime, branch, qty, unit_price, customer_id</span>
+<span class="a2">1 แถว = 1 รายการสินค้า บิลหนึ่งมีได้หลายแถว ยอดขาย = qty × unit_price</span>
+<span class="a3">สร้าง Dashboard ด้วย React + Recharts มี KPI 4 ตัว กราฟเส้นรายวัน กราฟแท่งแยกสาขา</span>
+<span class="a4">ตัวเลขมีจุลภาคและ "฿" · แยกโค้ดคำนวณไว้ที่ src/lib/metrics.js</span>
+<span class="a5">อธิบายสั้น ๆ ว่าแต่ละฟังก์ชันคำนวณอย่างไร</span></pre>
+  <div class="legend-a">
+    <span><i class="a1"></i>ข้อมูลที่มี</span>
+    <span><i class="a2"></i>ความหมายของข้อมูล</span>
+    <span><i class="a3"></i>งานที่ต้องการ</span>
+    <span><i class="a4"></i>ข้อกำหนด</span>
+    <span><i class="a5"></i>ขอคำอธิบายเพื่อตรวจสอบ</span>
+  </div>
+  <div class="spacer"></div>
+  <p class="small">ส่วนสีเหลืองคือส่วนที่คนมักลืม และเป็นต้นเหตุของตัวเลขผิดเกือบทั้งหมด</p>
+</section>
+
+<section class="slide">
+  <h2>เครื่องมือที่เราใช้ในโปรเจกต์</h2>
+  <table>
+    <tr><th>เครื่องมือ</th><th>ทำหน้าที่</th></tr>
+    <tr><td><b>React</b></td><td>สร้างหน้าเว็บเป็นชิ้นส่วน (component) นำกลับมาใช้ซ้ำได้</td></tr>
+    <tr><td><b>Vite</b></td><td>รันเว็บบนเครื่องและ build ไปขึ้นเว็บจริง เร็วมาก</td></tr>
+    <tr><td><b>Tailwind CSS</b></td><td>จัดหน้าตาด้วย class สั้น ๆ เช่น <code>p-4</code> <code>rounded-xl</code></td></tr>
+    <tr><td><b>Recharts</b></td><td>ไลบรารีกราฟสำหรับ React เขียนกราฟเป็น component</td></tr>
+    <tr><td><b>PapaParse</b></td><td>อ่านไฟล์ CSV ในเบราว์เซอร์</td></tr>
+  </table>
+  <p class="small" style="margin-top:20px">ไม่ต้องจำทั้งหมด AI เขียนให้ แต่ต้องรู้ว่าแต่ละตัวทำอะไร เวลามีปัญหาจะได้บอก AI ถูกจุด</p>
+</section>
+
+<section class="slide">
+  <span class="lab-tag">Lab 1.1 · 45 นาที</span>
+  <h2>ตั้งโปรเจกต์ด้วย AI</h2>
+  <div class="grid2">
+    <div>
+      <ol>
+        <li>เปิด Cursor หรือ AI tool ที่ถนัด</li>
+        <li>ใช้ Prompt 1.1 ใน <code>PROMPTS.md</code></li>
+        <li>ทำตามคำสั่งทีละขั้นใน terminal</li>
+        <li><code>npm run dev</code> แล้วเปิด localhost:5173</li>
+        <li>สร้าง repo บน GitHub แล้ว push</li>
+      </ol>
+    </div>
+    <div class="box">
+      <h3>ติดตั้งไม่ผ่านภายใน 20 นาที?</h3>
+      <p>ใช้ <code>lab1-starter</code> จาก repo ของคอร์สแทน ติดตั้งไว้ครบแล้ว</p>
+      <pre>npm install
+npm run dev</pre>
+      <p class="small" style="margin-top:12px">ไม่เสียคะแนน เป้าหมายคือได้ทำ Lab 1.2</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>ก่อนสั่ง AI ต้องเข้าใจข้อมูลก่อน</h2>
+  <pre>order_id    datetime                   branch  product_id qty unit_price customer_id
+ORD0000001  2025-04-01T18:48:40+07:00  สยาม    P007       1   80
+ORD0000003  2025-04-01T08:15:02+07:00  สีลม    P004       1   75         C01234
+ORD0000003  2025-04-01T08:15:02+07:00  สีลม    P028       2   65         C01234</pre>
+  <div class="grid3" style="margin-top:28px">
+    <div class="box accent"><h3>1 แถว ≠ 1 บิล</h3><p>ORD0000003 มี 2 แถว เพราะซื้อ 2 อย่าง</p></div>
+    <div class="box accent"><h3>ยอดขาย = qty × ราคา</h3><p>แถวสุดท้ายคือ 2 × 65 = ฿130 ไม่ใช่ ฿65</p></div>
+    <div class="box accent"><h3>customer_id ว่าง</h3><p>คือลูกค้าทั่วไป ไม่ใช่สมาชิก ไม่นับเป็นลูกค้า</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="lab-tag">Lab 1.2 · 60 นาที</span>
+  <h2>สร้าง Dashboard แรก</h2>
+  <div class="grid2">
+    <div>
+      <ul class="check">
+        <li>KPI: ยอดขายรวม, จำนวนบิล, ยอดเฉลี่ยต่อบิล, ลูกค้าสมาชิก</li>
+        <li>กราฟเส้นยอดขายรายวัน</li>
+        <li>กราฟแท่งยอดขายแยกสาขา เรียงมากไปน้อย</li>
+        <li>ตรวจตัวเลขกับ Pivot Table</li>
+        <li>Commit + push</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>ทำเสร็จเร็ว? ลองต่อ</h3>
+      <ul>
+        <li>เส้นค่าเฉลี่ย 7 วันทับกราฟรายวัน</li>
+        <li>วันที่ภาษาไทยบนแกน X</li>
+        <li>แสดงผลบนมือถือ</li>
+        <li>ถาม AI ให้อธิบาย <code>computeKpis</code> ทีละบรรทัด</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>กับดักที่ AI มักพลาด ตรวจของตัวเองดู</h2>
+  <table>
+    <tr><th>ถ้าได้ตัวเลขนี้</th><th>แปลว่า</th><th>สั่ง AI แก้ว่า</th></tr>
+    <tr><td class="num">บิล 53,092</td><td>นับแถว ไม่ได้นับบิล</td><td>“นับ order_id ที่ไม่ซ้ำ”</td></tr>
+    <tr><td class="num">ยอดขาย ฿3.9 ล้าน</td><td>ลืมคูณ qty</td><td>“ยอดขาย = qty × unit_price”</td></tr>
+    <tr><td class="num">เฉลี่ยต่อบิล ฿84</td><td>หารด้วยจำนวนแถว</td><td>“หารด้วยจำนวนบิล”</td></tr>
+    <tr><td class="num">ยอดเป็น 0 หรือ NaN</td><td>ตัวเลขถูกอ่านเป็นข้อความ</td><td>“แปลง qty, unit_price เป็น Number”</td></tr>
+    <tr><td class="num">วันที่เลื่อน 1 วัน</td><td>แปลงเป็นเวลา UTC</td><td>“ใช้ 10 ตัวอักษรแรกของ datetime”</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <h2>Verify: เทียบกับ Pivot Table</h2>
+  <div class="grid2">
+    <ol>
+      <li>เปิด <code>sales.csv</code> ใน Excel หรือ Google Sheets</li>
+      <li>เพิ่มคอลัมน์ <code>revenue = qty * unit_price</code></li>
+      <li>Insert → Pivot Table: Rows = branch, Values = SUM of revenue</li>
+      <li>เทียบกับกราฟแท่งใน Dashboard</li>
+      <li>แคปหน้าจอทั้งสองฝั่งเก็บไว้เป็นหลักฐาน</li>
+    </ol>
+    <div class="box warn">
+      <h3>ตัวเลขไม่ตรง?</h3>
+      <p>อย่าแก้โค้ดเอง ให้บอก AI แบบนี้</p>
+      <pre>ยอดขายสาขาสยามใน Excel คือ X บาท
+แต่ Dashboard แสดง Y บาท
+ช่วยหาสาเหตุ และอธิบายก่อนแก้</pre>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Show & tell</h2>
+  <p>อาสาสมัคร 3–4 คน คนละ 3 นาที</p>
+  <ul>
+    <li>โชว์ Dashboard</li>
+    <li>prompt ไหนที่ได้ผลดีที่สุด</li>
+    <li>AI ทำอะไรผิด แล้วคุณจับได้อย่างไร</li>
+  </ul>
+  <div class="spacer"></div>
+  <div class="box accent"><p style="margin:0"><b>คำถามให้ทุกคนคิด:</b> อารีย์ยอดขายต่ำที่สุด เราสรุปได้ไหมว่าอารีย์ขายไม่ดี?</p></div>
+</section>
+
+<section class="slide">
+  <h2>การบ้านก่อนพรุ่งนี้เช้า</h2>
+  <div class="box accent">
+    <h3>กราฟ “จำนวนบิลตามชั่วโมงของวัน”</h3>
+    <ul>
+      <li>ใช้ AI เพิ่มกราฟนี้ลงใน Dashboard</li>
+      <li>ลองแยกดูทีละสาขา</li>
+      <li>เขียนข้อสังเกตอย่างน้อย 3 ข้อ แล้วส่งในกลุ่ม</li>
+    </ul>
+  </div>
+  <p style="margin-top:28px">คำใบ้: ลองคิดว่าคนที่มาสาขาสีลมกับสาขาสยามเป็นใคร</p>
+</section>
+
+<!-- ============================ SESSION 2 ============================ -->
+<section class="slide cover" data-title="คาบ 2 · คิดแบบนักวิเคราะห์">
+  <div class="num">02</div>
+  <h1>คิดแบบนักวิเคราะห์: ข้อมูลสะอาด และกราฟที่ถูกคำถาม</h1>
+  <p>Basic Data Analytics and Data Visualization using AI Vibe Coding (ต่อ)</p>
+  <p class="when">อาทิตย์ 27 ก.ย. 2026 · 09.00–12.00</p>
+</section>
+
+<section class="slide">
+  <h2>ทบทวนการบ้าน: เจออะไรบ้าง</h2>
+  <div class="grid2">
+    <div>
+      <p>ยกตัวอย่างข้อสังเกตจากเพื่อน 3–4 คน แล้วถามต่อทุกข้อว่า</p>
+      <ul>
+        <li>จริงไหม ตรวจอย่างไร</li>
+        <li>แล้วเจ้าของร้านควรทำอะไร</li>
+      </ul>
+    </div>
+    <div class="box accent">
+      <h3>จากกราฟสู่การตัดสินใจ</h3>
+      <p>“สีลมคนแน่น 8 โมงเช้า”</p>
+      <p>→ เพิ่มพนักงานช่วงเช้า<br>→ เปิดสั่งล่วงหน้าผ่านแอป<br>→ ลดพนักงานวันเสาร์-อาทิตย์</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>เช้านี้</h2>
+  <table class="agenda">
+    <tr><td>09.00–09.15</td><td>ทบทวนการบ้าน</td></tr>
+    <tr><td>09.15–09.45</td><td>คำถาม → ตัวชี้วัด → กราฟ, ประเภทข้อมูล, สถิติพื้นฐาน</td></tr>
+    <tr class="lab"><td>09.45–10.30</td><td>Lab 2.1 Data profiling และทำความสะอาดข้อมูลด้วย AI</td></tr>
+    <tr><td>10.30–10.40</td><td>พัก</td></tr>
+    <tr><td>10.40–11.00</td><td>เลือกกราฟให้ถูกงาน</td></tr>
+    <tr class="lab"><td>11.00–11.45</td><td>Lab 2.2 ซ่อมกราฟแย่</td></tr>
+    <tr><td>11.45–12.00</td><td>Quiz 5 ข้อ</td></tr>
+  </table>
+</section>
+
+<section class="slide statement">
+  <p class="tag">หลักข้อเดียวของ Dashboard ที่ดี</p>
+  <div class="big">คำถาม → ตัวชี้วัด → กราฟ</div>
+  <p style="margin-top:28px">เริ่มจากกราฟก่อนคือเริ่มผิด เพราะจะได้หน้ารวมกราฟสวย ๆ ที่ไม่มีใครใช้ตัดสินใจ</p>
+  <table style="margin-top:12px;max-width:1080px">
+    <tr><th>คำถาม</th><th>ตัวชี้วัด</th><th>กราฟ</th></tr>
+    <tr><td>ควรจัดพนักงานกี่คนช่วงไหน</td><td>จำนวนบิลต่อชั่วโมง แยกสาขา</td><td>กราฟแท่งตามชั่วโมง</td></tr>
+    <tr><td>โปรฯ 1 แถม 1 คุ้มไหม</td><td>ยอดขายและกำไรช่วงโปรฯ เทียบปกติ</td><td>กราฟเส้น + แถบไฮไลต์</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <h2>ข้อมูลมี 4 แบบ ใช้ต่างกัน</h2>
+  <table>
+    <tr><th>ประเภท</th><th>ตัวอย่างในบ้านบรู</th><th>ทำอะไรได้</th></tr>
+    <tr><td><b>กลุ่ม (categorical)</b></td><td>branch, category, payment_method</td><td>นับ, จัดกลุ่ม, เปรียบเทียบ</td></tr>
+    <tr><td><b>ตัวเลข (numeric)</b></td><td>qty, unit_price, rating</td><td>รวม, เฉลี่ย, ดูการกระจาย</td></tr>
+    <tr><td><b>เวลา (time)</b></td><td>datetime, joined_date</td><td>ดูแนวโน้ม, ฤดูกาล, เทียบช่วงเวลา</td></tr>
+    <tr><td><b>ข้อความ (text)</b></td><td>review_text</td><td>ต้องแปลงก่อน เช่น ใช้ AI จัดหมวด (Day 5)</td></tr>
+  </table>
+  <p class="small" style="margin-top:20px">กับดัก: <code>customer_id</code> และ <code>product_id</code> ดูเหมือนตัวเลขแต่เป็นรหัส เอามาหาค่าเฉลี่ยไม่ได้</p>
+</section>
+
+<section class="slide">
+  <h2>ค่าเฉลี่ยโกหกได้</h2>
+  <div class="grid2">
+    <div>
+      <p>ยอดต่อบิลของบ้านบรู</p>
+      <table>
+        <tr><td>ค่าเฉลี่ย (mean)</td><td class="num"><b>฿128.39</b></td></tr>
+        <tr><td>ค่ากลาง (median)</td><td class="num"><b>฿95.00</b></td></tr>
+        <tr><td>90% ของบิลไม่เกิน</td><td class="num">฿240</td></tr>
+        <tr><td>บิลสูงสุด</td><td class="num">฿725</td></tr>
+      </table>
+    </div>
+    <div class="box accent">
+      <h3>ทำไมต่างกัน</h3>
+      <p>บิลใหญ่ไม่กี่บิล (ซื้อเลี้ยงทีม, ซื้อเค้ก) ดึงค่าเฉลี่ยขึ้น ลูกค้า “ทั่วไป” จ่ายประมาณ ฿95</p>
+      <p><b>ถ้าจะตั้งโปรฯ ยอดขั้นต่ำ ควรใช้ตัวไหน?</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>ข้อมูลจริงไม่เคยสะอาด</h2>
+  <p>ไฟล์ <code>sales_raw.csv</code> คือข้อมูลเดียวกับเมื่อวาน แต่มาจาก POS จริง ปัญหาที่พบบ่อยในไทย</p>
+  <div class="grid3" style="margin-top:14px">
+    <div class="box"><h3>วันที่ปนกัน</h3><p>2568-04-01 กับ 2025-04-01 และ 01/04/2025</p></div>
+    <div class="box"><h3>ชื่อไม่ตรงกัน</h3><p>“สยาม”, “สยาม␣”, “Siam”, “สาขาสยาม”</p></div>
+    <div class="box"><h3>ตัวเลขเป็นข้อความ</h3><p>“65.00 บาท” คำนวณไม่ได้</p></div>
+    <div class="box"><h3>ค่าแปลก</h3><p>ราคาติดลบ, qty = 0</p></div>
+    <div class="box"><h3>ข้อมูลหาย</h3><p>product_id ว่าง</p></div>
+    <div class="box"><h3>แถวซ้ำ</h3><p>POS ส่งข้อมูลซ้ำ</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="lab-tag">Lab 2.1 · 45 นาที</span>
+  <h2>Data profiling ด้วย AI ใน Google Colab</h2>
+  <pre>ช่วยทำ data profiling ของ DataFrame df (จาก sales_raw.csv) ด้วย pandas:
+- จำนวน null และค่าไม่ซ้ำของแต่ละคอลัมน์
+- หาแถวที่ซ้ำกันทุกคอลัมน์
+- ตรวจคอลัมน์ datetime ว่ามีปี พ.ศ. หรือรูปแบบวันที่อื่นปนอยู่หรือไม่
+- แสดงชื่อสาขาทั้งหมดพร้อมจำนวนแถว
+- หาแถวที่ unit_price ไม่ใช่ตัวเลข หรือติดลบ หรือ qty = 0
+<span class="kw">อย่าแก้ข้อมูลก่อน ให้รายงานปัญหาที่พบเป็นตารางก่อน</span></pre>
+  <p style="margin-top:18px">จากนั้นเขียน cleaning script → export <code>sales_clean.csv</code> → รายงานว่าตัดกี่แถว เพราะอะไร</p>
+</section>
+
+<section class="slide">
+  <h2>การทำความสะอาดคือการตัดสินใจทางธุรกิจ</h2>
+  <p>AI เสนอวิธีแก้ได้ แต่คนที่รู้ธุรกิจต้องเป็นคนตัดสิน</p>
+  <table style="margin-top:10px">
+    <tr><th>เจอ</th><th>ทางเลือก</th><th>ควรถามใคร</th></tr>
+    <tr><td>ราคาติดลบ</td><td>ลบทิ้ง? แปลงเป็นบวก? เป็นการคืนเงินจริง?</td><td>ฝ่ายบัญชี</td></tr>
+    <tr><td>qty = 0</td><td>บิลยกเลิก? พิมพ์ผิด?</td><td>ผู้จัดการสาขา</td></tr>
+    <tr><td>ชื่อ “ม.”</td><td>มหาวิทยาลัย? หรือสาขาอื่น?</td><td>ทีม POS</td></tr>
+  </table>
+  <div class="spacer"></div>
+  <div class="box warn"><p style="margin:0">ทุกการตัดสินใจต้องจดไว้ใน README ว่าทำอะไร เพราะอะไร ตัดไปกี่แถว คนที่มาดู Dashboard ทีหลังจะได้รู้</p></div>
+</section>
+
+<section class="slide">
+  <h2>เลือกกราฟจากสิ่งที่อยากรู้</h2>
+  <div class="chooser">
+    <div class="c">
+      <svg viewBox="0 0 120 80" aria-hidden="true"><rect x="10" y="20" width="18" height="55" fill="var(--accent)"/><rect x="36" y="35" width="18" height="40" fill="var(--accent)"/><rect x="62" y="45" width="18" height="30" fill="var(--accent)"/><rect x="88" y="58" width="18" height="17" fill="var(--accent)"/></svg>
+      <b>เปรียบเทียบ</b><span>กราฟแท่ง เรียงลำดับ</span>
+    </div>
+    <div class="c">
+      <svg viewBox="0 0 120 80" aria-hidden="true"><polyline points="5,60 25,50 45,55 65,35 85,40 115,15" fill="none" stroke="var(--accent)" stroke-width="4"/></svg>
+      <b>แนวโน้ม</b><span>กราฟเส้น</span>
+    </div>
+    <div class="c">
+      <svg viewBox="0 0 120 80" aria-hidden="true"><rect x="10" y="15" width="100" height="22" fill="var(--accent)"/><rect x="10" y="15" width="62" height="22" fill="var(--coffee)"/><rect x="10" y="47" width="100" height="22" fill="var(--accent)"/><rect x="10" y="47" width="45" height="22" fill="var(--coffee)"/></svg>
+      <b>สัดส่วน</b><span>แท่งซ้อน (pie ได้ถ้า 2–3 ส่วน)</span>
+    </div>
+    <div class="c">
+      <svg viewBox="0 0 120 80" aria-hidden="true"><rect x="8" y="60" width="14" height="15" fill="var(--accent)"/><rect x="24" y="30" width="14" height="45" fill="var(--accent)"/><rect x="40" y="12" width="14" height="63" fill="var(--accent)"/><rect x="56" y="35" width="14" height="40" fill="var(--accent)"/><rect x="72" y="55" width="14" height="20" fill="var(--accent)"/><rect x="88" y="66" width="14" height="9" fill="var(--accent)"/></svg>
+      <b>การกระจาย</b><span>histogram, box plot</span>
+    </div>
+    <div class="c">
+      <svg viewBox="0 0 120 80" aria-hidden="true"><g fill="var(--accent)"><circle cx="15" cy="65" r="4"/><circle cx="28" cy="58" r="4"/><circle cx="40" cy="60" r="4"/><circle cx="52" cy="45" r="4"/><circle cx="66" cy="42" r="4"/><circle cx="78" cy="30" r="4"/><circle cx="92" cy="28" r="4"/><circle cx="105" cy="15" r="4"/></g></svg>
+      <b>ความสัมพันธ์</b><span>scatter</span>
+    </div>
+  </div>
+  <p style="margin-top:28px">ถ้ายังเลือกไม่ได้ ให้ถาม AI ว่า “คำถามนี้ควรใช้กราฟแบบไหน และทำไม” แล้วตัดสินเอง</p>
+</section>
+
+<section class="slide">
+  <h2>บาปของกราฟที่เจอบ่อย</h2>
+  <div class="grid2">
+    <ul>
+      <li><b>Pie 12 ชิ้น</b> อ่านไม่ออกว่าชิ้นไหนใหญ่กว่า</li>
+      <li><b>กราฟแท่งแกน Y ไม่เริ่มที่ 0</b> ต่างกัน 5% ดูเหมือน 3 เท่า</li>
+      <li><b>สีรุ้ง</b> ทุกแท่งคนละสีโดยไม่มีความหมาย</li>
+      <li><b>3D</b> บิดสัดส่วน ทำให้ส่วนหน้าดูใหญ่</li>
+      <li><b>แกน Y สองข้าง</b> เลือกสเกลให้เส้นตัดกันตรงไหนก็ได้</li>
+    </ul>
+    <svg viewBox="0 0 480 300" aria-label="ตัวอย่างกราฟแท่งแกนตัด เทียบกับแกนเริ่มที่ศูนย์">
+      <text x="10" y="22" font-size="17" fill="var(--warn)" font-family="Anuphan,sans-serif">แกนเริ่มที่ 900k</text>
+      <line x1="30" y1="260" x2="220" y2="260" stroke="var(--muted)"/>
+      <rect x="45" y="60" width="50" height="200" fill="var(--warn)"/>
+      <rect x="115" y="215" width="50" height="45" fill="var(--warn)"/>
+      <text x="45" y="285" font-size="15" fill="var(--muted)" font-family="Anuphan,sans-serif">บางนา</text>
+      <text x="100" y="285" font-size="15" fill="var(--muted)" font-family="Anuphan,sans-serif">มหาวิทยาลัย</text>
+      <text x="260" y="22" font-size="17" fill="var(--ok)" font-family="Anuphan,sans-serif">แกนเริ่มที่ 0</text>
+      <line x1="280" y1="260" x2="470" y2="260" stroke="var(--muted)"/>
+      <rect x="295" y="75" width="50" height="185" fill="var(--ok)"/>
+      <rect x="365" y="96" width="50" height="164" fill="var(--ok)"/>
+      <text x="295" y="285" font-size="15" fill="var(--muted)" font-family="Anuphan,sans-serif">บางนา</text>
+      <text x="350" y="285" font-size="15" fill="var(--muted)" font-family="Anuphan,sans-serif">มหาวิทยาลัย</text>
+    </svg>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="lab-tag">Lab 2.2 · 45 นาที</span>
+  <h2>ซ่อมกราฟแย่</h2>
+  <p>สั่ง AI สร้างกราฟแย่ 5 แบบนี้ แล้ววิจารณ์ และสั่งแก้ให้ดีขึ้น เขียนเหตุผลสั้น ๆ ทุกข้อ</p>
+  <ol>
+    <li>Pie chart ยอดขายแยก 40 เมนู</li>
+    <li>กราฟแท่งยอดขาย 5 สาขา แกน Y เริ่มที่ 500,000</li>
+    <li>กราฟเส้นยอดขายรายวัน 538 วัน ไม่มีการทำให้เรียบ</li>
+    <li>กราฟแท่งยอดรายเดือน ไม่บอกว่ากันยายน 2026 มีแค่ 20 วัน</li>
+    <li>กราฟแท่งเทียบยอดรวมสาขา โดยไม่คำนึงว่าอารีย์เปิดทีหลัง</li>
+  </ol>
+</section>
+
+<section class="slide">
+  <h2>Quiz: ใช้กราฟอะไร</h2>
+  <ol>
+    <li>ยอดขายรายเดือน 18 เดือน อยากเห็นว่าโตขึ้นไหม</li>
+    <li>เปรียบเทียบยอดขาย 5 สาขา</li>
+    <li>สัดส่วนหน้าร้าน vs เดลิเวอรี</li>
+    <li>ยอดต่อบิลส่วนใหญ่อยู่ช่วงไหน</li>
+    <li>เมนูที่ราคาแพงขายได้น้อยกว่าจริงไหม</li>
+  </ol>
+  <p class="small" style="margin-top:22px">ตอบในกระดาษหรือ Mentimeter 3 นาที</p>
+</section>
+
+<section class="slide">
+  <h2>เฉลย</h2>
+  <table>
+    <tr><th>ข้อ</th><th>กราฟ</th><th>เพราะ</th></tr>
+    <tr><td>1</td><td>กราฟเส้น</td><td>ดูแนวโน้มตามเวลา</td></tr>
+    <tr><td>2</td><td>กราฟแท่ง เรียงมากไปน้อย</td><td>เทียบขนาดระหว่างกลุ่ม</td></tr>
+    <tr><td>3</td><td>Donut หรือแท่งซ้อน</td><td>มีแค่ 2 ส่วน pie ใช้ได้</td></tr>
+    <tr><td>4</td><td>Histogram</td><td>ดูการกระจาย เห็นว่าเบ้ขวา</td></tr>
+    <tr><td>5</td><td>Scatter</td><td>ดูความสัมพันธ์ของตัวเลข 2 ตัว (1 จุด = 1 เมนู)</td></tr>
+  </table>
+</section>
+
+<!-- ============================ SESSION 3 ============================ -->
+<section class="slide cover" data-title="คาบ 3 · Firebase แบบ real-time">
+  <div class="num">03</div>
+  <h1>จาก CSV สู่ฐานข้อมูลจริง: Firebase แบบ real-time และขึ้นเว็บ</h1>
+  <p>Basic Data Analytics and Data Visualization using AI Vibe Coding (ต่อ)</p>
+  <p class="when">อาทิตย์ 27 ก.ย. 2026 · 13.00–16.00</p>
+</section>
+
+<section class="slide">
+  <h2>บ่ายนี้</h2>
+  <table class="agenda">
+    <tr><td>13.00–13.25</td><td>ทำไมต้องมีฐานข้อมูล, Firestore ทำงานอย่างไร</td></tr>
+    <tr class="lab"><td>13.25–14.10</td><td>Lab 3.1 สร้าง Firebase project และนำข้อมูลเข้า</td></tr>
+    <tr><td>14.10–14.20</td><td>พัก</td></tr>
+    <tr class="lab"><td>14.20–15.10</td><td>Lab 3.2 Dashboard แบบ real-time + ฟอร์มบันทึกยอดขาย</td></tr>
+    <tr class="lab"><td>15.10–15.40</td><td>Lab 3.3 Login, Security Rules และขึ้นเว็บ</td></tr>
+    <tr><td>15.40–16.00</td><td>แลกลิงก์ทดสอบกัน, สรุปภาค Basic</td></tr>
+  </table>
+  <p class="small" style="margin-top:22px">ก่อนเริ่ม: ล็อกอิน Google ที่จะใช้สร้าง Firebase ไว้ในเบราว์เซอร์</p>
+</section>
+
+<section class="slide">
+  <h2>CSV ในเครื่อง vs ฐานข้อมูลบน Cloud</h2>
+  <table>
+    <tr><th></th><th>CSV ในเครื่อง</th><th>ฐานข้อมูลบน Cloud</th></tr>
+    <tr><td>หลายคนใช้พร้อมกัน</td><td>ต้องส่งไฟล์ไปมา</td><td>ทุกคนเห็นข้อมูลเดียวกัน</td></tr>
+    <tr><td>ข้อมูลใหม่</td><td>ต้องอัปโหลดไฟล์ใหม่</td><td>ขึ้นทันที (real-time)</td></tr>
+    <tr><td>ความปลอดภัย</td><td>ใครได้ไฟล์ก็เห็นหมด</td><td>กำหนดสิทธิ์ได้ว่าใครอ่าน/เขียนอะไร</td></tr>
+    <tr><td>ข้อมูลเยอะ</td><td>เบราว์เซอร์ช้าลง</td><td>ดึงเฉพาะที่ต้องใช้</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <h2>Firestore กับ Supabase</h2>
+  <div class="grid2">
+    <div class="box accent">
+      <p class="tag">NoSQL (เอกสาร)</p>
+      <h3>Firebase Firestore</h3>
+      <ul>
+        <li>เก็บเป็นเอกสาร JSON</li>
+        <li>real-time ง่ายมาก</li>
+        <li>มี login, hosting ในที่เดียว</li>
+        <li>สรุปข้อมูลซับซ้อนทำยากกว่า</li>
+      </ul>
+      <p class="small">ใช้เป็นหลักในคอร์ส</p>
+    </div>
+    <div class="box">
+      <p class="tag">SQL (ตาราง)</p>
+      <h3>Supabase (PostgreSQL)</h3>
+      <ul>
+        <li>เก็บเป็นตาราง เหมือน Excel</li>
+        <li>ใช้ SQL สรุปข้อมูลได้ทรงพลัง</li>
+        <li>มี real-time และ login เช่นกัน</li>
+        <li>เหมาะกับงานวิเคราะห์หนัก ๆ</li>
+      </ul>
+      <p class="small">ทางเลือกสำหรับคนที่รู้ SQL</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>โครงสร้าง Firestore</h2>
+  <div class="grid2">
+    <div>
+      <p><b>collection</b> คือกลุ่มของเอกสาร เหมือนชีต<br><b>document</b> คือ 1 รายการ เหมือน 1 แถว<br><b>field</b> คือค่าในเอกสาร เหมือนคอลัมน์</p>
+      <p>ออกแบบให้ <b>query ง่าย</b>: เก็บ <code>date</code> เป็นข้อความ “2026-09-20” และคำนวณ <code>revenue</code> ไว้เลย จะกรองและรวมได้ทันที</p>
+    </div>
+<pre><span class="cm">// collection: sales</span>
+<span class="cm">// document id: ORD0034791-P004</span>
+{
+  <span class="kw">"order_id"</span>: "ORD0034791",
+  <span class="kw">"date"</span>: "2026-09-20",
+  <span class="kw">"hour"</span>: 16,
+  <span class="kw">"branch"</span>: "สยาม",
+  <span class="kw">"product_id"</span>: "P004",
+  <span class="kw">"qty"</span>: 1,
+  <span class="kw">"unit_price"</span>: 75,
+  <span class="kw">"revenue"</span>: 75,
+  <span class="kw">"customer_id"</span>: null
+}</pre>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>เรื่องความลับ: อะไรเปิดเผยได้ อะไรห้าม</h2>
+  <div class="grid2">
+    <div class="box ok">
+      <h3>อยู่ในหน้าเว็บได้</h3>
+      <p>Firebase web config (<code>apiKey</code>, <code>projectId</code> …) เป็นแค่ “ที่อยู่” ของโปรเจกต์ ความปลอดภัยจริงมาจาก <b>Security Rules</b></p>
+      <p class="small">ยังควรเก็บใน <code>.env</code> เพื่อให้เปลี่ยนโปรเจกต์ง่าย</p>
+    </div>
+    <div class="box warn">
+      <h3>ห้ามหลุดเด็ดขาด</h3>
+      <p><b>Service account key</b> (ไฟล์ JSON ที่ใช้ใน seed script) มีสิทธิ์ทำทุกอย่างกับฐานข้อมูล</p>
+      <p class="small">ใส่ชื่อไฟล์ใน <code>.gitignore</code> ก่อน commit เสมอ และห้ามวางลงใน AI chat</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="lab-tag">Lab 3.1 · 45 นาที</span>
+  <h2>สร้างโปรเจกต์และนำข้อมูลเข้า</h2>
+  <div class="grid2">
+    <ol>
+      <li>console.firebase.google.com → Add project</li>
+      <li>สร้าง Firestore Database</li>
+      <li>Project settings → Service accounts → Generate key (เก็บนอก repo)</li>
+      <li>ใช้ prompt ด้านขวาสร้าง seed script</li>
+      <li>ตรวจจำนวน document ใน console</li>
+    </ol>
+    <pre>เขียน Node.js script ด้วย firebase-admin
+อ่าน sales.csv แล้วนำเข้า collection "sales"
+- เฉพาะ 3 เดือนล่าสุด
+- เพิ่ม field date, hour, revenue
+- ใช้ batch ครั้งละไม่เกิน 500
+- document id = order_id + "-" + product_id
+- พิมพ์จำนวนที่นำเข้าเมื่อเสร็จ
+อ่าน path ของ key จาก .env</pre>
+  </div>
+  <p class="small" style="margin-top:16px">นำเข้าแค่ 3 เดือน เพราะแผนฟรีจำกัดจำนวนการเขียนต่อวัน (ดูตัวเลขล่าสุดในหน้า pricing ของ Firebase)</p>
+</section>
+
+<section class="slide">
+  <h2>อ่านข้อมูล 2 แบบ</h2>
+  <div class="grid2">
+    <div class="box">
+      <h3><code>getDocs</code> · อ่านครั้งเดียว</h3>
+      <p>เหมือนถ่ายรูป ได้ข้อมูล ณ ตอนนั้น ข้อมูลเปลี่ยนต้องกดโหลดใหม่</p>
+    </div>
+    <div class="box accent">
+      <h3><code>onSnapshot</code> · ฟังตลอดเวลา</h3>
+      <p>เหมือนดูไลฟ์ ข้อมูลเปลี่ยนเมื่อไร หน้าจออัปเดตเอง</p>
+    </div>
+  </div>
+<pre style="margin-top:22px">useEffect(() =&gt; {
+  const q = query(collection(db, "sales"), where("date", "&gt;=", startDate), orderBy("date"));
+  const unsub = onSnapshot(q, (snap) =&gt;
+    setRows(snap.docs.map((d) =&gt; ({ id: d.id, ...d.data() }))));
+  return () =&gt; unsub();   <span class="cm">// เลิกฟังเมื่อออกจากหน้า ไม่งั้นจะอ่านซ้ำเรื่อย ๆ</span>
+}, [startDate]);</pre>
+</section>
+
+<section class="slide">
+  <span class="lab-tag">Lab 3.2 · 50 นาที</span>
+  <h2>Dashboard แบบ real-time</h2>
+  <div class="grid2">
+    <ul class="check">
+      <li>เปลี่ยนจากอ่าน CSV เป็นอ่าน Firestore ด้วย <code>onSnapshot</code></li>
+      <li>ตัวเลือกช่วงวันที่ และตัวเลือกสาขา</li>
+      <li>ฟอร์ม “บันทึกยอดขาย” (สาขา, เมนู, จำนวน)</li>
+      <li>ทดสอบ: ให้เพื่อนเปิดลิงก์เดียวกันแล้วกรอก กราฟเราต้องขยับเอง</li>
+    </ul>
+    <pre>แก้ Dashboard ให้อ่านข้อมูลจาก
+Firestore collection "sales" แทน CSV
+- ใช้ onSnapshot และ cleanup ใน useEffect
+- เก็บ firebase config ใน .env (VITE_*)
+- เพิ่มตัวกรองวันที่และสาขา
+- เพิ่มฟอร์มบันทึกยอดขาย ดึงรายชื่อเมนู
+  จาก products.csv ราคาใส่อัตโนมัติ
+- แสดงสถานะกำลังโหลด และข้อความเมื่อ
+  ไม่มีข้อมูลในช่วงที่เลือก</pre>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Security Rules: ใครทำอะไรได้บ้าง</h2>
+  <div class="grid2">
+    <div class="box warn">
+      <h3>โหมดทดสอบ (อันตราย)</h3>
+<pre>allow read, write: if true;</pre>
+      <p style="margin-top:12px">ใครก็ได้บนโลกอ่าน แก้ และลบข้อมูลทั้งหมด</p>
+    </div>
+    <div class="box ok">
+      <h3>อย่างน้อยต้องเป็นแบบนี้</h3>
+<pre>match /sales/{id} {
+  allow read: if request.auth != null;
+  allow create: if request.auth != null
+    &amp;&amp; request.resource.data.qty &gt; 0;
+  allow update, delete: if false;
+}</pre>
+    </div>
+  </div>
+  <p class="small" style="margin-top:18px">ต้องล็อกอินจึงอ่านได้ · เพิ่มได้แต่ qty ต้องมากกว่า 0 · แก้และลบไม่ได้เลยจากหน้าเว็บ</p>
+</section>
+
+<section class="slide">
+  <span class="lab-tag">Lab 3.3 · 30 นาที</span>
+  <h2>Login และขึ้นเว็บ</h2>
+  <div class="grid2">
+    <div>
+      <h3>Login ด้วย Google</h3>
+      <ol>
+        <li>Authentication → เปิด Google provider</li>
+        <li>สั่ง AI เพิ่มปุ่มเข้าสู่ระบบ/ออกจากระบบ</li>
+        <li>ซ่อน Dashboard ถ้ายังไม่ล็อกอิน</li>
+      </ol>
+    </div>
+    <div>
+      <h3>ขึ้นเว็บ (เลือก 1)</h3>
+      <p><b>Firebase Hosting</b></p>
+      <pre>npm run build
+npx firebase-tools init hosting
+npx firebase-tools deploy</pre>
+      <p style="margin-top:12px"><b>Vercel</b>: import repo จาก GitHub แล้วใส่ค่า .env ในหน้า Settings</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>สิ่งที่ต้องคิดต่อ: ข้อมูลโตขึ้นเรื่อย ๆ</h2>
+  <p>ถ้านำเข้าครบ 53,092 แถว แล้วมีคนเปิด Dashboard วันละ 20 ครั้ง</p>
+  <p style="font-size:44px;font-weight:700;margin:10px 0 18px">≈ 1 ล้านการอ่าน / วัน</p>
+  <p>ช้าลง และเกินโควตาฟรีไปมาก</p>
+  <div class="box accent" style="margin-top:14px">
+    <p style="margin:0"><b>ทางออก (คาบ 7):</b> เก็บยอดสรุปรายวันไว้ใน collection <code>daily_summary</code> Dashboard อ่านแค่ 538 เอกสารแทน 53,092</p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>จบภาค Basic: เช็กตัวเอง</h2>
+  <ul class="check">
+    <li>อธิบายวงจร Prompt → Run → Verify → Refine ได้</li>
+    <li>รู้ว่าข้อมูลของตัวเอง 1 แถวหมายถึงอะไร</li>
+    <li>ทำความสะอาดข้อมูลและบอกได้ว่าตัดอะไรทิ้งเพราะอะไร</li>
+    <li>เลือกกราฟจากคำถามได้</li>
+    <li>มี Dashboard ออนไลน์ที่มี login และอัปเดต real-time</li>
+    <li>ไม่มี service account key อยู่ใน GitHub</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>การบ้าน: เสนอหัวข้อโปรเจกต์</h2>
+  <p>ส่งก่อนวันเสาร์ 3 ต.ค. ความยาว 1 ย่อหน้า ตอบ 5 ข้อนี้</p>
+  <ol>
+    <li><b>ปัญหา:</b> ใครเจอปัญหาอะไร</li>
+    <li><b>ผู้ใช้:</b> ใครจะเปิด Dashboard นี้</li>
+    <li><b>ข้อมูล:</b> ใช้ข้อมูลอะไร ได้มาจากไหน</li>
+    <li><b>คำถาม 3 ข้อ</b> ที่ Dashboard ต้องตอบได้</li>
+    <li><b>ฟีเจอร์ AI</b> ที่อยากมี (ยังไม่ต้องรู้วิธีทำ)</li>
+  </ol>
+  <p class="small" style="margin-top:18px">ไม่มีข้อมูลของตัวเอง? ใช้ข้อมูลบ้านบรู ค่าฝุ่น PM2.5 หรือข้อมูลเปิดจาก data.go.th ได้</p>
+</section>
+
+<section class="slide statement">
+  <p class="tag">เจอกันเสาร์ 3 ต.ค.</p>
+  <div class="big">AI เขียนโค้ด แต่เราเป็นเจ้าของความถูกต้องของตัวเลข</div>
+  <p style="margin-top:28px">Day 3: RFM, Cohort, Pareto และ Dashboard แบบคลิกเจาะลึกได้</p>
+</section>
+
+</div></div>
+
+<nav id="controls" aria-label="ควบคุมสไลด์">
+  <button id="prev" aria-label="สไลด์ก่อนหน้า">←</button>
+  <button id="menuBtn" aria-haspopup="true" aria-expanded="false">เมนู</button>
+  <button id="fsBtn">เต็มจอ</button>
+  <button id="next" aria-label="สไลด์ถัดไป">→</button>
+</nav>
+<div id="menu" role="menu"></div>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const stage=document.getElementById('stage');
+  const progress=document.getElementById('progress');
+  const menu=document.getElementById('menu');
+  const menuBtn=document.getElementById('menuBtn');
+  let cur=0;
+
+  // footer with session label and slide number
+  let session='';
+  slides.forEach((s,i)=>{
+    if(s.dataset.title) session=s.dataset.title.split(' · ')[0];
+    const f=document.createElement('div'); f.className='foot';
+    f.innerHTML='<span>'+session+' · บ้านบรู</span><span>'+(i+1)+' / '+slides.length+'</span>';
+    s.appendChild(f);
+  });
+
+  // jump menu
+  slides.forEach((s,i)=>{
+    if(!s.dataset.title) return;
+    const b=document.createElement('button'); b.setAttribute('role','menuitem');
+    b.textContent=s.dataset.title; b.onclick=()=>{go(i);toggleMenu(false)}; menu.appendChild(b);
+  });
+  const hint=document.createElement('div'); hint.className='hint';
+  hint.innerHTML='← → หรือแตะขอบจอ: เปลี่ยนสไลด์<br>F: เต็มจอ · M: เมนู';
+  menu.appendChild(hint);
+
+  function fit(){
+    const vp=document.getElementById('viewport');
+    const s=Math.min(vp.clientWidth/1280, vp.clientHeight/720)*0.98;
+    stage.style.transform='scale('+s+')';
+  }
+  function go(i){
+    cur=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,j)=>s.classList.toggle('active',j===cur));
+    progress.style.width=((cur+1)/slides.length*100)+'%';
+    if(location.hash!=='#'+(cur+1)) history.replaceState(null,'','#'+(cur+1));
+  }
+  function toggleMenu(force){
+    const open=force===undefined?!menu.classList.contains('open'):force;
+    menu.classList.toggle('open',open); menuBtn.setAttribute('aria-expanded',open);
+  }
+  function fullscreen(){
+    if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.();
+  }
+
+  document.getElementById('prev').onclick=()=>go(cur-1);
+  document.getElementById('next').onclick=()=>go(cur+1);
+  menuBtn.onclick=()=>toggleMenu();
+  document.getElementById('fsBtn').onclick=fullscreen;
+
+  document.addEventListener('keydown',e=>{
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    const k=e.key;
+    if(['ArrowRight','PageDown',' '].includes(k)){e.preventDefault();go(cur+1)}
+    else if(['ArrowLeft','PageUp'].includes(k)){e.preventDefault();go(cur-1)}
+    else if(k==='Home') go(0);
+    else if(k==='End') go(slides.length-1);
+    else if(k==='f'||k==='F') fullscreen();
+    else if(k==='m'||k==='M') toggleMenu();
+    else if(k==='Escape') toggleMenu(false);
+  });
+  // tap left/right third of screen
+  document.getElementById('viewport').addEventListener('click',e=>{
+    if(e.target.closest('pre,a,button,.notes')) return;
+    if(window.getSelection && String(window.getSelection())) return;
+    const x=e.clientX/window.innerWidth;
+    if(x>0.66) go(cur+1); else if(x<0.33) go(cur-1);
+  });
+  let tx=null;
+  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',e=>{
+    if(tx===null) return; const dx=e.changedTouches[0].clientX-tx; tx=null;
+    if(Math.abs(dx)>50) go(cur+(dx<0?1:-1));
+  });
+
+  window.addEventListener('resize',fit);
+  window.addEventListener('hashchange',()=>{const n=parseInt(location.hash.slice(1),10); if(n) go(n-1)});
+  fit();
+  const start=parseInt(location.hash.slice(1),10);
+  go(start?start-1:0);
+})();
+</script>
+</body>
+</html>
