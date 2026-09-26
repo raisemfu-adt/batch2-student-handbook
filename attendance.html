@@ -322,7 +322,8 @@
     let visible = 0;
     let anyLow = false;
     bodyEl.querySelectorAll('tr').forEach(tr => {
-      const match = q !== '' && tr.dataset.id.includes(q);
+      // exact match only — a partial ID must never reveal other students' rows
+      const match = q !== '' && tr.dataset.id === q;
       tr.classList.toggle('hidden', !match);
       const idCell = tr.querySelector('.id-col');
       idCell.textContent = match ? idCell.dataset.full : maskId(idCell.dataset.full);
@@ -336,7 +337,9 @@
       countEl.textContent = 'พิมพ์รหัสนักศึกษาของคุณเพื่อดูสถานะ';
       tableWrapEl.style.display = 'none';
     } else {
-      countEl.textContent = visible > 0 ? `พบ ${visible} รายการ` : 'ไม่พบรหัสนี้ในระบบ';
+      const idLen = students[0].id.length;
+      countEl.textContent = visible > 0 ? `พบ ${visible} รายการ`
+        : (q.length < idLen ? `กรุณาพิมพ์รหัสให้ครบ ${idLen} หลัก` : 'ไม่พบรหัสนี้ในระบบ');
       tableWrapEl.style.display = visible > 0 ? '' : 'none';
     }
     lowAttendanceEl.classList.toggle('show', anyLow);
