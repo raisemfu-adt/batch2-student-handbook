@@ -22,6 +22,7 @@
 |------|----------|
 | `index.html` | คู่มือผู้เรียน (หน้าเดียว · เปิดในเบราว์เซอร์ได้) |
 | `ai-literacy-handbook.html` | คู่มือเนื้อหา AI Literacy (25 EoC ↔ M1–M3 + อ่านเสริม) · ลิงก์จาก index |
+| `ai-literacy-quiz.html` | แบบทดสอบฝึก 108 ข้อ (คัดและปรับจาก `02_NewGen/tpqi/material/Quiz_Explanation.md`) · ไม่ส่งคะแนนออกนอกเครื่อง |
 | `DEPLOY.md` | วิธี push ขึ้น [raisemfu-adt](https://github.com/raisemfu-adt) |
 
 ## อัปเดต
