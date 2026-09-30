@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือเนื้อหา AI Literacy — ADT-RAISE Batch 2</title>
+  <meta name="description" content="คู่มือเนื้อหาสมรรถนะ AI Literacy (สคช. 2568) 9 หน่วย 25 สมรรถนะย่อย เทียบกับสิ่งที่เรียนใน Module 1–3 พร้อมเนื้อหาอ่านเสริม">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --border: #e5e7eb;
+      --border-strong: #d1d5db;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --accent: #1e4d8c;
+      --accent-soft: #eff6ff;
+      --teal: #0f766e;
+      --teal-soft: #ecfdf5;
+      --amber: #b45309;
+      --amber-soft: #fffbeb;
+      --blue: #1d4ed8;
+      --blue-soft: #eff6ff;
+      --purple: #6d28d9;
+      --purple-soft: #f5f3ff;
+      --highlight: #f8fafc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { max-width: 920px; margin: 0 auto; padding: 32px 28px 64px; }
+    @media (max-width: 640px) { .wrap { padding: 20px 16px 48px; } }
+
+    a { color: var(--accent); }
+
+    .back { display: inline-block; font-size: 13px; margin-bottom: 18px; text-decoration: none; }
+    .back:hover { text-decoration: underline; }
+
+    .header { border-bottom: 3px solid var(--accent); padding-bottom: 20px; margin-bottom: 24px; }
+    .tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    h1 { font-size: 28px; line-height: 1.3; font-weight: 700; }
+    .sub { color: var(--text-muted); margin-top: 6px; }
+    .asof { display: inline-block; margin-top: 10px; font-size: 13px; background: var(--highlight); border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px; color: #374151; }
+
+    h2 { font-size: 21px; font-weight: 700; margin: 36px 0 12px; color: var(--accent); }
+    h3 { font-size: 17px; font-weight: 700; }
+    p + p { margin-top: 8px; }
+
+    .callout { background: var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 6px; padding: 14px 16px; margin: 12px 0; }
+    .callout.amber { background: var(--amber-soft); border-left-color: var(--amber); }
+
+    /* สรุปสถานะ */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 14px 0; }
+    @media (max-width: 640px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+    .stat { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+    .stat .n { font-size: 26px; font-weight: 700; line-height: 1.1; }
+    .stat .l { font-size: 13px; color: var(--text-muted); }
+    .stat.done .n { color: var(--teal); }
+    .stat.part .n { color: var(--amber); }
+    .stat.soon .n { color: var(--blue); }
+    .stat.self .n { color: var(--purple); }
+
+    .table-wrap { overflow-x: auto; margin: 10px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { border: 1px solid var(--border); padding: 7px 10px; text-align: left; vertical-align: top; }
+    th { background: var(--highlight); font-weight: 600; }
+
+    /* ป้ายสถานะ */
+    .st { display: inline-block; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 1px 10px; white-space: nowrap; }
+    .st.done { background: var(--teal-soft); color: var(--teal); }
+    .st.part { background: var(--amber-soft); color: var(--amber); }
+    .st.soon { background: var(--blue-soft); color: var(--blue); }
+    .st.self { background: var(--purple-soft); color: var(--purple); }
+
+    .lvl { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em; border-radius: 4px; padding: 1px 8px; margin-left: 6px; vertical-align: middle; }
+    .lvl.g { background: #dcfce7; color: #166534; }
+    .lvl.b { background: #dbeafe; color: #1e40af; }
+    .lvl.p { background: #ede9fe; color: #5b21b6; }
+
+    /* ตัวกรอง + ความคืบหน้า */
+    .toolbar { position: sticky; top: 0; z-index: 5; background: rgba(255,255,255,.96); backdrop-filter: blur(4px); border-bottom: 1px solid var(--border); padding: 10px 0; margin: 20px 0 8px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .toolbar button { font: inherit; font-size: 13px; border: 1px solid var(--border-strong); background: #fff; border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+    .toolbar button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .toolbar .prog { margin-left: auto; font-size: 13px; color: var(--text-muted); }
+    .toolbar .prog strong { color: var(--teal); }
+
+    .jump { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
+    .jump a { font-size: 13px; text-decoration: none; border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; }
+    .jump a:hover { background: var(--accent-soft); }
+
+    /* หน่วยสมรรถนะ */
+    .uoc { margin-top: 30px; scroll-margin-top: 64px; }
+    .uoc-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; border-bottom: 2px solid var(--border); padding-bottom: 6px; margin-bottom: 10px; }
+    .uoc-head .code { font-weight: 700; font-size: 20px; color: var(--accent); }
+    .uoc-head h3 { font-size: 18px; }
+
+    .eoc { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
+    .eoc-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+    .eoc-head code { font-family: inherit; font-weight: 700; background: var(--highlight); border: 1px solid var(--border); border-radius: 4px; padding: 0 6px; }
+    .eoc-head .name { font-weight: 600; flex: 1 1 260px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+    @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+    h5 { font-size: 13px; font-weight: 700; color: var(--text-muted); letter-spacing: .02em; margin-bottom: 4px; }
+    .eoc ul { padding-left: 20px; font-size: 14px; }
+    .eoc li + li { margin-top: 2px; }
+    .key { margin-top: 12px; background: var(--highlight); border-radius: 8px; padding: 10px 14px; font-size: 14px; }
+    .key p { margin-top: 4px; }
+    .key table { margin-top: 6px; background: #fff; font-size: 13.5px; }
+
+    details.extra { margin-top: 10px; border: 1px solid #ddd6fe; background: var(--purple-soft); border-radius: 8px; padding: 8px 14px; font-size: 14px; }
+    details.extra summary { cursor: pointer; font-weight: 600; color: var(--purple); }
+    details.extra[open] summary { margin-bottom: 6px; }
+    details.extra table { background: #fff; font-size: 13.5px; }
+    details.extra p, details.extra ul { margin-top: 6px; }
+
+    .chk { display: inline-flex; gap: 8px; align-items: center; margin-top: 10px; font-size: 13px; color: #374151; cursor: pointer; }
+    .chk input { width: 16px; height: 16px; accent-color: var(--teal); }
+
+    .key code, details.extra code { overflow-wrap: anywhere; }
+    .key { overflow-x: auto; }
+
+    .hidden { display: none; }
+
+    .foot { margin-top: 48px; border-top: 1px solid var(--border); padding-top: 16px; font-size: 13px; color: var(--text-muted); }
+
+    @media print {
+      .toolbar, .chk, .back { display: none; }
+      details.extra { display: block; }
+      .eoc { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="./">← กลับคู่มือผู้เรียนหลัก</a>
+
+  <header class="header">
+    <div class="tag">ADT-RAISE Batch 2 · AI Literacy (สคช. 2568)</div>
+    <h1>คู่มือเนื้อหา AI Literacy</h1>
+    <p class="sub">สมรรถนะ 9 หน่วย (25 สมรรถนะย่อย) เทียบกับสิ่งที่เรียนแล้วใน Module 1–3 และเนื้อหาอ่านเสริมสำหรับหัวข้อที่ยังไม่ได้เรียน</p>
+    <span class="asof">ข้อมูล ณ 30 ก.ย. 2569 · เรียนถึง Module 3 สัปดาห์ 10</span>
+  </header>
+
+  <section>
+    <h2 style="margin-top:0">ใช้คู่มือนี้อย่างไร</h2>
+    <p><strong>AI Literacy</strong> คือมาตรฐานสมรรถนะด้านการใช้ AI ที่สถาบันคุณวุฒิวิชาชีพ (สคช./TPQI) ประกาศเมื่อ พ.ศ. 2568 มี 3 ระดับที่สะสมต่อกัน</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ระดับ</th><th>หน่วยสมรรถนะ</th><th>สรุปสั้น ๆ</th></tr></thead>
+        <tbody>
+          <tr><td><span class="lvl g" style="margin:0">GENERAL</span> ผู้ใช้งานทั่วไป</td><td>7001 · 7002 · 7003</td><td>รู้จัก AI · เข้าใจหลักการทำงาน · รู้ข้อจำกัด จริยธรรม และกฎหมาย</td></tr>
+          <tr><td><span class="lvl b" style="margin:0">BUSINESS</span> ผู้ใช้เพื่อประกอบธุรกิจ</td><td>7004 · 7005 · 7006</td><td>ใช้ AI ทำงานจริง · ปรับแต่งเครื่องมือ · ธรรมาภิบาลและความเสี่ยง</td></tr>
+          <tr><td><span class="lvl p" style="margin:0">POWER</span> ผู้ใช้งานทักษะสูง</td><td>7007 · 7008 · 7009</td><td>เลือกเทคโนโลยีและเข้าใจ ML · ประเมินความเป็นธรรมและความคุ้มค่า · วางนโยบายองค์กร</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>ทุกสมรรถนะย่อยวัดผลด้วยข้อสอบปรนัย 4 ตัวเลือก</strong> ในแต่ละหัวข้อจึงบอกไว้ว่า <em>ข้อสอบวัดอะไร</em> (ตามเกณฑ์การปฏิบัติงานของมาตรฐาน) <em>คุณเรียนเรื่องนี้ที่คาบไหน</em> และ<em>สาระสำคัญที่ควรจำ</em>
+      หัวข้อที่ยังไม่ได้เรียนหรือเรียนไม่ครบมีกล่อง <strong style="color:var(--purple)">📘 อ่านเสริม</strong> ให้อ่านเองได้
+    </div>
+    <p style="font-size:14px;color:var(--text-muted)">หลักสูตรนี้ทำหน้าที่ <strong>เตรียมความพร้อม</strong> ส่วนการสอบรับรองจัดโดยองค์กรรับรอง (CB) ที่ สคช. รับรอง ผู้เรียนเลือกเองว่าจะสอบระดับใด</p>
+
+    <h2>ตอนนี้เรียนไปถึงไหนแล้ว</h2>
+    <div class="stats">
+      <div class="stat done"><div class="n">13</div><div class="l">✅ เรียนแล้ว</div></div>
+      <div class="stat part"><div class="n">5</div><div class="l">🟡 เรียนบางส่วน · อ่านเสริมต่อ</div></div>
+      <div class="stat soon"><div class="n">6</div><div class="l">📅 จะเรียนใน M3–M5</div></div>
+      <div class="stat self"><div class="n">1</div><div class="l">📘 ต้องอ่านเสริมเอง</div></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ระดับ</th><th>สถานะ</th><th>ต้องทำอะไรต่อ</th></tr></thead>
+        <tbody>
+          <tr><td><span class="lvl g" style="margin:0">GENERAL</span></td><td>9 จาก 10 เรียนแล้ว</td><td>อ่านเสริม <a href="#e70012">70012 ประเภท ANI/AGI/ASI</a> แล้วถือว่าพร้อมสอบ</td></tr>
+          <tr><td><span class="lvl b" style="margin:0">BUSINESS</span></td><td>3 จาก 9 เรียนแล้ว · 2 บางส่วน</td><td>เข้า Office AI Lab (11A 10–11 ต.ค. และ 12A 24–25 ต.ค.) และอ่านเสริม <a href="#e70062">70062 ISO/IEEE/GDPR</a></td></tr>
+          <tr><td><span class="lvl p" style="margin:0">POWER</span></td><td>1 จาก 6 เรียนแล้ว · 2 บางส่วน</td><td>เรียน AI Model &amp; LLM (สป. 12 17–18 ต.ค.), Sprint 2 (25 ต.ค.), M4 และ M5</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="jump" aria-label="ไปยังหน่วยสมรรถนะ">
+      <a href="#u7001">7001</a><a href="#u7002">7002</a><a href="#u7003">7003</a><a href="#u7004">7004</a><a href="#u7005">7005</a><a href="#u7006">7006</a><a href="#u7007">7007</a><a href="#u7008">7008</a><a href="#u7009">7009</a><a href="#next">ตารางเรียนที่เหลือ</a>
+    </div>
+  </section>
+
+  <div class="toolbar" role="toolbar" aria-label="กรองตามสถานะ">
+    <button type="button" data-f="all" aria-pressed="true">ทั้งหมด</button>
+    <button type="button" data-f="done" aria-pressed="false">✅ เรียนแล้ว</button>
+    <button type="button" data-f="part" aria-pressed="false">🟡 บางส่วน</button>
+    <button type="button" data-f="soon" aria-pressed="false">📅 จะเรียน</button>
+    <button type="button" data-f="self" aria-pressed="false">📘 อ่านเสริมเอง</button>
+    <span class="prog">ทบทวนแล้ว <strong id="prog-n">0</strong>/25</span>
+  </div>
+
+  <!-- ============ 7001 ============ -->
+  <section class="uoc" id="u7001">
+    <div class="uoc-head"><span class="code">7001</span><h3>อธิบายความรู้พื้นฐานเกี่ยวกับ AI</h3><span class="lvl g">GENERAL</span></div>
+
+    <div class="eoc" id="e70011" data-status="done">
+      <div class="eoc-head"><code>70011</code><span class="name">ระบุแนวคิดพื้นฐานของ AI</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ความหมายของ AI</li><li>บทบาทของ AI ในสมาร์ตโฟน</li><li>บทบาทของ AI ในสื่อสังคมออนไลน์</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M3 · เสาร์ 26 ก.ย. เช้า: What is AI, How does AI work, Top Applications (ผศ.ดร.ขวัญตา)</li><li>เกริ่นครั้งแรกใน Hackathon 25–26 ก.ค.</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ</h5>
+        <p><strong>AI</strong> คือการให้คอมพิวเตอร์จำลองกระบวนการคิดของมนุษย์ จนเรียนรู้ ให้เหตุผล และตัดสินใจได้</p>
+        <p><strong>ในสมาร์ตโฟน:</strong> ปลดล็อกด้วยใบหน้า · ผู้ช่วยสั่งงานด้วยเสียง · กล้องปรับภาพอัตโนมัติ · คีย์บอร์ดเดาคำ · แปลภาษาจากกล้อง</p>
+        <p><strong>ในโซเชียลมีเดีย:</strong> ฟีดและคลิปแนะนำ (recommender) · กรองสแปมและเนื้อหาไม่เหมาะสม · โฆษณาเจาะกลุ่ม · คำบรรยายภาพอัตโนมัติ ดังนั้นฟีดที่คุณเห็นคือสิ่งที่ AI เลือกมาให้ (ต่อยอดไปเรื่องผลกระทบใน 70033)</p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70011"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70012" data-status="part">
+      <div class="eoc-head"><code>70012</code><span class="name">จำแนกประเภทของ AI</span><span class="st part">🟡 บางส่วน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>AI เฉพาะทาง (ANI)</li><li>AI ทั่วไป (AGI)</li><li>AI ขั้นสูง (ASI)</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M3 · 26 ก.ย.: Key Components of AI (ML, DL, Robotics, Expert Systems, Computer Vision, NLP) ซึ่งเป็นการจำแนกตาม<em>เทคนิค</em></li><li>การจำแนกตาม<em>ระดับความสามารถ</em> (ANI/AGI/ASI) ที่ข้อสอบถาม <strong>ยังไม่มีในสไลด์</strong> อ่านด้านล่าง</li></ul></div>
+      </div>
+      <details class="extra" open><summary>📘 อ่านเสริม: ANI · AGI · ASI</summary>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ประเภท</th><th>ความหมาย</th><th>มีจริงหรือยัง</th></tr></thead>
+          <tbody>
+            <tr><td><strong>ANI</strong><br>Artificial Narrow Intelligence</td><td>เก่งเฉพาะงานที่ถูกออกแบบมา ทำงานนอกขอบเขตไม่ได้</td><td>✅ มีจริง ระบบ AI ที่ใช้งานอยู่ทั้งหมดวันนี้ เช่น Face ID, ระบบแนะนำหนัง, Google Translate รวมถึงแชตบอตอย่าง ChatGPT หรือ Claude ก็ยังจัดเป็น ANI ตามนิยามทั่วไป</td></tr>
+            <tr><td><strong>AGI</strong><br>Artificial General Intelligence</td><td>ฉลาดทัดเทียมมนุษย์ทุกด้าน เรียนรู้งานใหม่และถ่ายทอดความรู้ข้ามงานได้เอง</td><td>❌ ยังไม่มี เป็นเป้าหมายของงานวิจัย และยังถกเถียงกันว่าจะมาถึงเมื่อไร</td></tr>
+            <tr><td><strong>ASI</strong><br>Artificial Superintelligence</td><td>ฉลาดเหนือมนุษย์ทุกด้าน ทั้งวิทยาศาสตร์ ความคิดสร้างสรรค์ และทักษะสังคม</td><td>❌ เป็นแนวคิดเชิงทฤษฎี</td></tr>
+          </tbody>
+        </table></div>
+        <p><strong>กับดักในข้อสอบ:</strong> AI ที่ทำได้หลายอย่าง เช่น แชตบอตที่เขียนโค้ดได้ แต่งกลอนได้ และแปลภาษาได้ <em>ไม่ได้แปลว่าเป็น AGI</em> ถ้ายังพึ่งข้อมูลที่ถูกฝึกมาและเรียนรู้งานใหม่ด้วยตัวเองไม่ได้ ก็ยังนับเป็น ANI</p>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70012"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+  </section>
+
+  <!-- ============ 7002 ============ -->
+  <section class="uoc" id="u7002">
+    <div class="uoc-head"><span class="code">7002</span><h3>อธิบายหลักการทำงานของ AI</h3><span class="lvl g">GENERAL</span></div>
+
+    <div class="eoc" id="e70021" data-status="done">
+      <div class="eoc-head"><code>70021</code><span class="name">อธิบายกระบวนการทำงานของ AI</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>การรับรู้ (Perception)</li><li>การแทนค่าและการใช้เหตุผล (Representation &amp; Reasoning)</li><li>การเรียนรู้ (Learning)</li><li>การปฏิสัมพันธ์ตามธรรมชาติ (Natural Interaction)</li><li>ผลกระทบทางสังคม (Societal Impact)</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M2 · W6 29 ส.ค. สไลด์ 13–21: LLM สร้างอย่างไร, AI เดาคำถัดไป, โทเคน, Context Window</li><li>M3 · 26 ก.ย.: How does AI work</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ · 5 ขั้นนี้คือ "5 Big Ideas of AI" ลองอธิบายด้วย LLM ที่เราใช้ทุกวัน</h5>
+        <table>
+          <tbody>
+            <tr><td><strong>รับรู้</strong></td><td>รับข้อความหรือภาพเข้ามา แล้วหั่นข้อความเป็น <em>โทเคน</em></td></tr>
+            <tr><td><strong>แทนค่าและใช้เหตุผล</strong></td><td>แปลงโทเคนเป็นตัวเลข แล้วคำนวณหาคำตอบจากความรู้ที่เก็บไว้ในโมเดล</td></tr>
+            <tr><td><strong>เรียนรู้</strong></td><td>ฝึกจากข้อมูลจำนวนมากให้เดาคำถัดไปได้แม่นขึ้นเรื่อย ๆ</td></tr>
+            <tr><td><strong>ปฏิสัมพันธ์</strong></td><td>คุยกับเราด้วยภาษาคนได้ แต่ต้องจำว่า "เดาเก่ง ≠ รู้จริง" (W6 สไลด์ 16)</td></tr>
+            <tr><td><strong>ผลกระทบสังคม</strong></td><td>ผลที่ตามมาเมื่อคนจำนวนมากใช้ AI (ดูหน่วย 7003)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70021"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70022" data-status="done">
+      <div class="eoc-head"><code>70022</code><span class="name">อธิบายขอบเขตของเทคโนโลยี AI (AI Technology Landscape)</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>Machine Learning · Deep Learning</li><li>NLP (ประมวลผลภาษา) · Computer Vision</li><li>Generative AI · Agentic AI</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M1 · 1 ส.ค.: AI Agent, Sub Agent, Agent Skill, MCP</li><li>M1 · 8–9 ส.ค.: AI Landscape (ตามตารางเรียน)</li><li>M2 · W8 12 ก.ย.: ผู้ช่วย AI ระดับ 1 (ปุ่มเดียว) กับระดับ 2 (agentic)</li><li>M3 · 26 ก.ย.: Key Components of AI</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ</h5>
+        <p><strong>AI ⊃ Machine Learning ⊃ Deep Learning</strong> โดย Generative AI และ LLM สร้างบน Deep Learning</p>
+        <p><strong>NLP</strong> เข้าใจและสร้างภาษา · <strong>Computer Vision</strong> เข้าใจภาพและวิดีโอ · <strong>Generative AI</strong> สร้างเนื้อหาใหม่ เช่น ข้อความ ภาพ หรือโค้ด · <strong>Agentic AI</strong> วางแผน ใช้เครื่องมือ และทำงานหลายขั้นได้เอง เช่น Claude Code หรือ Tester sub-agent ที่ใช้ Playwright MCP ใน W9</p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70022"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70023" data-status="done">
+      <div class="eoc-head"><code>70023</code><span class="name">อธิบายความสำคัญของข้อมูลสำหรับการประมวลผล AI</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ประเภทข้อมูลสำหรับ AI</li><li>ลักษณะข้อมูลที่มีคุณภาพ</li><li>ลักษณะข้อมูลที่ไม่มีคุณภาพ</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M3 · 26 ก.ย. เช้า: Data vs Information, structured/unstructured, discrete/continuous</li><li>M3 · 27 ก.ย. Lab 2.1: Data profiling ข้อมูล POS บ้านบรู</li><li>M2 · W6 สไลด์ 66: status กับ Status ไม่ใช่ตัวเดียวกัน</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ</h5>
+        <p><strong>ประเภท:</strong> มีโครงสร้าง (ตาราง) · กึ่งโครงสร้าง (JSON ใน Firestore) · ไม่มีโครงสร้าง (ข้อความรีวิว ภาพ เสียง)</p>
+        <p><strong>ข้อมูลมีคุณภาพ:</strong> ถูกต้อง · ครบถ้วน · รูปแบบสม่ำเสมอ · เป็นปัจจุบัน · เป็นตัวแทนของกลุ่มที่ใช้งานจริง</p>
+        <p><strong>ข้อมูลไม่มีคุณภาพ</strong> (เจอจริงใน Lab 2.1): แถวซ้ำ · ปี พ.ศ. ปนกับ ค.ศ. · ชื่อสาขาสะกดหลายแบบ · ราคาติดลบ · ตัวเลขเก็บเป็นข้อความ · ค่าว่าง หลักที่ต้องจำคือ <em>Garbage in, garbage out</em></p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70023"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70024" data-status="done">
+      <div class="eoc-head"><code>70024</code><span class="name">ให้คำสั่งกับ Generative AI (Prompt)</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>Zero-shot Prompting (สั่งโดยไม่ให้ตัวอย่าง)</li><li>Few-shot Prompting (ให้ตัวอย่างเล็กน้อย)</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M1 · 15 ส.ค.: Anatomy ของ Prompt, Zero/One/Few-shot, Chain-of-Thought, Tree-of-Thought, Workshop Fix Bad Prompt</li><li>M2 · W6: วงจร 4 จังหวะของการสั่งงาน AI</li><li>M3 · 26 ก.ย.: Prompt ที่ดีมี 5 ส่วน</li><li>เครื่องมือ CheckPrompt ในคู่มือหลัก</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ</h5>
+        <p><strong>Zero-shot:</strong> "จัดหมวดรีวิวนี้เป็น บวก / ลบ / กลาง: <em>กาแฟอร่อยแต่รอนาน</em>"</p>
+        <p><strong>Few-shot:</strong> ใส่ตัวอย่าง 2–5 คู่ให้ AI เห็นรูปแบบก่อน เช่น "<em>หอมมาก</em> → บวก · <em>แก้วเล็กไป</em> → ลบ" แล้วจึงให้รีวิวที่ต้องการจัดหมวด เหมาะกับงานที่ต้องการรูปแบบคำตอบคงที่</p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70024"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+  </section>
+
+  <!-- ============ 7003 ============ -->
+  <section class="uoc" id="u7003">
+    <div class="uoc-head"><span class="code">7003</span><h3>ประเมินข้อจำกัด ผลกระทบทางสังคม และจริยธรรมของ AI</h3><span class="lvl g">GENERAL</span></div>
+
+    <div class="eoc" id="e70031" data-status="done">
+      <div class="eoc-head"><code>70031</code><span class="name">ระบุข้อจำกัดของ AI</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ความโปร่งใส · ความลำเอียง (Bias) · ความเป็นส่วนตัว</li><li>ประเด็นขัดแย้งทางจริยธรรม · ความปลอดภัยไซเบอร์</li><li>ทรัพยากรระบบ · ความคิดสร้างสรรค์</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M1 · 2 ส.ค. หน้า 6: ข้อจำกัดของ AI</li><li>M2 · W6 สไลด์ 15–16, 28–29: เดาเก่งไม่ใช่รู้จริง, ความจำ (context) เต็ม</li><li>M2 · W6 สไลด์ 34: Token = เวลาและเงิน</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ · ด้านละหนึ่งประโยค</h5>
+        <p><strong>โปร่งใส:</strong> อธิบายไม่ได้ว่าทำไมจึงตอบเช่นนั้น (black box) · <strong>Bias:</strong> ลำเอียงตามข้อมูลที่ใช้ฝึก · <strong>Privacy:</strong> ข้อมูลที่ป้อนเข้าไปอาจรั่วหรือถูกนำไปใช้ต่อ · <strong>จริยธรรม:</strong> มีสถานการณ์ที่ไม่มีคำตอบถูกชัดเจน · <strong>ไซเบอร์:</strong> ถูกหลอกด้วย prompt injection และคีย์รั่ว · <strong>ทรัพยากร:</strong> ใช้ไฟ ชิป และเงินมาก และ context มีขีดจำกัด · <strong>สร้างสรรค์:</strong> ผสมจากสิ่งที่เคยเห็นมา จึงคิดสิ่งใหม่จริง ๆ ได้จำกัด</p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70031"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70032" data-status="done">
+      <div class="eoc-head"><code>70032</code><span class="name">ระบุสถานการณ์ที่ AI อาจทำงานผิดพลาด</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>รู้จำภาพผิด · แปลภาษาผิด · ทำนายผิด</li><li>สร้างข้อมูลผิด · ตัดสินใจผิด · รู้จำเสียงผิด</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M1 · 2 ส.ค. หน้า 7–8: สถานการณ์ที่ AI ผิดพลาด และ Mini Workshop 1</li><li>M3 · 26 ก.ย.: กับดักที่ AI มักพลาด (นับแถวแทนบิล, ลืมคูณ qty)</li><li>M3 · 27 ก.ย.: AI ใช้ drop_duplicates ด้วย order_id จนลบแถวดีทิ้ง</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ</h5>
+        <table><tbody>
+          <tr><td>ภาพ</td><td>จำใบหน้าคนผิวสีหรือภาพแสงน้อยผิด · ป้ายจราจรที่มีสติกเกอร์แปะทำให้รถอัตโนมัติอ่านผิด</td></tr>
+          <tr><td>แปลภาษา</td><td>สำนวน คำพ้อง และบริบทวัฒนธรรมถูกแปลตรงตัว</td></tr>
+          <tr><td>ทำนาย</td><td>เหตุการณ์ที่ไม่เคยมีในข้อมูลเก่า เช่น โควิด ทำให้พยากรณ์ยอดขายพลาด</td></tr>
+          <tr><td>สร้างข้อมูล</td><td><em>Hallucination</em> คือแต่งข้อเท็จจริงหรือแหล่งอ้างอิงขึ้นมาเองอย่างมั่นใจ</td></tr>
+          <tr><td>ตัดสินใจ</td><td>คัดกรองผู้สมัครงานหรือให้สินเชื่อลำเอียงตามข้อมูลในอดีต</td></tr>
+          <tr><td>เสียง</td><td>สำเนียงท้องถิ่น เสียงรบกวน หรือพูดหลายภาษาปนกันทำให้ถอดเสียงผิด</td></tr>
+        </tbody></table>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70032"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70033" data-status="done">
+      <div class="eoc-head"><code>70033</code><span class="name">ระบุผลกระทบของ AI ด้านสังคม</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ตลาดแรงงาน · สุขภาพ · การศึกษา</li><li>ความเท่าเทียม · ความเป็นส่วนตัว · ความปลอดภัยของข้อมูล</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M1 · 2 ส.ค. หน้า 9: ผลกระทบของ AI ต่อสังคมและตลาดแรงงาน</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ · จำเป็นคู่ "ผลบวก / ความเสี่ยง"</h5>
+        <p><strong>แรงงาน:</strong> งานซ้ำ ๆ ถูกแทนที่ แต่เกิดงานใหม่ จึงต้อง upskill/reskill · <strong>สุขภาพ:</strong> ช่วยอ่านภาพเอกซเรย์ได้เร็ว แต่ถ้าวินิจฉัยผิดใครรับผิดชอบ · <strong>การศึกษา:</strong> เรียนรู้ได้ตามความถนัดของแต่ละคน แต่เสี่ยงลอกงานและคิดเองน้อยลง · <strong>ความเท่าเทียม:</strong> คนที่เข้าไม่ถึง AI จะยิ่งทิ้งห่าง (digital divide) · <strong>ความเป็นส่วนตัว:</strong> ถูกติดตามพฤติกรรม · <strong>ความปลอดภัยข้อมูล:</strong> deepfake หลอกโอนเงิน และข้อมูลรั่วจากการป้อนเข้า AI</p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70033"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70034" data-status="done">
+      <div class="eoc-head"><code>70034</code><span class="name">ปฏิบัติตามหลักจริยธรรมและกฎหมายที่เกี่ยวข้องกับ AI</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>หลักจริยธรรม AI</li><li>กฎหมายไทย 7 ฉบับ/หมวด (ตารางด้านล่าง)</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M1 · 2 ส.ค. หน้า 10–28: หลักจริยธรรม AI ของไทย, ข้อกฎหมายที่ควรทราบ, PDPA, Mini Workshop 2.1–2.3</li><li>M2 · W7 สไลด์ 58 และ W8 สไลด์ 23: ปิดข้อมูลให้ครบก่อนจึงใส่ข้อมูลจริง (PDPA)</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ · กฎหมายที่ข้อสอบระบุ พร้อมตัวอย่างที่เกี่ยวกับ AI</h5>
+        <table><tbody>
+          <tr><td>ประมวลกฎหมายอาญา หมวด 3 หมิ่นประมาท</td><td>เผยแพร่ข้อความหรือ deepfake ที่ทำให้ผู้อื่นเสียชื่อเสียง</td></tr>
+          <tr><td>ประมวลกฎหมายแพ่งฯ หมวด 1 ละเมิด</td><td>ใช้ผลจาก AI โดยประมาทจนผู้อื่นเสียหาย อาจต้องชดใช้</td></tr>
+          <tr><td>พ.ร.บ.ลิขสิทธิ์ / ทรัพย์สินทางปัญญา</td><td>นำงานผู้อื่นมาใช้หรือเผยแพร่ผลงานที่ลอกเลียนต้นฉบับ</td></tr>
+          <tr><td>พ.ร.บ.คอมพิวเตอร์</td><td>นำข้อมูลเท็จหรือภาพตัดต่อเข้าสู่ระบบคอมพิวเตอร์ · เข้าถึงระบบโดยไม่ได้รับอนุญาต</td></tr>
+          <tr><td>พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล (PDPA)</td><td>ห้ามป้อนข้อมูลส่วนบุคคลของลูกค้าเข้า AI โดยไม่มีฐานทางกฎหมายหรือไม่ได้รับความยินยอม</td></tr>
+          <tr><td>พ.ร.บ.คุ้มครองแรงงาน</td><td>การใช้ AI ติดตามหรือประเมินพนักงานต้องไม่ละเมิดสิทธิลูกจ้าง</td></tr>
+          <tr><td>พ.ร.บ.ธุรกรรมทางอิเล็กทรอนิกส์</td><td>เอกสาร สัญญา และลายมือชื่ออิเล็กทรอนิกส์ที่สร้างหรือจัดการด้วยระบบอัตโนมัติ</td></tr>
+        </tbody></table>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70034"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+  </section>
+
+  <!-- ============ 7004 ============ -->
+  <section class="uoc" id="u7004">
+    <div class="uoc-head"><span class="code">7004</span><h3>ใช้เครื่องมือ AI เพื่อการทำงาน</h3><span class="lvl b">BUSINESS</span></div>
+
+    <div class="eoc" id="e70041" data-status="done">
+      <div class="eoc-head"><code>70041</code><span class="name">ประเมินผลลัพธ์ของการใช้ AI</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ความถูกต้อง (Accuracy)</li><li>ความน่าเชื่อถือของแหล่งข้อมูล</li><li>ความสม่ำเสมอของคำตอบ (Consistency)</li><li>ความสามารถอธิบายผลลัพธ์ (Explainability)</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M2 · W6 สไลด์ 46–48: ให้ AI เขียนแผน แล้วเราตรวจแผน</li><li>M2 · W8 สไลด์ 42, 51, 54–62: ตรวจคำตอบก่อนบันทึก, ลองงานเดียวกันกับ 2 โมเดล, Reviewer sub-agent</li><li>M2 · W9: Tester + Playwright</li><li>M3 · 26 ก.ย.: Prompt → Run → <strong>Verify</strong> → Refine โดยเทียบกับ Pivot Table</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ · เกณฑ์ 4 ข้อ กับวิธีที่เราใช้จริง</h5>
+        <p><strong>ถูกต้อง:</strong> คำนวณมือ 2–3 จุดแล้วเทียบกับต้นทาง · <strong>แหล่งข้อมูล:</strong> เปิดลิงก์ต้นฉบับดูเองทุกครั้ง · <strong>สม่ำเสมอ:</strong> ถามซ้ำหรือถามอีกโมเดลแล้วดูว่าคำตอบตรงกันหรือไม่ · <strong>อธิบายได้:</strong> ให้ AI อธิบายทีละบรรทัดว่าคำนวณอย่างไร (เช่น <code>computeKpis</code> ใน Lab 1.2)</p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70041"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70042" data-status="soon">
+      <div class="eoc-head"><code>70042</code><span class="name">ใช้ AI สนับสนุนงานประมวลผลคำ (Word Processing)</span><span class="st soon">📅 จะเรียน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>สรุปข้อความ (Summarization)</li><li>แปลภาษา (Machine Translation)</li><li>ตรวจไวยากรณ์ (Grammar Check)</li></ul></div>
+        <div><h5>จะเรียนที่ไหน</h5><ul><li>Office AI Lab (กิจกรรมบังคับ E) · สัปดาห์ 11A 10–11 ต.ค. และ 12A 24–25 ต.ค.</li></ul></div>
+      </div>
+      <details class="extra"><summary>📘 อ่านล่วงหน้า</summary>
+        <ul>
+          <li><strong>สรุป:</strong> บอกผู้อ่าน ความยาว และรูปแบบ เช่น "สรุปรายงานนี้ให้ผู้บริหาร 5 bullet ไม่เกิน 80 คำ" แล้วเทียบกับต้นฉบับว่าไม่ตกประเด็นหรือเติมสิ่งที่ไม่มี</li>
+          <li><strong>แปล:</strong> ให้บริบทและศัพท์เฉพาะ เช่น "แปลเป็นอังกฤษแบบทางการ คำว่า 'บ้านบรู' ห้ามแปล" เอกสารสำคัญต้องให้คนตรวจอีกครั้ง</li>
+          <li><strong>ไวยากรณ์:</strong> สั่งให้ "แสดงเฉพาะจุดที่แก้พร้อมเหตุผล" แทนการให้เขียนใหม่ทั้งหมด เพื่อไม่ให้ความหมายเปลี่ยน</li>
+          <li>ห้ามวางเอกสารที่มีข้อมูลส่วนบุคคลหรือความลับลงในเครื่องมือ AI สาธารณะ (70034)</li>
+        </ul>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70042"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70043" data-status="part">
+      <div class="eoc-head"><code>70043</code><span class="name">ใช้ AI สนับสนุนงานตารางคำนวณ (Spreadsheet)</span><span class="st part">🟡 บางส่วน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ใช้ AI วิเคราะห์ข้อมูลในตาราง</li><li>ใช้ AI ช่วยเขียนสูตรคำนวณ</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M3 · 26 ก.ย.: ตรวจยอดด้วย Pivot Table ใน Excel/Google Sheets</li><li>M3 · 27 ก.ย. Lab 2.1: ให้ AI ทำ data profiling ใน Colab</li><li>ครบถ้วนใน 11A · 10–11 ต.ค. (Data Analytic &amp; Visualization in Practice)</li></ul></div>
+      </div>
+      <details class="extra"><summary>📘 อ่านเสริม: ให้ AI ช่วยเขียนสูตร</summary>
+        <p>ตัวอย่าง prompt: "คอลัมน์ A = สาขา, B = qty, C = unit_price ขอสูตร Google Sheets หายอดขายรวมของสาขาสยาม" คำตอบที่ถูกคือ <code>=SUMPRODUCT((A2:A100="สยาม")*B2:B100*C2:C100)</code> หรือจะเพิ่มคอลัมน์ revenue แล้วใช้ <code>SUMIF</code></p>
+        <p><strong>ตรวจทุกครั้ง:</strong> ลองสูตรกับ 2–3 แถวที่คำนวณมือได้ และดูว่าช่วงเซลล์ครอบคลุมข้อมูลทั้งหมด ถ้าเจอปัญหา AI ลืมคูณ qty เหมือนใน Lab 1.2 ก็จะเจอได้ใน Sheets เช่นกัน</p>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70043"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70044" data-status="soon">
+      <div class="eoc-head"><code>70044</code><span class="name">ใช้ AI สนับสนุนงานนำเสนอ (Presentation)</span><span class="st soon">📅 จะเรียน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ใช้ AI สร้างเนื้อหางานนำเสนอ</li><li>ใช้ AI ช่วยออกแบบงานนำเสนอ</li></ul></div>
+        <div><h5>จะเรียนที่ไหน</h5><ul><li>Office AI Lab · สัปดาห์ 12A 24–25 ต.ค.</li><li>ได้ใช้จริงตอนเตรียม Sprint 2 Review และ Final Pitch</li></ul></div>
+      </div>
+      <details class="extra"><summary>📘 อ่านล่วงหน้า</summary>
+        <ul>
+          <li><strong>เนื้อหา:</strong> ให้ AI ร่าง <em>โครงเรื่อง</em> ก่อน เช่น "ปัญหา → ผู้ใช้ → ทางแก้ → demo → ตัวเลข → ขอสิ่งที่ต้องการ" จากนั้นค่อยเติมรายละเอียดทีละสไลด์</li>
+          <li><strong>ออกแบบ:</strong> 1 สไลด์ 1 ประเด็น · เลือกกราฟจากคำถาม (บทเรียน M3 27 ก.ย.) · ตรวจตัวเลขทุกตัวที่ AI ใส่มา</li>
+          <li>ภาพที่ AI สร้างควรระบุว่าเป็นภาพจาก AI และระวังเรื่องลิขสิทธิ์ของภาพต้นแบบ</li>
+        </ul>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70044"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70045" data-status="soon">
+      <div class="eoc-head"><code>70045</code><span class="name">ใช้ AI สนับสนุนงานค้นหาข้อมูล (Information Search)</span><span class="st soon">📅 จะเรียน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ใช้ AI ตรวจสอบแหล่งอ้างอิง</li><li>ใช้ AI อธิบายข้อมูลที่ค้นได้</li></ul></div>
+        <div><h5>จะเรียนที่ไหน</h5><ul><li>Office AI Lab · สัปดาห์ 12A 24–25 ต.ค.</li></ul></div>
+      </div>
+      <details class="extra"><summary>📘 อ่านล่วงหน้า</summary>
+        <ul>
+          <li>AI อาจ<strong>แต่งแหล่งอ้างอิงขึ้นมาเอง</strong> ชื่อบทความหรือลิงก์ที่ดูน่าเชื่ออาจไม่มีอยู่จริง จึงต้องเปิดทุกลิงก์และหาข้อความที่อ้างในหน้านั้นให้เจอ</li>
+          <li>เลือกใช้เครื่องมือที่แสดงแหล่งที่มา และตรวจข้ามอย่างน้อย 2 แหล่งที่เป็นอิสระต่อกัน</li>
+          <li>ดูวันที่ของข้อมูล เพราะโมเดลมีวันตัดข้อมูล (knowledge cutoff)</li>
+          <li>ให้ AI "อธิบายผลการค้นหาเป็นภาษาง่าย พร้อมบอกว่าประโยคไหนมาจากแหล่งใด" เพื่อให้ตรวจย้อนกลับได้</li>
+        </ul>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70045"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+  </section>
+
+  <!-- ============ 7005 ============ -->
+  <section class="uoc" id="u7005">
+    <div class="uoc-head"><span class="code">7005</span><h3>พัฒนาทักษะเชิงเทคนิคของ AI</h3><span class="lvl b">BUSINESS</span></div>
+
+    <div class="eoc" id="e70051" data-status="done">
+      <div class="eoc-head"><code>70051</code><span class="name">ประยุกต์ใช้เครื่องมือ AI สำหรับงานเฉพาะด้าน</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ขั้นตอนการปรับแต่งคำสั่ง</li><li>ปรับแต่งคำสั่ง Generative AI</li><li>บูรณาการเครื่องมือ AI เข้ากับงานเฉพาะด้าน</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M1 · 15 ส.ค.: Workshop Fix Bad Prompt</li><li>M2 · W6: วงจร 4 จังหวะ (สั่งสั้น → AI เขียนแผน → ตรวจแผน → ลงมือทีละข้อ)</li><li>M2 · W8: เพิ่มปุ่ม AI ในระบบผ่าน OpenRouter</li><li>M2 · W9: Tester sub-agent + Playwright MCP</li><li>M3 · 27 ก.ย.: AI ช่วยทำความสะอาดข้อมูลใน Colab</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ</h5>
+        <p>การปรับแต่งคำสั่งเป็นวงจร <strong>สั่ง → ดูผล → ระบุสิ่งที่ผิดให้ชัด → สั่งใหม่</strong> ส่วนการบูรณาการ คือการนำ AI เข้าไปเป็นขั้นหนึ่งของกระบวนการทำงาน เช่น ปุ่มสรุปคำร้อง, ผู้ช่วยมอบหมายงาน หรือ Reviewer/Tester อัตโนมัติ ไม่ใช่แค่เปิดแชตถามเป็นครั้งคราว</p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70051"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70052" data-status="done">
+      <div class="eoc-head"><code>70052</code><span class="name">กำหนดค่าการใช้งานเครื่องมือ AI</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ความแตกต่างของเครื่องมือ AI</li><li>เลือกเครื่องมือ · เลือกโมเดล Generative AI</li><li>ตั้งค่าพื้นฐานให้เครื่องมือ</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M2 · W6 สไลด์ 23–26: จากแชตสู่ coding agent, เครื่องมือ, Model</li><li>M2 · W6 สไลด์ 31–34: <code>/clear</code> <code>/compact</code> <code>/usage</code></li><li>M2 · W7 สไลด์ 9–11: CLAUDE.md และ <code>/init</code></li><li>M2 · W8 สไลด์ 31–33: OpenRouter และการเก็บ API key</li><li>M3 · 26 ก.ย.: เครื่องมือสร้างแอปจาก prompt (v0, Lovable) เทียบกับ AI ในโปรแกรมเขียนโค้ด (Cursor, Claude Code)</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ</h5>
+        <p><strong>ประเภทเครื่องมือ:</strong> แชตถาม-ตอบ · สร้างแอปจาก prompt · coding agent ที่ทำงานในโปรเจกต์จริง · <strong>การเลือกโมเดล:</strong> ดูทั้งความเก่ง ความเร็ว และราคา · <strong>การตั้งค่าพื้นฐาน:</strong> ไฟล์คำสั่งประจำโปรเจกต์ (CLAUDE.md), การจัดการความจำ และการเก็บคีย์ในที่ที่ถูกต้อง</p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70052"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+  </section>
+
+  <!-- ============ 7006 ============ -->
+  <section class="uoc" id="u7006">
+    <div class="uoc-head"><span class="code">7006</span><h3>ปฏิบัติตามกรอบธรรมาภิบาลการใช้ AI (AI Governance)</h3><span class="lvl b">BUSINESS</span></div>
+
+    <div class="eoc" id="e70061" data-status="part">
+      <div class="eoc-head"><code>70061</code><span class="name">ปฏิบัติตามกรอบธรรมาภิบาล AI ด้านการจัดการความเสี่ยง</span><span class="st part">🟡 บางส่วน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ระบุความเสี่ยงของการใช้ AI ในองค์กร</li><li>วิธีประเมินความเสี่ยง</li><li>แนวทางลดความเสี่ยง</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M1 · 2 ส.ค. หน้า 29–31: AI Governance Checklist และ Workshop 3 (ใส่ลง Backlog)</li><li>M2 · W8 สไลด์ 32–36, 52: คีย์ที่อยู่ในหน้าเว็บคนอื่นเปิดดูได้</li><li>M3 · 27 ก.ย.: service account key ห้ามหลุด, Security Rules</li><li>ต่อใน Sprint 2 Review · 25 ต.ค.</li></ul></div>
+      </div>
+      <details class="extra"><summary>📘 อ่านเสริม: วิธีประเมินความเสี่ยง</summary>
+        <p><strong>ตารางความเสี่ยง (Risk Matrix):</strong> ให้คะแนน <em>โอกาสเกิด</em> (1–5) × <em>ผลกระทบ</em> (1–5) แล้วจัดการความเสี่ยงที่ได้คะแนนสูงก่อน บันทึกไว้ในทะเบียนความเสี่ยง (risk register) ซึ่งมีคอลัมน์ ความเสี่ยง · คะแนน · มาตรการ · ผู้รับผิดชอบ</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ความเสี่ยง (ตัวอย่างจากระบบของเรา)</th><th>มาตรการลดความเสี่ยง</th></tr></thead>
+          <tbody>
+            <tr><td>API key รั่วไปอยู่บน GitHub</td><td>ใช้ .env และ .gitignore · ยกเลิกคีย์ทันทีเมื่อรั่ว</td></tr>
+            <tr><td>AI ตอบผิดแล้วบันทึกลงฐานข้อมูล</td><td>ให้คนตรวจก่อนบันทึก (human-in-the-loop) · ติดป้ายว่า "สร้างโดย AI"</td></tr>
+            <tr><td>ป้อนข้อมูลลูกค้าเข้าโมเดลภายนอก</td><td>ตัดข้อมูลที่ระบุตัวตนออกก่อน · ทำ DPA กับผู้ให้บริการ</td></tr>
+          </tbody>
+        </table></div>
+        <p><strong>กรอบที่ควรรู้จัก:</strong> NIST AI RMF 1.0 แบ่งการจัดการความเสี่ยง AI เป็น 4 หน้าที่ คือ <em>Govern</em> (กำหนดนโยบายและผู้รับผิดชอบ) · <em>Map</em> (ระบุบริบทและความเสี่ยง) · <em>Measure</em> (วัดและทดสอบ) · <em>Manage</em> (จัดลำดับและลดความเสี่ยง)</p>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70061"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70062" data-status="self">
+      <div class="eoc-head"><code>70062</code><span class="name">ปฏิบัติตามกฎหมายสากลและมาตรฐานสากลที่เกี่ยวข้องกับ AI</span><span class="st self">📘 อ่านเสริมเอง</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>มาตรฐานสากล: <strong>ISO/IEC 22989:2022</strong> และ <strong>IEEE 7000-2021</strong></li><li>กฎหมายสากล: <strong>GDPR</strong></li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>ยังไม่มีในสไลด์ M1–M3 ที่เรียนไปแล้ว</li><li>อาจเชื่อมโยงใน Sprint 2 Review · 25 ต.ค. (TPQI 7006–7008)</li><li><strong>อ่านสรุปด้านล่างไว้ก่อน</strong></li></ul></div>
+      </div>
+      <details class="extra" open><summary>📘 อ่านเสริม: 3 เอกสารที่ข้อสอบระบุชื่อ</summary>
+        <div class="table-wrap"><table>
+          <thead><tr><th>เอกสาร</th><th>คืออะไร</th><th>สิ่งที่ควรจำ</th></tr></thead>
+          <tbody>
+            <tr><td><strong>ISO/IEC 22989:2022</strong></td><td>มาตรฐาน<em>แนวคิดและคำศัพท์</em>ด้าน AI</td><td>เป็น "พจนานุกรมกลาง" ที่นิยามคำเช่น AI system, ML, ข้อมูลฝึก · อธิบาย<em>วงจรชีวิตระบบ AI</em> และ<em>บทบาทผู้มีส่วนได้ส่วนเสีย</em> (ผู้ให้บริการ AI, ผู้ใช้ AI, ผู้ถูกกระทบ) · ระบุคุณลักษณะของ AI ที่น่าเชื่อถือ เช่น โปร่งใส อธิบายได้ ปลอดภัย</td></tr>
+            <tr><td><strong>IEEE 7000-2021</strong></td><td>มาตรฐาน<em>กระบวนการจัดการประเด็นจริยธรรมระหว่างออกแบบระบบ</em></td><td>ให้ระบุผู้มีส่วนได้ส่วนเสียและ<em>คุณค่า</em>ที่เขาให้ความสำคัญ (เช่น ความเป็นส่วนตัว ความเป็นธรรม) ตั้งแต่ต้น แล้วแปลงเป็น<em>ข้อกำหนดของระบบ</em> (ethical value requirements) ที่ตรวจสอบย้อนกลับได้ แนวคิดนี้คล้ายกับการใส่ Governance Checklist ลง Backlog ที่เราทำใน M1</td></tr>
+            <tr><td><strong>GDPR</strong><br>(EU 2016/679, บังคับใช้ 25 พ.ค. 2018)</td><td>กฎหมายคุ้มครองข้อมูลส่วนบุคคลของสหภาพยุโรป เป็นต้นแบบของ PDPA ไทย</td><td><strong>ใช้บังคับนอก EU ได้</strong> ถ้าเสนอสินค้าหรือบริการให้ หรือติดตามพฤติกรรมของคนใน EU · หลักการสำคัญ เช่น ใช้ตามวัตถุประสงค์ เก็บเท่าที่จำเป็น และมีความรับผิดชอบ (accountability) · <strong>มาตรา 22</strong> ให้สิทธิไม่ถูกตัดสินโดยระบบอัตโนมัติล้วน ๆ ในเรื่องที่มีผลทางกฎหมายหรือผลกระทบสำคัญ · ค่าปรับสูงสุด 20 ล้านยูโร หรือ 4% ของรายได้ทั่วโลก</td></tr>
+          </tbody>
+        </table></div>
+        <p style="font-size:13px;color:var(--text-muted)">ความรู้เพิ่มเติม (ไม่อยู่ในรายชื่อที่ข้อสอบระบุ แต่ควรรู้จัก): EU AI Act ซึ่งจัดระบบ AI ตามระดับความเสี่ยง (ต้องห้าม · สูง · จำกัด · ต่ำ) · ISO/IEC 42001:2023 ระบบบริหารจัดการ AI ขององค์กร · NIST AI RMF</p>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70062"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+  </section>
+
+  <!-- ============ 7007 ============ -->
+  <section class="uoc" id="u7007">
+    <div class="uoc-head"><span class="code">7007</span><h3>อธิบายเทคโนโลยีที่เกี่ยวข้องกับ AI</h3><span class="lvl p">POWER</span></div>
+
+    <div class="eoc" id="e70071" data-status="done">
+      <div class="eoc-head"><code>70071</code><span class="name">เลือกใช้เทคโนโลยี AI</span><span class="st done">✅ เรียนแล้ว</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>วิเคราะห์เทคโนโลยี AI</li><li>เปรียบเทียบเทคโนโลยี AI</li><li>ประเมินเทคโนโลยี AI</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M1 · 15 ส.ค.: Benchmark &amp; Leaderboard (General, Agentic, Cost, Speed), Empirical Testing &amp; Custom Eval, Mini Workshop Compare Model</li><li>M1 · 23 ส.ค. หน้า 60–63: Technology Selection และ Anti-patterns</li><li>M2 · W8 สไลด์ 51: ลองงานเดียวกันกับ 2 โมเดล</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ</h5>
+        <p><strong>วิเคราะห์</strong> ว่างานต้องการอะไร (ความแม่น ความเร็ว ราคา ความเป็นส่วนตัว) → <strong>เปรียบเทียบ</strong> ด้วย benchmark สาธารณะ → <strong>ประเมิน</strong> ด้วยการทดสอบกับงานจริงของเราเอง (custom eval) เพราะคะแนน benchmark ไม่ได้การันตีว่าจะดีกับงานของเรา</p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70071"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70072" data-status="part">
+      <div class="eoc-head"><code>70072</code><span class="name">อธิบายหลักการทำงานของ Machine Learning</span><span class="st part">🟡 บางส่วน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>การเรียนรู้ 3 แบบ: Supervised · Unsupervised · Reinforcement</li><li>อัลกอริทึม 4 แบบ: Linear Regression · Classification · Clustering · Dimensionality Reduction</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M3 · 26 ก.ย.: What is Machine Learning และ Predictive Analytics</li><li>เรียนเต็มใน <strong>สัปดาห์ 12 · 17–18 ต.ค.</strong> AI Model and LLM with Vibe coding</li></ul></div>
+      </div>
+      <details class="extra" open><summary>📘 อ่านเสริม: ML ใน 1 ตาราง (ตัวอย่างจากร้านบ้านบรู)</summary>
+        <div class="table-wrap"><table>
+          <thead><tr><th>แบบการเรียนรู้</th><th>ข้อมูลที่ใช้</th><th>อัลกอริทึม</th><th>ตัวอย่าง</th></tr></thead>
+          <tbody>
+            <tr><td rowspan="2"><strong>Supervised</strong><br>มีผู้สอน</td><td rowspan="2">มีคำตอบ (label) กำกับ</td><td>Linear Regression ทำนาย<em>ตัวเลข</em></td><td>พยากรณ์ยอดขายเดือนหน้า</td></tr>
+            <tr><td>Classification ทำนาย<em>หมวด</em></td><td>รีวิวนี้บวกหรือลบ · ลูกค้าจะเลิกซื้อหรือไม่</td></tr>
+            <tr><td rowspan="2"><strong>Unsupervised</strong><br>ไม่มีผู้สอน</td><td rowspan="2">ไม่มีคำตอบ ให้หาโครงสร้างเอง</td><td>Clustering จัดกลุ่ม</td><td>แบ่งกลุ่มลูกค้าตามพฤติกรรมการซื้อ</td></tr>
+            <tr><td>Dimensionality Reduction ลดมิติ เช่น PCA</td><td>ย่อตัวแปรหลายสิบตัวให้เหลือ 2 มิติเพื่อพล็อตดู</td></tr>
+            <tr><td><strong>Reinforcement</strong><br>เสริมกำลัง</td><td>ลองทำแล้วได้รางวัลหรือถูกลงโทษ</td><td>agent + reward</td><td>AI เล่นเกม · หุ่นยนต์เดิน · ปรับราคาอัตโนมัติ</td></tr>
+          </tbody>
+        </table></div>
+        <p><strong>วิธีจำ:</strong> มีเฉลย → supervised · ไม่มีเฉลย → unsupervised · เรียนจากรางวัล → reinforcement และถ้าทำนายเป็น<em>ตัวเลข</em>ใช้ regression ถ้าทำนายเป็น<em>หมวด</em>ใช้ classification</p>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70072"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+  </section>
+
+  <!-- ============ 7008 ============ -->
+  <section class="uoc" id="u7008">
+    <div class="uoc-head"><span class="code">7008</span><h3>วิเคราะห์ประสิทธิภาพโมเดล AI</h3><span class="lvl p">POWER</span></div>
+
+    <div class="eoc" id="e70081" data-status="soon">
+      <div class="eoc-head"><code>70081</code><span class="name">ประเมินความเป็นธรรม (Fairness) และความลำเอียง (Bias) ของโมเดล</span><span class="st soon">📅 จะเรียน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ตรวจ bias ในผลลัพธ์ของโมเดล และเสนอวิธีลด bias</li><li>ตรวจ fairness ในผลลัพธ์ของโมเดล และเสนอวิธีเพิ่ม fairness</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>แนวคิด bias ในฐานะข้อจำกัด: M1 · 2 ส.ค.</li><li>การประเมินโมเดลจริง: สัปดาห์ 12 (17–18 ต.ค.) และ Sprint 2 Review (25 ต.ค.) ต่อใน M4</li></ul></div>
+      </div>
+      <details class="extra"><summary>📘 อ่านล่วงหน้า</summary>
+        <p><strong>ที่มาของ bias:</strong> ข้อมูลในอดีตที่ลำเอียงอยู่แล้ว · ข้อมูลไม่เป็นตัวแทน (เช่น มีรีวิวภาษาเหนือน้อย) · ป้ายกำกับ (label) ที่คนติดแบบลำเอียง · การนำไปใช้ผิดบริบท</p>
+        <p><strong>วิธีตรวจ:</strong> แยกผลลัพธ์ตามกลุ่ม (เพศ อายุ ภูมิภาค) แล้วเทียบ ① อัตราที่ได้ผลลัพธ์ดีของแต่ละกลุ่ม (demographic parity) และ ② อัตราที่โมเดลทายผิดของแต่ละกลุ่ม (equal opportunity หรือ error rate) ถ้าต่างกันมากแปลว่ามีปัญหา</p>
+        <p><strong>วิธีแก้:</strong> ก่อนฝึก (เก็บข้อมูลกลุ่มที่ขาดเพิ่ม, ปรับน้ำหนัก) · ระหว่างฝึก (เพิ่มเงื่อนไขความเป็นธรรม) · หลังฝึก (ปรับเกณฑ์ตัดสินแยกตามกลุ่ม) · และให้คนตรวจในเรื่องที่ส่งผลต่อชีวิตคน</p>
+        <p style="font-size:13px;color:var(--text-muted)">ต่อยอดจาก M3 27 ก.ย.: "เทียบยอดรวมสาขาอารีย์ที่เพิ่งเปิดกับสาขาอื่น" เป็นการเปรียบเทียบที่ไม่ยุติธรรมเพราะฐานไม่เท่ากัน หลักเดียวกันนี้ใช้ตรวจความเป็นธรรมของโมเดลได้</p>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70081"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70082" data-status="part">
+      <div class="eoc-head"><code>70082</code><span class="name">ประเมินความคุ้มค่าของการนำ AI มาใช้ในองค์กร</span><span class="st part">🟡 บางส่วน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>วิธีประเมินความคุ้มค่า</li><li>ความคุ้มค่า 3 ด้าน: เทคโนโลยี · บุคลากร · การเงิน</li><li>สรุปผลการประเมิน</li></ul></div>
+        <div><h5>เรียนที่ไหน</h5><ul><li>M1 · 15 ส.ค.: Benchmark ด้าน Cost และ Speed</li><li>M2 · W6 สไลด์ 34: Token = เวลาและเงิน (<code>/usage</code>)</li><li>M3 · 27 ก.ย.: โควตาการอ่าน Firestore และแนวคิด daily_summary</li></ul></div>
+      </div>
+      <details class="extra"><summary>📘 อ่านเสริม: คำนวณ ROI แบบง่าย</summary>
+        <p><strong>ROI = (ประโยชน์ − ต้นทุน) ÷ ต้นทุน × 100%</strong> และ<strong>ระยะคืนทุน</strong> = ต้นทุนเริ่มต้น ÷ ประโยชน์ต่อเดือน</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ด้าน</th><th>ต้นทุน</th><th>ประโยชน์</th></tr></thead>
+          <tbody>
+            <tr><td>เทคโนโลยี</td><td>ค่า API/โทเคน · ค่าเซิร์ฟเวอร์ · ค่าดูแลระบบ</td><td>ระบบทำงาน 24 ชม. · ขยายรองรับงานได้</td></tr>
+            <tr><td>บุคลากร</td><td>ค่าอบรม · เวลาที่คนต้องตรวจงาน AI</td><td>ชั่วโมงงานที่ประหยัดได้ · คนได้ไปทำงานที่มีมูลค่าสูงกว่า</td></tr>
+            <tr><td>การเงิน</td><td>รวมต้นทุนทั้งหมดต่อเดือน</td><td>ยอดขายเพิ่ม · ความผิดพลาดที่ลดลง</td></tr>
+          </tbody>
+        </table></div>
+        <p><strong>ตัวอย่าง:</strong> ผู้ช่วย AI สรุปรีวิวลูกค้า มีค่า API 1,500 บาทต่อเดือน ประหยัดเวลาพนักงาน 20 ชม. × 150 บาท = 3,000 บาท ROI = (3,000 − 1,500) ÷ 1,500 = <strong>100%</strong> อย่าลืมนับเวลาที่คนต้องใช้ตรวจงานของ AI เป็นต้นทุนด้วย</p>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70082"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+  </section>
+
+  <!-- ============ 7009 ============ -->
+  <section class="uoc" id="u7009">
+    <div class="uoc-head"><span class="code">7009</span><h3>แนะนำนโยบาย กฎหมาย และมาตรฐานเกี่ยวกับ AI</h3><span class="lvl p">POWER</span></div>
+
+    <div class="eoc" id="e70091" data-status="soon">
+      <div class="eoc-head"><code>70091</code><span class="name">ระบุนโยบายเกี่ยวกับ AI สำหรับการใช้งานในองค์กร</span><span class="st soon">📅 จะเรียน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>นโยบายการใช้งาน AI (AI Acceptable Use Policy)</li><li>นโยบายความปลอดภัย (AI Security and Safety Policy)</li><li>นโยบายความรับผิดชอบ (Accountability)</li></ul></div>
+        <div><h5>จะเรียนที่ไหน</h5><ul><li>Module 5 (สป. 18–22) เขียน AI Usage Policy ให้ระบบของทีม และนำไปใช้ใน Final Defense</li></ul></div>
+      </div>
+      <details class="extra"><summary>📘 อ่านล่วงหน้า: นโยบาย 3 ฉบับมีอะไรบ้าง</summary>
+        <ul>
+          <li><strong>Acceptable Use:</strong> ใช้เครื่องมือ AI ตัวใดได้บ้าง · ข้อมูลประเภทใดห้ามป้อน (ข้อมูลส่วนบุคคล ความลับ) · ต้องแจ้งเมื่อใช้ AI · งานประเภทใดต้องให้คนตรวจ</li>
+          <li><strong>Security &amp; Safety:</strong> การจัดเก็บคีย์ · สิทธิ์การเข้าถึง · ป้องกัน prompt injection และข้อมูลรั่ว · ทดสอบก่อนเปิดใช้งาน</li>
+          <li><strong>Accountability:</strong> ใครเป็นเจ้าของระบบ AI · มี log ให้ตรวจย้อนหลังได้ · ช่องทางร้องเรียน · ขั้นตอนเมื่อเกิดเหตุ</li>
+        </ul>
+        <p>สิ่งที่ทำไปแล้วเป็นวัตถุดิบของนโยบายได้เลย เช่น กฎเก็บคีย์ (W8), Security Rules (W8, M3) และ Governance Checklist (M1)</p>
+      </details>
+      <label class="chk"><input type="checkbox" data-k="70091"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+
+    <div class="eoc" id="e70092" data-status="soon">
+      <div class="eoc-head"><code>70092</code><span class="name">แนะนำข้อปฏิบัติตามจริยธรรม กฎหมาย และมาตรฐาน AI ภายในองค์กร</span><span class="st soon">📅 จะเรียน</span></div>
+      <div class="grid2">
+        <div><h5>ข้อสอบวัดอะไร</h5><ul><li>ให้คำแนะนำด้านหลักจริยธรรม AI และกฎหมายไทย 7 ฉบับ/หมวด (ชุดเดียวกับ <a href="#e70034">70034</a>)</li><li>ให้คำแนะนำด้าน GDPR และมาตรฐาน ISO/IEC 22989:2022 · IEEE 7000-2021 (ชุดเดียวกับ <a href="#e70062">70062</a>)</li></ul></div>
+        <div><h5>จะเรียนที่ไหน</h5><ul><li>Module 5 (สป. 18–22)</li></ul></div>
+      </div>
+      <div class="key"><h5>สาระสำคัญ</h5>
+        <p>เนื้อหาเป็นชุดเดียวกับ 70034 และ 70062 แต่เปลี่ยนบทบาทจาก "ทำตาม" เป็น "<strong>แนะนำคนอื่นในองค์กร</strong>" ข้อสอบจึงมักให้สถานการณ์มาแล้วถามว่าควรแนะนำอย่างไร ถ้าเข้าใจ 2 หัวข้อนั้นดีแล้ว หัวข้อนี้ก็จะง่ายขึ้นมาก</p>
+      </div>
+      <label class="chk"><input type="checkbox" data-k="70092"> ฉันอธิบายเรื่องนี้ได้แล้ว</label>
+    </div>
+  </section>
+
+  <!-- ============ Next ============ -->
+  <section id="next" class="uoc">
+    <h2>คาบที่เหลือซึ่งเกี่ยวกับ AI Literacy</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>เมื่อไร</th><th>คาบ</th><th>สมรรถนะที่จะได้</th></tr></thead>
+        <tbody>
+          <tr><td>3–4 ต.ค.</td><td>สัปดาห์ 11 · Advance Data Analytics &amp; Visualization</td><td>70023 · 70041 (ต่อยอด)</td></tr>
+          <tr><td>10–11 ต.ค.</td><td>สัปดาห์ 11A · Office AI Lab: Data Analytic &amp; Visualization in Practice</td><td>70042 · 70043</td></tr>
+          <tr><td>17–18 ต.ค.</td><td>สัปดาห์ 12 · AI Model and LLM with Vibe coding</td><td>70072 · 70071 · 70081</td></tr>
+          <tr><td>24 ต.ค.</td><td>สัปดาห์ 12A · Office AI Lab: AI Model and LLM in Practice</td><td>70044 · 70045</td></tr>
+          <tr><td>25 ต.ค.</td><td>Sprint 2 Review (ระบบรวม)</td><td>7006 · 7007 · 7008</td></tr>
+          <tr><td>M4 (สป. 14–17)</td><td>IoT &amp; Integration</td><td>7007 · 7008</td></tr>
+          <tr><td>M5 (สป. 18–22)</td><td>Launch &amp; Showcase</td><td>7009 และทบทวนรวบยอด 7001–7009</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--text-muted)">ตารางอ้างอิงจากคู่มือผู้เรียนหลัก หากมีการเปลี่ยนแปลงให้ยึดตามคู่มือหลักและประกาศใน Google Classroom</p>
+  </section>
+
+  <div class="foot">
+    อ้างอิง: มาตรฐานสมรรถนะสนับสนุนการทำงานด้านการใช้ปัญญาประดิษฐ์ (AI Literacy) สถาบันคุณวุฒิวิชาชีพ (องค์การมหาชน) พ.ศ. 2568 · สไลด์ Module 1–3 ADT-RAISE Batch 2<br>
+    สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ มหาวิทยาลัยแม่ฟ้าหลวง · <a href="./">กลับคู่มือผู้เรียนหลัก</a>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var KEY = 'raise2-ail-handbook-v1';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+
+    var boxes = document.querySelectorAll('.chk input[data-k]');
+    var progN = document.getElementById('prog-n');
+
+    function refresh() {
+      var n = 0;
+      boxes.forEach(function (b) { if (b.checked) n++; });
+      progN.textContent = n;
+    }
+
+    boxes.forEach(function (b) {
+      b.checked = !!saved[b.dataset.k];
+      b.addEventListener('change', function () {
+        saved[b.dataset.k] = b.checked;
+        try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+        refresh();
+      });
+    });
+    refresh();
+
+    var btns = document.querySelectorAll('.toolbar button[data-f]');
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var f = btn.dataset.f;
+        btns.forEach(function (x) { x.setAttribute('aria-pressed', x === btn ? 'true' : 'false'); });
+        document.querySelectorAll('.eoc').forEach(function (el) {
+          el.classList.toggle('hidden', f !== 'all' && el.dataset.status !== f);
+        });
+        document.querySelectorAll('section.uoc[id^="u"]').forEach(function (sec) {
+          var any = sec.querySelector('.eoc:not(.hidden)');
+          sec.classList.toggle('hidden', !any);
+        });
+      });
+    });
+  })();
+</script>
+</body>
+</html>

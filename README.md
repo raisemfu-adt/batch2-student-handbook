@@ -21,6 +21,7 @@
 | ไฟล์ | คำอธิบาย |
 |------|----------|
 | `index.html` | คู่มือผู้เรียน (หน้าเดียว · เปิดในเบราว์เซอร์ได้) |
+| `ai-literacy-handbook.html` | คู่มือเนื้อหา AI Literacy (25 EoC ↔ M1–M3 + อ่านเสริม) · ลิงก์จาก index |
 | `DEPLOY.md` | วิธี push ขึ้น [raisemfu-adt](https://github.com/raisemfu-adt) |
 
 ## อัปเดต
