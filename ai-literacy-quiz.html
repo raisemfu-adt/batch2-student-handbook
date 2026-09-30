@@ -97,7 +97,7 @@
 <body>
 <div class="wrap">
   <a class="back" href="./">← คู่มือผู้เรียนหลัก</a>
-  <a class="back" href="ai-literacy-handbook.html">📘 คู่มือเนื้อหา AI Literacy</a>
+  <a class="back" href="ai-literacy-handbook.html">คู่มือเนื้อหา AI Literacy</a>
 
   <header class="header">
     <div class="tag">ADT-RAISE Batch 2 · AI Literacy (สคช. 2568)</div>
@@ -398,7 +398,7 @@ function answer(k) {
     if (q.opts[idx] === q.a) b.classList.add("right");
     else if (idx === k) b.classList.add("wrong");
   });
-  $("q-feedback").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div class="h">${ok ? "✅ ถูกต้อง" : "❌ ยังไม่ถูก · คำตอบคือ “" + esc(q.a) + "”"}</div><div>${esc(q.x)}</div><div style="margin-top:6px;font-size:13px"><a href="ai-literacy-handbook.html#e${q.e}" target="_blank" rel="noopener">อ่านเนื้อหา ${q.e} ในคู่มือ ↗</a></div></div>`;
+  $("q-feedback").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><div class="h">${ok ? "ถูกต้อง" : "ยังไม่ถูก · คำตอบคือ “" + esc(q.a) + "”"}</div><div>${esc(q.x)}</div><div style="margin-top:6px;font-size:13px"><a href="ai-literacy-handbook.html#e${q.e}" target="_blank" rel="noopener">อ่านเนื้อหา ${q.e} ในคู่มือ ↗</a></div></div>`;
   $("q-score").textContent = `ตอบถูก ${run.answers.filter(a => a.ok).length}`;
   $("next").disabled = false;
   $("next").focus();
@@ -426,7 +426,7 @@ function finish() {
   $("quiz").classList.add("hidden");
   $("result").classList.remove("hidden");
   $("r-big").innerHTML = `<span class="${pct >= PASS ? "pass" : "fail"}">${score}/${total}</span>`;
-  $("r-line").innerHTML = `${Math.round(pct * 100)}% · ${pct >= PASS ? "ผ่านเกณฑ์ฝึก 80% 🎉" : "ยังไม่ถึงเกณฑ์ฝึก 80% ทบทวนข้อที่ผิดแล้วลองใหม่"}`;
+  $("r-line").innerHTML = `${Math.round(pct * 100)}% · ${pct >= PASS ? "ผ่านเกณฑ์ฝึก 80%" : "ยังไม่ถึงเกณฑ์ฝึก 80% ทบทวนข้อที่ผิดแล้วลองใหม่"}`;
 
   const best = store[run.setId];
   if (!best || score / total > best.score / best.total) { store[run.setId] = { score, total }; save(); }
