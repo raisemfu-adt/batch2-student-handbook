@@ -90,6 +90,15 @@
     .review .q { font-weight: 600; }
     .review .you { color: var(--red); }
     .review .ans { color: var(--teal); }
+    .signin { border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin: 14px 0; }
+    .signin .who { font-weight: 600; }
+    .signin .privacy { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+    .linkbtn { font: inherit; font-size: 13px; background: none; border: 0; color: var(--accent); text-decoration: underline; cursor: pointer; padding: 0; }
+    .err { color: var(--red); font-size: 14px; margin-top: 8px; }
+    .save { margin-top: 12px; border-radius: 8px; padding: 10px 14px; font-size: 14px; background: var(--highlight); border: 1px solid var(--border); }
+    .save.ok { background: var(--teal-soft); border-color: #a7f3d0; }
+    .save.no { background: var(--red-soft); border-color: #fecaca; }
+
     .hidden { display: none !important; }
     .foot { margin-top: 44px; border-top: 1px solid var(--border); padding-top: 14px; font-size: 13px; color: var(--text-muted); }
   </style>
@@ -109,8 +118,25 @@
   <section id="setup">
     <div class="note">
       <strong>ข้อควรทราบ:</strong> สคช. ไม่เผยแพร่ข้อสอบจริง ข้อสอบชุดนี้<strong>ทีมผู้สอนจัดทำขึ้นเพื่อฝึก</strong> โดยออกข้อสอบตามเกณฑ์การปฏิบัติงาน (Performance Criteria) ของทุกสมรรถนะย่อยในมาตรฐาน และใช้รูปแบบปรนัย 4 ตัวเลือกตามวิธีประเมินที่มาตรฐานกำหนด
-      คะแนนในหน้านี้จึง<strong>ไม่ใช่ผลการรับรอง</strong> และไม่ถูกส่งไปที่ใด ใช้สำหรับประเมินตนเองเท่านั้น
+      คะแนนในหน้านี้จึง<strong>ไม่ใช่ผลการรับรอง</strong>
     </div>
+
+    <div class="signin" id="signin">
+      <div id="si-out">
+        <div><strong>เข้าสู่ระบบด้วยอีเมล Lamduan</strong> (รหัสนักศึกษา@lamduan.mfu.ac.th) ก่อนเริ่มทำแบบทดสอบ</div>
+        <div id="gsi-btn" style="margin-top:10px;min-height:44px"></div>
+      </div>
+      <div id="si-in" class="hidden">
+        เข้าสู่ระบบเป็น <span class="who" id="si-name"></span> <span id="si-email" style="color:var(--text-muted)"></span>
+        · <button type="button" class="linkbtn" id="si-logout">ออกจากระบบ</button>
+      </div>
+      <div class="err hidden" id="si-err"></div>
+      <div class="privacy">
+        เมื่อทำแบบทดสอบจบ ระบบจะบันทึก <strong>อีเมล Lamduan ชื่อ ชุดข้อสอบ คะแนน และคำตอบแต่ละข้อ</strong> ลง Google Sheets ของทีมผู้สอน
+        เพื่อติดตามความพร้อมด้าน AI Literacy ของผู้เรียนในหลักสูตร เฉพาะทีมผู้สอนเท่านั้นที่เข้าถึงข้อมูลได้
+      </div>
+    </div>
+    <div class="note hidden" id="offline-note">ระบบบันทึกผลยังไม่เปิดใช้งาน ทำแบบทดสอบฝึกได้ แต่คะแนนจะไม่ถูกบันทึก</div>
 
     <h2>1. เลือกชุดข้อสอบ</h2>
     <div class="opt-grid" id="set-list"></div>
@@ -149,6 +175,8 @@
       <div id="r-big" class="big"></div>
       <div id="r-line" style="margin-top:6px"></div>
     </div>
+    <div id="r-save" class="save hidden" aria-live="polite"></div>
+    <div id="r-resignin" class="hidden" style="margin-top:8px"></div>
     <h2>คะแนนรายหน่วยสมรรถนะ</h2>
     <div style="overflow-x:auto"><table id="r-table"></table></div>
     <div class="row">
@@ -303,6 +331,14 @@ const SETS = [
   {id:"power", t:"Power Users", d:"7007–7009 · ML ประเมินโมเดล นโยบาย", u:["7007","7008","7009"]},
   {id:"all", t:"ทุกหน่วย (จำลองสอบรวม)", d:"7001–7009 · ครบ 25 สมรรถนะย่อย", u:Object.keys(UOC)}
 ];
+/* ---------- ตั้งค่าการบันทึกผล (ใส่ค่าหลังสร้าง OAuth Client และ deploy Apps Script) ---------- */
+const CONFIG = {
+  clientId: "",   // OAuth Client ID: xxxxx.apps.googleusercontent.com
+  scriptUrl: "",  // Apps Script Web App URL: https://script.google.com/macros/s/.../exec
+  domain: "lamduan.mfu.ac.th"
+};
+const SAVING = !!(CONFIG.clientId && CONFIG.scriptUrl);
+
 const PASS = 0.8;
 const STORE = "raise2-ail-quiz-v1";
 const uocOf = e => e.slice(0,4);
@@ -330,6 +366,107 @@ function refreshSetup() {
 document.querySelectorAll("input[name=set]").forEach(r => r.addEventListener("change", refreshSetup));
 refreshSetup();
 
+/* ---------- Sign in with Google (เฉพาะ @lamduan.mfu.ac.th) ---------- */
+let auth = null;      // { token, email, name, exp }
+let onSignedIn = null; // เรียกต่อหลัง login ใหม่ (เช่น ส่งผลที่ค้างอยู่)
+
+function decodeJwt(t) {
+  const b = t.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+  const bin = atob(b + "===".slice((b.length + 3) % 4));
+  return JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0))));
+}
+function authValid() { return auth && auth.exp * 1000 > Date.now() + 60000; }
+
+function renderAuth() {
+  $("si-out").classList.toggle("hidden", !!auth);
+  $("si-in").classList.toggle("hidden", !auth);
+  if (auth) { $("si-name").textContent = auth.name; $("si-email").textContent = "(" + auth.email + ")"; }
+  $("start").disabled = SAVING && !auth;
+}
+
+function handleCredential(resp) {
+  let p;
+  try { p = decodeJwt(resp.credential); } catch (e) { return; }
+  const email = String(p.email || "").toLowerCase();
+  if (!email.endsWith("@" + CONFIG.domain)) {
+    $("si-err").textContent = `บัญชี ${email} ใช้ไม่ได้ กรุณาเข้าสู่ระบบด้วยอีเมล @${CONFIG.domain}`;
+    $("si-err").classList.remove("hidden");
+    try { google.accounts.id.disableAutoSelect(); } catch (e) {}
+    return;
+  }
+  $("si-err").classList.add("hidden");
+  auth = { token: resp.credential, email, name: p.name || email, exp: p.exp };
+  renderAuth();
+  if (onSignedIn) { const f = onSignedIn; onSignedIn = null; f(); }
+}
+
+function initGsi() {
+  google.accounts.id.initialize({ client_id: CONFIG.clientId, callback: handleCredential, hd: CONFIG.domain, auto_select: true });
+  google.accounts.id.renderButton($("gsi-btn"), { theme: "outline", size: "large", text: "signin_with", locale: "th" });
+}
+
+$("si-logout").addEventListener("click", () => {
+  auth = null;
+  try { google.accounts.id.disableAutoSelect(); } catch (e) {}
+  renderAuth();
+});
+
+if (SAVING) {
+  const s = document.createElement("script");
+  s.src = "https://accounts.google.com/gsi/client";
+  s.async = true;
+  s.onload = initGsi;
+  s.onerror = () => { $("si-err").textContent = "โหลดระบบเข้าสู่ระบบของ Google ไม่สำเร็จ กรุณาตรวจอินเทอร์เน็ตแล้วรีเฟรชหน้า"; $("si-err").classList.remove("hidden"); };
+  document.head.appendChild(s);
+} else {
+  $("signin").classList.add("hidden");
+  $("offline-note").classList.remove("hidden");
+}
+renderAuth();
+
+/* ---------- ส่งผลไป Google Sheets ---------- */
+const ERR_TEXT = {
+  wrong_domain: "บัญชีนี้ไม่ใช่อีเมล Lamduan",
+  token_expired: "เซสชันหมดอายุ",
+  invalid_token: "ยืนยันตัวตนไม่สำเร็จ",
+  server_not_configured: "ระบบบันทึกผลยังตั้งค่าไม่ครบ กรุณาแจ้งผู้สอน"
+};
+
+function setSave(cls, html) {
+  const el = $("r-save");
+  el.className = "save " + cls;
+  el.innerHTML = html;
+}
+
+async function submitResult(payload) {
+  if (!authValid()) {
+    setSave("no", "เซสชันเข้าสู่ระบบหมดอายุ กรุณาเข้าสู่ระบบอีกครั้งเพื่อบันทึกผล (คะแนนรอบนี้ยังไม่หายไป)");
+    $("r-resignin").classList.remove("hidden");
+    try { google.accounts.id.renderButton($("r-resignin"), { theme: "filled_blue", size: "large", text: "signin_with", locale: "th" }); } catch (e) {}
+    onSignedIn = () => { $("r-resignin").classList.add("hidden"); submitResult(payload); };
+    return;
+  }
+  setSave("", "กำลังบันทึกผล…");
+  try {
+    const r = await fetch(CONFIG.scriptUrl, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ ...payload, idToken: auth.token })
+    });
+    const j = await r.json();
+    if (j.ok) {
+      setSave("ok", `บันทึกผลแล้ว (${esc(auth.email)} · รหัสการทำ ${esc(j.attemptId)})`);
+    } else if (j.error === "token_expired") {
+      auth = null; renderAuth(); submitResult(payload);
+    } else {
+      throw new Error(ERR_TEXT[j.error] || j.error);
+    }
+  } catch (e) {
+    setSave("no", `บันทึกผลไม่สำเร็จ: ${esc(e.message || "เชื่อมต่อไม่ได้")} <button type="button" class="linkbtn" id="save-retry">ลองส่งอีกครั้ง</button>`);
+    $("save-retry").onclick = () => submitResult(payload);
+  }
+}
+
 /* ---------- quiz state ---------- */
 let run = null;
 
@@ -352,9 +489,9 @@ function pickQuestions(pool, n) {
   return shuffle(out);
 }
 
-function start(questions, setId) {
+function start(questions, setId, mode = "full") {
   run = {
-    setId,
+    setId, mode, startedAt: Date.now(),
     qs: questions.map(q => ({ ...q, opts: shuffle([q.a, ...q.d]) })),
     i: 0, answers: []
   };
@@ -366,6 +503,7 @@ function start(questions, setId) {
 }
 
 $("start").addEventListener("click", () => {
+  if (SAVING && !auth) return;
   const s = currentSet();
   const pool = BANK.filter(q => s.u.includes(uocOf(q.e)));
   const c = document.querySelector("input[name=count]:checked").value;
@@ -444,7 +582,20 @@ function finish() {
   $("retry-wrong").classList.toggle("hidden", !wrong.length);
   $("rv-h").classList.toggle("hidden", !wrong.length);
   $("r-review").innerHTML = wrong.map(a => `<div class="review"><div class="q">${a.q.q} <span class="eoc-tag">${a.q.e}</span></div><div class="you">คุณตอบ: ${esc(a.chosen)}</div><div class="ans">คำตอบ: ${esc(a.q.a)}</div><div style="margin-top:4px">${esc(a.q.x)}</div></div>`).join("");
-  $("retry-wrong").onclick = () => start(shuffle(wrong.map(a => BANK.find(b => b.q === a.q.q))), run.setId);
+  $("retry-wrong").onclick = () => start(shuffle(wrong.map(a => BANK.find(b => b.q === a.q.q))), run.setId, "retry");
+
+  $("r-resignin").classList.add("hidden");
+  if (SAVING) {
+    const strip = s => String(s).replace(/<[^>]+>/g, "");
+    submitResult({
+      setId: run.setId,
+      mode: run.mode,
+      durationSec: Math.round((Date.now() - run.startedAt) / 1000),
+      answers: run.answers.map(a => ({ e: a.q.e, q: strip(a.q.q), chosen: a.chosen, answer: a.q.a, ok: a.ok }))
+    });
+  } else {
+    $("r-save").classList.add("hidden");
+  }
   window.scrollTo(0, 0);
 }
 </script>
