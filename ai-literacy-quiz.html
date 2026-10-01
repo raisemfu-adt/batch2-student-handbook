@@ -123,7 +123,7 @@
 
     <div class="signin" id="signin">
       <div id="si-out">
-        <div><strong>เข้าสู่ระบบด้วยอีเมล Lamduan</strong> (รหัสนักศึกษา@lamduan.mfu.ac.th) ก่อนเริ่มทำแบบทดสอบ</div>
+        <div><strong>เข้าสู่ระบบด้วยอีเมลมหาวิทยาลัย</strong> (ผู้เรียน: รหัสนักศึกษา@lamduan.mfu.ac.th · ผู้สอน/บุคลากร: @mfu.ac.th) ก่อนเริ่มทำแบบทดสอบ</div>
         <div id="gsi-btn" style="margin-top:10px;min-height:44px"></div>
       </div>
       <div id="si-in" class="hidden">
@@ -132,7 +132,7 @@
       </div>
       <div class="err hidden" id="si-err"></div>
       <div class="privacy">
-        เมื่อทำแบบทดสอบจบ ระบบจะบันทึก <strong>อีเมล Lamduan ชื่อ ชุดข้อสอบ คะแนน และคำตอบแต่ละข้อ</strong> ลง Google Sheets ของทีมผู้สอน
+        เมื่อทำแบบทดสอบจบ ระบบจะบันทึก <strong>อีเมลมหาวิทยาลัย ชื่อ ชุดข้อสอบ คะแนน และคำตอบแต่ละข้อ</strong> ลง Google Sheets ของทีมผู้สอน
         เพื่อติดตามความพร้อมด้าน AI Literacy ของผู้เรียนในหลักสูตร เฉพาะทีมผู้สอนเท่านั้นที่เข้าถึงข้อมูลได้
       </div>
     </div>
@@ -341,7 +341,7 @@ const SETS = [
 const CONFIG = {
   clientId: "504151281596-shkremkkgf5hvkhk9tsqatta185603t8.apps.googleusercontent.com",
   scriptUrl: "https://script.google.com/macros/s/AKfycbx1t4U7YaclS9QrU5BRoKF_bOveIxQplsZYwN6P2gIn6o52I5_0XHHHaNU30P2BLbw1/exec",
-  domain: "lamduan.mfu.ac.th"
+  domains: ["lamduan.mfu.ac.th", "mfu.ac.th"]  // ต้องตรงกับ ALLOWED_DOMAINS ใน Code.gs
 };
 const SAVING = !!(CONFIG.clientId && CONFIG.scriptUrl);
 
@@ -379,7 +379,7 @@ function refreshSetup() {
 document.querySelectorAll("input[name=set]").forEach(r => r.addEventListener("change", refreshSetup));
 refreshSetup();
 
-/* ---------- Sign in with Google (เฉพาะ @lamduan.mfu.ac.th) ---------- */
+/* ---------- Sign in with Google (เฉพาะ @lamduan.mfu.ac.th และ @mfu.ac.th) ---------- */
 let auth = null;      // { token, email, name, exp }
 let onSignedIn = null; // เรียกต่อหลัง login ใหม่ (เช่น ส่งผลที่ค้างอยู่)
 
@@ -401,8 +401,8 @@ function handleCredential(resp) {
   let p;
   try { p = decodeJwt(resp.credential); } catch (e) { return; }
   const email = String(p.email || "").toLowerCase();
-  if (!email.endsWith("@" + CONFIG.domain)) {
-    $("si-err").textContent = `บัญชี ${email} ใช้ไม่ได้ กรุณาเข้าสู่ระบบด้วยอีเมล @${CONFIG.domain}`;
+  if (!CONFIG.domains.some(d => email.endsWith("@" + d))) {
+    $("si-err").textContent = `บัญชี ${email} ใช้ไม่ได้ กรุณาเข้าสู่ระบบด้วยอีเมล ${CONFIG.domains.map(d => "@" + d).join(" หรือ ")}`;
     $("si-err").classList.remove("hidden");
     try { google.accounts.id.disableAutoSelect(); } catch (e) {}
     return;
@@ -415,7 +415,7 @@ function handleCredential(resp) {
 }
 
 function initGsi() {
-  google.accounts.id.initialize({ client_id: CONFIG.clientId, callback: handleCredential, hd: CONFIG.domain, auto_select: true });
+  google.accounts.id.initialize({ client_id: CONFIG.clientId, callback: handleCredential, auto_select: true });
   google.accounts.id.renderButton($("gsi-btn"), { theme: "outline", size: "large", text: "signin_with", locale: "th" });
 }
 
@@ -442,7 +442,7 @@ renderAuth();
 
 /* ---------- ส่งผลไป Google Sheets ---------- */
 const ERR_TEXT = {
-  wrong_domain: "บัญชีนี้ไม่ใช่อีเมล Lamduan",
+  wrong_domain: "บัญชีนี้ไม่ใช่อีเมลมหาวิทยาลัย (@lamduan.mfu.ac.th หรือ @mfu.ac.th)",
   token_expired: "เซสชันหมดอายุ",
   invalid_token: "ยืนยันตัวตนไม่สำเร็จ",
   server_not_configured: "ระบบบันทึกผลยังตั้งค่าไม่ครบ กรุณาแจ้งผู้สอน"
