@@ -153,6 +153,12 @@
       <span style="font-size:13px;color:var(--text-muted)">สุ่มลำดับข้อและตัวเลือกใหม่ทุกครั้ง · เกณฑ์ฝึก 80%</span>
     </div>
     <p id="best" style="font-size:13px;color:var(--text-muted);margin-top:10px"></p>
+
+    <div id="hist" class="hidden">
+      <h2>ประวัติการทำของฉัน</h2>
+      <p id="hist-note" style="font-size:13px;color:var(--text-muted)"></p>
+      <div style="overflow-x:auto"><table id="hist-table"></table></div>
+    </div>
   </section>
 
   <!-- ===== ทำข้อสอบ ===== -->
@@ -349,6 +355,7 @@ const $ = id => document.getElementById(id);
 let store = {};
 try { store = JSON.parse(localStorage.getItem(STORE) || "{}") || {}; } catch (e) { store = {}; }
 const save = () => { try { localStorage.setItem(STORE, JSON.stringify(store)); } catch (e) {} };
+let myHist = null; // ประวัติการทำของผู้เรียนจาก Google Sheet (โหลดหลังเข้าสู่ระบบ)
 
 /* ---------- setup ---------- */
 $("set-list").innerHTML = SETS.map((s, i) => {
@@ -362,6 +369,12 @@ function refreshSetup() {
   $("all-n").textContent = BANK.filter(q => s.u.includes(uocOf(q.e))).length + " ข้อ";
   const b = store[s.id];
   $("best").textContent = b ? `คะแนนดีที่สุดของชุด ${s.t} บนเครื่องนี้: ${b.score}/${b.total} (${Math.round(b.score / b.total * 100)}%)` : "";
+  if (myHist) {
+    // มีประวัติจากระบบแล้ว ใช้คะแนนดีที่สุดจากทุกเครื่อง (นับเฉพาะรอบทำทั้งชุด)
+    const full = myHist.filter(h => h.set === s.id && h.mode === "full");
+    const top = full.reduce((m, h) => (!m || h.percent > m.percent ? h : m), null);
+    $("best").textContent = top ? `คะแนนดีที่สุดของชุด ${s.t}: ${top.correct}/${top.total} (${top.percent}%) จาก ${full.length} ครั้ง` : "";
+  }
 }
 document.querySelectorAll("input[name=set]").forEach(r => r.addEventListener("change", refreshSetup));
 refreshSetup();
@@ -397,6 +410,7 @@ function handleCredential(resp) {
   $("si-err").classList.add("hidden");
   auth = { token: resp.credential, email, name: p.name || email, exp: p.exp };
   renderAuth();
+  loadHistory();
   if (onSignedIn) { const f = onSignedIn; onSignedIn = null; f(); }
 }
 
@@ -408,7 +422,9 @@ function initGsi() {
 $("si-logout").addEventListener("click", () => {
   auth = null;
   try { google.accounts.id.disableAutoSelect(); } catch (e) {}
+  myHist = null;
   renderAuth();
+  renderHistory();
 });
 
 if (SAVING) {
@@ -455,7 +471,8 @@ async function submitResult(payload) {
     });
     const j = await r.json();
     if (j.ok) {
-      setSave("ok", `บันทึกผลแล้ว (${esc(auth.email)} · รหัสการทำ ${esc(j.attemptId)})`);
+      setSave("ok", `บันทึกผลแล้ว (${esc(auth.email)} · รหัสการทำ ${esc(j.attemptId)}) ดูคะแนนทุกครั้งได้ที่ "ประวัติการทำของฉัน" ในหน้าเลือกชุด`);
+      loadHistory();
     } else if (j.error === "token_expired") {
       auth = null; renderAuth(); submitResult(payload);
     } else {
@@ -464,6 +481,47 @@ async function submitResult(payload) {
   } catch (e) {
     setSave("no", `บันทึกผลไม่สำเร็จ: ${esc(e.message || "เชื่อมต่อไม่ได้")} <button type="button" class="linkbtn" id="save-retry">ลองส่งอีกครั้ง</button>`);
     $("save-retry").onclick = () => submitResult(payload);
+  }
+}
+
+/* ---------- ประวัติการทำของฉัน (ดึงจาก Sheet เฉพาะบัญชีที่เข้าสู่ระบบ) ---------- */
+const SET_NAME = Object.fromEntries(SETS.map(s => [s.id, s.t]));
+const fmtTime = iso => {
+  const d = new Date(iso);
+  return isNaN(d) ? esc(iso) : d.toLocaleString("th-TH", { day: "numeric", month: "short", year: "2-digit", hour: "2-digit", minute: "2-digit" });
+};
+const fmtDur = s => (s ? `${Math.floor(s / 60)} นาที ${s % 60} วินาที` : "–");
+
+function renderHistory() {
+  if (!myHist) { $("hist").classList.add("hidden"); return; }
+  $("hist").classList.remove("hidden");
+  const full = myHist.filter(h => h.mode === "full");
+  $("hist-note").textContent = myHist.length
+    ? `ทำแล้ว ${myHist.length} ครั้ง (ทำทั้งชุด ${full.length} ครั้ง · ผ่านเกณฑ์ฝึก 80% ${full.filter(h => h.pass).length} ครั้ง) แสดงล่าสุดก่อน`
+    : "ยังไม่มีประวัติ เมื่อทำแบบทดสอบจบ ผลจะแสดงที่นี่";
+  $("hist-table").innerHTML = myHist.length ? `<thead><tr><th>วันที่</th><th>ชุด</th><th>รูปแบบ</th><th>คะแนน</th><th>ผล</th><th>เวลาที่ใช้</th><th>สมรรถนะย่อยที่ตอบผิด</th></tr></thead><tbody>` +
+    myHist.map(h => `<tr><td>${fmtTime(h.at)}</td><td>${esc(SET_NAME[h.set] || h.set)}</td><td>${h.mode === "retry" ? "ทำข้อที่ผิดซ้ำ" : "ทำทั้งชุด"}</td>` +
+      `<td>${h.correct}/${h.total} (${h.percent}%)</td><td class="${h.pass ? "pass" : "fail"}">${h.pass ? "ผ่าน" : "ยังไม่ผ่าน"}</td>` +
+      `<td>${fmtDur(Number(h.durationSec))}</td><td style="font-size:13px">${esc(h.wrongEoc || "–")}</td></tr>`).join("") + `</tbody>` : "";
+  refreshSetup();
+}
+
+async function loadHistory() {
+  if (!SAVING || !authValid()) return;
+  $("hist").classList.remove("hidden");
+  $("hist-note").textContent = "กำลังโหลดประวัติ…";
+  try {
+    const r = await fetch(CONFIG.scriptUrl, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ action: "history", idToken: auth.token })
+    });
+    const j = await r.json();
+    if (!j.ok) throw new Error(ERR_TEXT[j.error] || j.error);
+    myHist = j.attempts || [];
+    renderHistory();
+  } catch (e) {
+    $("hist-note").textContent = `โหลดประวัติไม่สำเร็จ: ${e.message || "เชื่อมต่อไม่ได้"} (ผลที่ทำไว้ยังอยู่ในระบบ)`;
   }
 }
 
